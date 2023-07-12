@@ -19,6 +19,9 @@ class Users
     #[MongoDB\Field(type: 'string')]
     protected string $city;
 
+    #[MongoDB\Field(type: 'string')]
+    protected string $address;
+
 
     public function getId(): string
     {
@@ -32,12 +35,12 @@ class Users
 
     public function getFirstName(): string
     {
-        return $this->firstName;
+        return $this->firstname;
     }
 
     public function getLastName(): string
     {
-        return $this->lastName;
+        return $this->lastname;
     }
 
     public function setCity(string $city): Users
@@ -46,17 +49,28 @@ class Users
 
         return $this;
     }
-
-    public function setFirstName(string $firstName): Users
+    public function getAddress(): string
     {
-        $this->firstName = $firstName;
+        return $this->address;
+    }
+    public function setAddress(string $address): Users
+    {
+        $this->address = $address;
 
         return $this;
     }
 
-    public function setLastName(string $lastName): Users
+
+    public function setFirstName(string $firstname): Users
     {
-        $this->lastName = $lastName;
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function setLastName(string $lastname): Users
+    {
+        $this->lastname = $lastname;
 
         return $this;
     }
