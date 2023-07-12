@@ -23,8 +23,18 @@ class Users
     #[MongoDB\Field(type: 'string')]
     protected string $address;
 
-    // #[MongoDB\Field(type: 'Object')]
-    // protected Object $preferencies;
+    #[MongoDB\Field(type: 'int')]
+    protected int $fidelityPoints;
+
+    #[MongoDB\Field(type: 'string')]
+    protected string $password;
+
+    #[MongoDB\Field(type: 'string')]
+    protected string $phone;
+
+    #[MongoDB\Field(type: 'string')]
+    protected string $postalCode;
+
 
     #[MongoDB\EmbedOne(targetDocument: Preferencies::class)]
     protected Preferencies $preferencies;
@@ -94,6 +104,46 @@ class Users
 
         return $this;
     }
+
+    public function getFidelityPoints(): int
+{
+    return $this->fidelityPoints;
+}
+
+    public function setFidelityPoints(int $fidelityPoints): void
+    {
+        $this->fidelityPoints = $fidelityPoints;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): void
+    {
+        $this->phone = $phone;
+    }
+
+    public function getPostalCode(): string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(string $postalCode): void
+    {
+        $this->postalCode = $postalCode;
+    }
 }
 
 #[MongoDB\EmbeddedDocument]
@@ -123,7 +173,7 @@ class Preferencies
     }
 
 
-    public function setActor(string $actor):Preferencies
+    public function setActor(array $actor):Preferencies
     {
         $this->actor = $actor;
 
@@ -136,7 +186,7 @@ class Preferencies
     }
 
 
-    public function setDirector(string $director):Preferencies
+    public function setDirector(array $director):Preferencies
     {
         $this->director = $director;
 
@@ -147,7 +197,7 @@ class Preferencies
         return $this->genres;
     }
 
-    public function setGenres(string $genres):Preferencies
+    public function setGenres(array $genres):Preferencies
     {
         $this->genres = $genres;
 
