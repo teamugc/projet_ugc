@@ -8,8 +8,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use App\Document\Users\preferencies;
 
-class HomeController extends AbstractController
+
+class UserController extends AbstractController
 {
  
     #[Route('/', name: 'app_home')]
@@ -17,9 +19,9 @@ class HomeController extends AbstractController
     {
         $product = $dm->getRepository(Users::class)->findAll();
 
-        var_dump($product);
-   
-     
+        // var_dump($product);
+        dump($product);
     }
+
 
 }
