@@ -146,6 +146,7 @@ class Users
     }
 }
 
+// Preferencies
 #[MongoDB\EmbeddedDocument]
 class Preferencies
 {

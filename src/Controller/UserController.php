@@ -57,16 +57,28 @@ class UserController extends AbstractController
     //     ]);
     // }
 
-
-    #[Route('/user/{id}', name: 'user_details')]
-    public function userDetailsAction(DocumentManager $dm, string $id): Response
+    #[Route('/', name: 'app_home')]
+    public function createAction(DocumentManager $dm)
     {
-        $user = $dm->getRepository(Users::class)->find($id);
-        $firstName = $user->getFirstName();
+        $user = new Users();
+        $user->setFirstName('Gonta');
+        $user->setLastName('Uzumaki');
+        $user->setAddress('3 rue des bateaux');
+        $user->setCity('Cergy');
+        $user->setFidelityPoints('30');
+        $user->setPostalCode('95800');
+        $user->setPassword('3456567');
+        $dm->persist($user);
     
-        return $this->render('home/index.html.twig', [
+        $dm->flush();
+    
+        return $this->Render('home/index.html.twig', [
             'user' => $user,
-            'firstName' => $firstName
+
         ]);
     }
+
+
+
+ 
 }
