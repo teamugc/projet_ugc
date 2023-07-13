@@ -2,6 +2,7 @@
 
 namespace App\Document;
 
+use DateTime;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 
@@ -35,10 +36,27 @@ class Users
     #[MongoDB\Field(type: 'string')]
     protected string $postalCode;
 
+    #[MongoDB\Field(type: 'date')]
+    protected string $dateOfBirth;
+
 
     #[MongoDB\EmbedOne(targetDocument: Preferencies::class)]
     protected Preferencies $preferencies;
 
+    public function getDateOfBirth(): ?DateTime
+    {
+        return DateTime::createFromFormat('Y-m-d', $this->dateOfBirth);
+    }
+
+    public function setDateOfBirth(?DateTime $dateOfBirth): Users
+    {
+        if ($dateOfBirth !== null) {
+            $this->dateOfBirth = $dateOfBirth->format('Y-m-d');
+        }
+
+        return $this;
+    }
+    
 
 
     public function getPreferencies(): Object
@@ -106,9 +124,9 @@ class Users
     }
 
     public function getFidelityPoints(): int
-{
+    {
     return $this->fidelityPoints;
-}
+    }
 
     public function setFidelityPoints(int $fidelityPoints): void
     {
