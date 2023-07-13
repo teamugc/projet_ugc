@@ -51,6 +51,8 @@ class UserController extends AbstractController
 
         // $dm->persist($user);
         // $dm->flush();
+
+     
     
         return $this->renderForm('user/new.html.twig', [
             'users' => $user,
