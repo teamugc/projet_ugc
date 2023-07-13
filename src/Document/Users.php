@@ -41,6 +41,7 @@ class Users
 
 
 
+
     public function getPreferencies(): Object
     {
         return $this->preferencies;
