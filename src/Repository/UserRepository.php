@@ -18,7 +18,7 @@ class UserRepository extends ServiceDocumentRepository
 
     public function save(User $users, bool $flush = false): void
     {
-        $this->getDocumentManager()->persist($users);
+        $this->getDocumentManager()->persist($user);
 
         if ($flush) {
             $this->getDocumentManager()->flush();
