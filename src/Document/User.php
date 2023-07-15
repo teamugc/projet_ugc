@@ -3,11 +3,16 @@
 namespace App\Document;
 
 use DateTime;
+
+
+
+
+
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 
 #[MongoDB\Document]
-class Users
+class User
 {
     #[MongoDB\Id]
     protected string $id;
@@ -22,7 +27,7 @@ class Users
     protected string $city;
 
     #[MongoDB\Field(type: 'string')]
-    protected string $address;
+    protected ?string $address=null;
 
     #[MongoDB\Field(type: 'int')]
     protected int $fidelityPoints;
@@ -37,26 +42,46 @@ class Users
     protected string $postalCode;
 
     #[MongoDB\Field(type: 'date')]
-    protected string $dateOfBirth;
+    protected dateTime $dateOfBirth;
+
+    #[MongoDB\Field(type: 'string')]
+    protected string $email;
+
+  
+
 
 
     #[MongoDB\EmbedOne(targetDocument: Preferencies::class)]
     protected Preferencies $preferencies;
 
+   
     public function getDateOfBirth(): ?DateTime
     {
-        return DateTime::createFromFormat('Y-m-d', $this->dateOfBirth);
+     
+    
+        return $this->dateOfBirth;
     }
+    
 
     public function setDateOfBirth(?DateTime $dateOfBirth): Users
     {
         if ($dateOfBirth !== null) {
-            $this->dateOfBirth = $dateOfBirth->format('Y-m-d');
+            $this->dateOfBirth = $dateOfBirth;
         }
 
         return $this;
     }
-    
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+    public function setEmail(string $email): User
+    {
+        $this->email = $email;
+
+        return $this;
+    }
 
 
     public function getPreferencies(): Object
@@ -64,7 +89,7 @@ class Users
         return $this->preferencies;
     }
     
-    public function setPreferencies(Object $preferencies): Users
+    public function setPreferencies(Object $preferencies): User
     {
         $this->preferencies = $preferencies;
     
@@ -91,17 +116,17 @@ class Users
         return $this->lastname;
     }
 
-    public function setCity(string $city): Users
+    public function setCity(string $city): User
     {
         $this->city = $city;
 
         return $this;
     }
-    public function getAddress(): string
+    public function getAddress(): ?string
     {
         return $this->address;
     }
-    public function setAddress(string $address): Users
+    public function setAddress(string $address): User
     {
         $this->address = $address;
 
@@ -109,14 +134,14 @@ class Users
     }
 
 
-    public function setFirstName(string $firstname): Users
+    public function setFirstName(string $firstname): User
     {
         $this->firstname = $firstname;
 
         return $this;
     }
 
-    public function setLastName(string $lastname): Users
+    public function setLastName(string $lastname): User
     {
         $this->lastname = $lastname;
 

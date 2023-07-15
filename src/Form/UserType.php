@@ -125,59 +125,59 @@ class UserType extends AbstractType
     }
 }
 
-class PreferenciesType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            ->add('actor', UserType::class, [
-                'entry_type' => TextType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-                'label' => 'Actors',
-                'entry_options' => [
-                    'attr' => [
-                        'class' => 'form-control',
-                    ],
-                ],
-            ])
-            ->add('director', UserType::class, [
-                'entry_type' => TextType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-                'label' => 'Directors',
-                'entry_options' => [
-                    'attr' => [
-                        'class' => 'form-control',
-                    ],
-                ],
-            ])
-            ->add('genres', UserType::class, [
-                'entry_type' => TextType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-                'label' => 'Genres',
-                'entry_options' => [
-                    'attr' => [
-                        'class' => 'form-control',
-                    ],
-                ],
-            ])
-            ->add('location', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control',
-                ],
-            ])
-            ->add('seats', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control',
-                ],
-            ])
-        ;
-    }
+// class PreferenciesType extends AbstractType
+// {
+//     public function buildForm(FormBuilderInterface $builder, array $options): void
+//     {
+//         $builder
+//             ->add('actor', UserType::class, [
+//                 'entry_type' => TextType::class,
+//                 'allow_add' => true,
+//                 'allow_delete' => true,
+//                 'by_reference' => false,
+//                 'label' => 'Actors',
+//                 'entry_options' => [
+//                     'attr' => [
+//                         'class' => 'form-control',
+//                     ],
+//                 ],
+//             ])
+//             ->add('director', UserType::class, [
+//                 'entry_type' => TextType::class,
+//                 'allow_add' => true,
+//                 'allow_delete' => true,
+//                 'by_reference' => false,
+//                 'label' => 'Directors',
+//                 'entry_options' => [
+//                     'attr' => [
+//                         'class' => 'form-control',
+//                     ],
+//                 ],
+//             ])
+//             ->add('genres', UserType::class, [
+//                 'entry_type' => TextType::class,
+//                 'allow_add' => true,
+//                 'allow_delete' => true,
+//                 'by_reference' => false,
+//                 'label' => 'Genres',
+//                 'entry_options' => [
+//                     'attr' => [
+//                         'class' => 'form-control',
+//                     ],
+//                 ],
+//             ])
+//             ->add('location', TextType::class, [
+//                 'attr' => [
+//                     'class' => 'form-control',
+//                 ],
+//             ])
+//             ->add('seats', TextType::class, [
+//                 'attr' => [
+//                     'class' => 'form-control',
+//                 ],
+//             ])
+//         ;
+//     }
 
-    // ...
-}
+//     // ...
+// }
