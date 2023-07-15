@@ -63,7 +63,7 @@ class User
     }
     
 
-    public function setDateOfBirth(?DateTime $dateOfBirth): Users
+    public function setDateOfBirth(?DateTime $dateOfBirth): User
     {
         if ($dateOfBirth !== null) {
             $this->dateOfBirth = $dateOfBirth;

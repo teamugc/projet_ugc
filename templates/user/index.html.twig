@@ -2,20 +2,38 @@
 
 
 {% block body %}
+{{ include('application/_navigation.html.twig') }}
+<a href="{{path("app_user_new")}}">Nouvel utilisateur</a>
+<table class="table">
     {% for user in users %}
+  <tr>
+  <td>
         {{ user.firstname}}
+         </td>
+     <td>
          {{ user.lastname}}
-        
+          </td>
+         <td>
            {{ user.address}}
+            </td>
+            <td>
            {{ user.city}}
+            </td>
+            <td>
          {{ user.fidelityPoints}} 
+          </td>
+          <td>
  {{ user.postalCode}}
+  </td>
  
  {# afficher date  #}
+  <td>
  {{ user.dateOfBirth|date('d-m-Y') }} 
- 
+ </td>
+ </tr>
 
     {% endfor %}
+    </table>
 
 
 {% endblock %}

@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Document\Users;
+use App\Document\User;
 use App\Form\DataMapper\DateOfBirthType;
 use DateTime;
 use Doctrine\ODM\MongoDB\Types\DateType;
@@ -40,7 +40,11 @@ class UserType extends AbstractType
                 'class' => 'form-control'
             ]
         ])
-
+        ->add('email', TextType::class, [
+            'attr' => [
+                'class' => 'form-control'
+            ]
+        ])
 
         ->add('city', TextType::class, [
             'label' => 'Ville',
@@ -120,7 +124,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Users::class,
+            'data_class' => User::class,
         ]);
     }
 }
