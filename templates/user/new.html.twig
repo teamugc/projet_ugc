@@ -1,9 +1,18 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}Hello UserController!{% endblock %}
 
 {% block body %}
+{{ include('application/_navigation.html.twig') }}
 {{form_start(form)}}
+{{ form_row(form._token) }}
+{{form_errors(form)}}
+<p>
+{{form_label(form.email )}}
+{{form_widget(form.email )}}
+{{form_errors(form.email )}}
+</p>
 <p>
 {{form_label(form.firstname )}}
 {{form_widget(form.firstname )}}
