@@ -52,6 +52,12 @@ class UserType extends AbstractType
                 'class' => 'form-control'
             ]
         ])
+        ->add('address', TextType::class, [
+            'label' => 'Votre adresse',
+            'attr' => [
+                'class' => 'form-control'
+            ]
+        ])
         ->add('phone', IntegerType::class, [
             'label' => 'Téléphone',
             'attr' => [
@@ -86,22 +92,6 @@ class UserType extends AbstractType
             ]
         ])
 
-        // ->add('preferencies', Users::class, [
-        //     'entry_type' => TextType::class,
-        //     'allow_add' => true,
-        //     'allow_delete' => true,
-        //     'by_reference' => false,
-        //     'label' => 'Actors',
-        //     'entry_options' => [
-        //         'attr' => [
-        //             'class' => 'form-control',
-        //         ],
-        //     ],
-        // ])
-   
-   
-
-
         ->add('valid', SubmitType::class, [
             'label' => 'Validez',
             'attr' => [
@@ -112,9 +102,82 @@ class UserType extends AbstractType
             
             'label' => 'Annuler',
             'attr' => [
-            'class' => 'btn btn-danger form-control'
-        ]
-            ]);
+                'class' => 'btn btn-danger form-control'
+            ]
+            ])
+        
+        ->add('seats', ChoiceType::class,[
+            'choices' => [
+                'Pas de préférence' => '0',
+                "Dans les premiers rangs" => '1',
+                'Au milieu de la salle' => '2',
+                'Dans les derniers rangs' => '3',
+            ],
+            'label' => 'Préférence de siège',
+            'attr' => [
+                'class' => 'form-control'
+            ]
+            ])
+            ->add('location', ChoiceType::class,[
+                'choices' => [
+                    'UGC cergy' => '0',
+                    "UGC bercy" => '1',
+                    'UGC chatelet' => '2',
+                    'UGC normandie' => '3',
+                ],
+                'label' => 'Vos cinéma favoris',
+                'attr' => [
+                    'class' => 'form-control'
+                    
+                ],
+                'multiple' => true,
+                'expanded' => true,
+                ])
+                ->add('actor', ChoiceType::class,[
+                    'choices' => [
+                        'Tom Hanks' => '0',
+                        "Brad Pitt" => '1',
+                        'Meryl Streep' => '2',
+                        'Leonardo DiCaprio' => '3',
+                    ],
+                    'label' => 'Acteur',
+                    'attr' => [
+                        'class' => 'form-control'
+                        
+                    ],
+                    'multiple' => true,
+                    'expanded' => true,
+                    ])
+                    ->add('director', ChoiceType::class,[
+                        'choices' => [
+                            'Steven Spielberg' => '0',
+                            "Martin Scorsese" => '1',
+                            'Quentin Tarantino' => '2',
+                            'Christopher Nolan' => '3',
+                        ],
+                        'label' => 'Réalisateur',
+                        'attr' => [
+                            'class' => 'form-control'
+                            
+                        ],
+                        'multiple' => true,
+                        'expanded' => true,
+                        ])
+                        ->add('genres', ChoiceType::class,[
+                            'choices' => [
+                                'Action' => '0',
+                                "horreur" => '1',
+                                'Comédie' => '2',
+                                'Science-fiction' => '3',
+                            ],
+                            'label' => 'Genres',
+                            'attr' => [
+                                'class' => 'form-control'
+                                
+                            ],
+                            'multiple' => true,
+                            'expanded' => true,
+                            ])
         ;
     }
 
@@ -128,60 +191,3 @@ class UserType extends AbstractType
         ]);
     }
 }
-
-// class PreferenciesType extends AbstractType
-// {
-//     public function buildForm(FormBuilderInterface $builder, array $options): void
-//     {
-//         $builder
-//             ->add('actor', UserType::class, [
-//                 'entry_type' => TextType::class,
-//                 'allow_add' => true,
-//                 'allow_delete' => true,
-//                 'by_reference' => false,
-//                 'label' => 'Actors',
-//                 'entry_options' => [
-//                     'attr' => [
-//                         'class' => 'form-control',
-//                     ],
-//                 ],
-//             ])
-//             ->add('director', UserType::class, [
-//                 'entry_type' => TextType::class,
-//                 'allow_add' => true,
-//                 'allow_delete' => true,
-//                 'by_reference' => false,
-//                 'label' => 'Directors',
-//                 'entry_options' => [
-//                     'attr' => [
-//                         'class' => 'form-control',
-//                     ],
-//                 ],
-//             ])
-//             ->add('genres', UserType::class, [
-//                 'entry_type' => TextType::class,
-//                 'allow_add' => true,
-//                 'allow_delete' => true,
-//                 'by_reference' => false,
-//                 'label' => 'Genres',
-//                 'entry_options' => [
-//                     'attr' => [
-//                         'class' => 'form-control',
-//                     ],
-//                 ],
-//             ])
-//             ->add('location', TextType::class, [
-//                 'attr' => [
-//                     'class' => 'form-control',
-//                 ],
-//             ])
-//             ->add('seats', TextType::class, [
-//                 'attr' => [
-//                     'class' => 'form-control',
-//                 ],
-//             ])
-//         ;
-//     }
-
-//     // ...
-// }

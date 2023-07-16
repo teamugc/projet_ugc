@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+   <a class="btn btn-secondary" href="{{ path('app_my_account_edit') }}">Modifier mon compte</a>
+    <p>Bonjour {{ user.firstname }}
+    <?php
+        
+    ?>
+    {% for actor in user.actor %} 
+        {{actor}}
+    {% endfor %}
+    
+    </p>
+{% endblock %}

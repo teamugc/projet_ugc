@@ -47,18 +47,27 @@ class User
     #[MongoDB\Field(type: 'string')]
     protected string $email;
 
+    #[MongoDB\Field(type: 'collection')]
+    protected array $actor;
+
+    #[MongoDB\Field(type: 'collection')]
+    protected array $director;
+
+    #[MongoDB\Field(type: 'collection')]
+    protected array $genres;
+
+    #[MongoDB\Field(type: 'collection')]
+    protected array $location;
+
+    #[MongoDB\Field(type: 'string')]
+    protected string $seats;
+
   
 
 
 
-    #[MongoDB\EmbedOne(targetDocument: Preferencies::class)]
-    protected Preferencies $preferencies;
-
-   
     public function getDateOfBirth(): ?DateTime
     {
-     
-    
         return $this->dateOfBirth;
     }
     
@@ -84,17 +93,7 @@ class User
     }
 
 
-    public function getPreferencies(): Object
-    {
-        return $this->preferencies;
-    }
-    
-    public function setPreferencies(Object $preferencies): User
-    {
-        $this->preferencies = $preferencies;
-    
-        return $this;
-    }
+   
 
     public function getId(): string
     {
@@ -187,29 +186,6 @@ class User
     {
         $this->postalCode = $postalCode;
     }
-}
-
-// Preferencies
-#[MongoDB\EmbeddedDocument]
-class Preferencies
-{
-    #[MongoDB\Field(type: 'collection')]
-    protected array $actor;
-
-    #[MongoDB\Field(type: 'collection')]
-    protected array $director;
-
-    #[MongoDB\Field(type: 'collection')]
-    protected array $genres;
-
-    #[MongoDB\Field(type: 'string')]
-    protected string $location;
-
-    #[MongoDB\Field(type: 'string')]
-    protected string $seats;
-
-
-    // ...getters and setters for each property
 
     public function getActor(): array
     {
@@ -217,7 +193,7 @@ class Preferencies
     }
 
 
-    public function setActor(array $actor):Preferencies
+    public function setActor(array $actor):User
     {
         $this->actor = $actor;
 
@@ -230,7 +206,7 @@ class Preferencies
     }
 
 
-    public function setDirector(array $director):Preferencies
+    public function setDirector(array $director):User
     {
         $this->director = $director;
 
@@ -241,19 +217,19 @@ class Preferencies
         return $this->genres;
     }
 
-    public function setGenres(array $genres):Preferencies
+    public function setGenres(array $genres):User
     {
         $this->genres = $genres;
 
         return $this;
     }
-    public function getLocation(): string
+    public function getLocation(): array
     {
         return $this->location;
     }
 
 
-    public function setLocation(string $location):Preferencies
+    public function setLocation(array $location):User
     {
         $this->location = $location;
 
@@ -266,11 +242,15 @@ class Preferencies
     }
 
 
-    public function setSeats(string $seats):Preferencies
+    public function setSeats(string $seats):User
     {
         $this->seats = $seats;
 
         return $this;
     }
     
+
+
 }
+
+
