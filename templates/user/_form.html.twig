@@ -1,0 +1,74 @@
+{{form_start(form)}}
+{{ form_row(form._token) }}
+{{form_errors(form)}}
+<p>
+{{form_label(form.email )}}
+{{form_widget(form.email )}}
+{{form_errors(form.email )}}
+</p>
+<p>
+{{form_label(form.firstname )}}
+{{form_widget(form.firstname )}}
+</p>
+<p>
+{{form_label(form.lastname )}}
+{{form_widget(form.lastname )}}
+</p>
+<p>
+{{form_label(form.city )}}
+{{form_widget(form.city )}}
+</p>
+<p>
+{{form_label(form.phone )}}
+{{form_widget(form.phone )}}
+</p>
+<p>
+{{form_label(form.postal_code )}}
+{{form_widget(form.postal_code )}}
+</p>
+
+<p>
+{{form_label(form.fidelity_points)}}
+{{form_widget(form.fidelity_points)}}
+</p>
+<p>
+{{form_label(form.address)}}
+{{form_widget(form.address)}}
+</p> 
+
+<p>
+{{form_label(form.dateOfBirth)}}
+{{form_widget(form.dateOfBirth)}}
+</p>
+
+<p>
+{{form_label(form.seats)}}
+{{form_widget(form.seats)}}
+</p> 
+<p>
+{{form_label(form.location)}}
+{{form_widget(form.location)}}
+</p> 
+<p>
+{{form_label(form.actor)}}
+{{form_widget(form.actor)}}
+</p> 
+<p>
+{{form_label(form.director)}}
+{{form_widget(form.director)}}
+</p> 
+<p>
+{{form_label(form.genres)}}
+{{form_widget(form.genres)}}
+</p> 
+
+{{form_widget(form.valid)}}
+
+ <div class="col-6">
+    <a href="{{ path('app_user_index') }}">
+        {{ form_widget(form.annuler) }}
+    </a>
+ </div>
+
+{{form_end(form, {render_rest:false})}}
+

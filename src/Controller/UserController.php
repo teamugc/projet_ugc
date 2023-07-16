@@ -48,11 +48,6 @@ class UserController extends AbstractController
             $userRepository->save($user, true);
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
-
-        // $dm->persist($user);
-        // $dm->flush();
-
-     
     
         return $this->renderForm('user/new.html.twig', [
             'users' => $user,
@@ -60,5 +55,34 @@ class UserController extends AbstractController
             // 'step' => $step,
         ]);
     }
-    
+
+    #[Route('/{id}/edit', name: 'app_user_edit')]
+    public function edit(string $id, Request $request, UserRepository $userRepository, DocumentManager $dm): Response
+    {
+        
+        $user = $userRepository->find($id);
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $userRepository->save($user, true);
+            return $this->redirectToRoute('app_user_show', ['id'=> $user->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+    #[Route('/{id}', name: 'app_user_show')]
+    public function show(string $id, UserRepository $userRepository): Response
+    {
+ 
+        $user = $userRepository->find($id);
+        return $this->render('user/show.html.twig', [
+            'user' => $user
+        ]);
+    }
 }
+
+

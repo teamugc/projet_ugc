@@ -2,7 +2,7 @@
 
 
 {% block body %}
-{{ include('application/_navigation.html.twig') }}
+
 <a href="{{path("app_user_new")}}">Nouvel utilisateur</a>
 <table class="table">
     {% for user in users %}
@@ -28,8 +28,14 @@
  
  {# afficher date  #}
   <td>
- {{ user.dateOfBirth|date('d-m-Y') }} 
+    {{ user.dateOfBirth|date('d-m-Y') }} 
  </td>
+  <td>
+      <a href="{{ path('app_user_edit', { 'id' : user.id }) }}">Edit</a>
+  </td>
+   <td>
+      <a href="{{ path('app_user_show', { 'id' : user.id }) }}">Show</a>
+  </td>
  </tr>
 
     {% endfor %}
