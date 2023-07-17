@@ -9,12 +9,24 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
+
+    #[Route('/connect/{email}', name: 'app_user_connect')]
+    public function connect(string $email, SessionInterface $session){
+        
+        $session->set('email', $email);
+
+        return $this->render('login/success.html.twig', [
+            'message' => "Utilisateur $email connecté.",
+        ]);
+    }
+
     #[Route('/', name: 'app_user_index')]
     public function index(UserRepository $userRepository): Response
     {

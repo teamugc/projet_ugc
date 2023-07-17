@@ -18,10 +18,10 @@ class User
     protected string $id;
 
     #[MongoDB\Field(type: 'string')]
-    protected string $firstname;
+    protected string $firstname = "";
 
     #[MongoDB\Field(type: 'string')]
-    protected string $lastname;
+    protected string $lastname = "";
 
     #[MongoDB\Field(type: 'string')]
     protected string $city;
@@ -30,7 +30,7 @@ class User
     protected ?string $address=null;
 
     #[MongoDB\Field(type: 'int')]
-    protected int $fidelityPoints;
+    protected int $fidelityPoints=0;
 
     #[MongoDB\Field(type: 'string')]
     protected string $password;
@@ -48,10 +48,10 @@ class User
     protected string $email;
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $actor;
+    protected array $actor = [];
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $director;
+    protected array $director = [];
 
     #[MongoDB\Field(type: 'collection')]
     protected array $genres;
@@ -107,6 +107,7 @@ class User
 
     public function getFirstName(): string
     {
+
         return $this->firstname;
     }
 
@@ -135,6 +136,7 @@ class User
 
     public function setFirstName(string $firstname): User
     {
+        
         $this->firstname = $firstname;
 
         return $this;
