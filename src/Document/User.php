@@ -3,13 +3,7 @@
 namespace App\Document;
 
 use DateTime;
-
-
-
-
-
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-
 
 #[MongoDB\Document]
 class User
@@ -18,19 +12,19 @@ class User
     protected string $id;
 
     #[MongoDB\Field(type: 'string')]
-    protected string $firstname = "";
+    protected ?string $firstname = '';
 
     #[MongoDB\Field(type: 'string')]
-    protected string $lastname = "";
+    protected ?string $lastname = '';
 
     #[MongoDB\Field(type: 'string')]
     protected string $city;
 
     #[MongoDB\Field(type: 'string')]
-    protected ?string $address=null;
+    protected ?string $address = '';
 
     #[MongoDB\Field(type: 'int')]
-    protected int $fidelityPoints=0;
+    protected ?int $fidelityPoints = 0;
 
     #[MongoDB\Field(type: 'string')]
     protected string $password;
@@ -38,20 +32,20 @@ class User
     #[MongoDB\Field(type: 'string')]
     protected string $phone;
 
-    #[MongoDB\Field(type: 'string')]
-    protected string $postalCode;
+    #[MongoDB\Field(type: 'int')]
+    protected ?int $postalCode = 0;
 
     #[MongoDB\Field(type: 'date')]
-    protected dateTime $dateOfBirth;
+    protected ?DateTime $dateOfBirth = null;
 
     #[MongoDB\Field(type: 'string')]
     protected string $email;
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $actor = [];
+    protected array $actor;
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $director = [];
+    protected array $director;
 
     #[MongoDB\Field(type: 'collection')]
     protected array $genres;
@@ -62,22 +56,14 @@ class User
     #[MongoDB\Field(type: 'string')]
     protected string $seats;
 
-  
-
-
-
     public function getDateOfBirth(): ?DateTime
     {
         return $this->dateOfBirth;
     }
-    
 
     public function setDateOfBirth(?DateTime $dateOfBirth): User
     {
-        if ($dateOfBirth !== null) {
-            $this->dateOfBirth = $dateOfBirth;
-        }
-
+        $this->dateOfBirth = $dateOfBirth;
         return $this;
     }
 
@@ -85,15 +71,12 @@ class User
     {
         return $this->email;
     }
+
     public function setEmail(string $email): User
     {
         $this->email = $email;
-
         return $this;
     }
-
-
-   
 
     public function getId(): string
     {
@@ -107,7 +90,6 @@ class User
 
     public function getFirstName(): string
     {
-
         return $this->firstname;
     }
 
@@ -119,44 +101,41 @@ class User
     public function setCity(string $city): User
     {
         $this->city = $city;
-
         return $this;
     }
+
     public function getAddress(): ?string
     {
         return $this->address;
     }
+
     public function setAddress(string $address): User
     {
         $this->address = $address;
-
         return $this;
     }
 
-
     public function setFirstName(string $firstname): User
     {
-        
         $this->firstname = $firstname;
-
         return $this;
     }
 
     public function setLastName(string $lastname): User
     {
         $this->lastname = $lastname;
-
         return $this;
     }
 
-    public function getFidelityPoints(): int
+    public function getFidelityPoints(): ?int
     {
-    return $this->fidelityPoints;
+        return $this->fidelityPoints;
     }
 
-    public function setFidelityPoints(int $fidelityPoints): void
+    public function setFidelityPoints(?int $fidelityPoints): User
     {
         $this->fidelityPoints = $fidelityPoints;
+        return $this;
     }
 
     public function getPassword(): string
@@ -164,9 +143,10 @@ class User
         return $this->password;
     }
 
-    public function setPassword(string $password): void
+    public function setPassword(string $password): User
     {
         $this->password = $password;
+        return $this;
     }
 
     public function getPhone(): string
@@ -174,19 +154,21 @@ class User
         return $this->phone;
     }
 
-    public function setPhone(string $phone): void
+    public function setPhone(string $phone): User
     {
         $this->phone = $phone;
+        return $this;
     }
 
-    public function getPostalCode(): string
+    public function getPostalCode(): ?int
     {
         return $this->postalCode;
     }
 
-    public function setPostalCode(string $postalCode): void
+    public function setPostalCode(?int $postalCode): User
     {
         $this->postalCode = $postalCode;
+        return $this;
     }
 
     public function getActor(): array
@@ -194,11 +176,9 @@ class User
         return $this->actor;
     }
 
-
-    public function setActor(array $actor):User
+    public function setActor(array $actor): User
     {
         $this->actor = $actor;
-
         return $this;
     }
 
@@ -207,34 +187,31 @@ class User
         return $this->director;
     }
 
-
-    public function setDirector(array $director):User
+    public function setDirector(array $director): User
     {
         $this->director = $director;
-
         return $this;
     }
+
     public function getGenres(): array
     {
         return $this->genres;
     }
 
-    public function setGenres(array $genres):User
+    public function setGenres(array $genres): User
     {
         $this->genres = $genres;
-
         return $this;
     }
+
     public function getLocation(): array
     {
         return $this->location;
     }
 
-
-    public function setLocation(array $location):User
+    public function setLocation(array $location): User
     {
         $this->location = $location;
-
         return $this;
     }
 
@@ -243,16 +220,9 @@ class User
         return $this->seats;
     }
 
-
-    public function setSeats(string $seats):User
+    public function setSeats(string $seats): User
     {
         $this->seats = $seats;
-
         return $this;
     }
-    
-
-
 }
-
-

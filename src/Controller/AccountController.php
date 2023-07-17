@@ -31,6 +31,7 @@ class AccountController extends AbstractController
     #[Route('/edit', name: 'app_my_account_edit')]
     public function edit( Request $request, UserRepository $userRepository, DocumentManager $dm): Response
     {
+      
         // Recuperer le 1er utilisateur de la bdd
         $user = $userRepository->findOneBy([]);
         $form = $this->createForm(UserType::class, $user);

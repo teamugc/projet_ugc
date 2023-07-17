@@ -64,7 +64,7 @@ class UserType extends AbstractType
                 'class' => 'form-control'
             ]
         ])
-        ->add('postal_code', IntegerType::class, [
+        ->add('postalCode', IntegerType::class, [
             'label' => 'code postale',
             'attr' => [
                 'class' => 'form-control'

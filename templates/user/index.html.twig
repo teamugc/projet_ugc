@@ -4,9 +4,12 @@
 {% block body %}
 
 <a href="{{path("app_user_new")}}">Nouvel utilisateur</a>
+
+
 <table class="table">
     {% for user in users %}
   <tr>
+ 
   <td>
         {{ user.firstname}}
          </td>
