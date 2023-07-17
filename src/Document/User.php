@@ -111,6 +111,7 @@ class User
 
     public function setFirstName(string $firstname): User
     {
+        
         $this->firstname = $firstname;
         return $this;
     }
