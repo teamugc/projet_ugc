@@ -24,6 +24,7 @@ class UserController extends AbstractController
 
         return $this->render('login/success.html.twig', [
             'message' => "Utilisateur $email connecté.",
+            
         ]);
     }
 

@@ -57,10 +57,10 @@ class User
     protected ?int $fidelityPoints = 0;
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $actor = [];
+    protected array $actor;
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $director = [];
+    protected array $director;
 
     #[MongoDB\Field(type: 'collection')]
     protected array $genres = [];
@@ -111,7 +111,6 @@ class User
 
     public function setFirstName(string $firstname): User
     {
-        
         $this->firstname = $firstname;
         return $this;
     }
@@ -170,7 +169,7 @@ class User
         return $this;
     }
 
-    public function getAddress(): ?string
+    public function getAddress(): User
     {
         return $this->address;
     }
@@ -333,5 +332,3 @@ class User
         return $this;
     }
 }
-
-
