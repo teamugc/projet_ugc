@@ -3,12 +3,20 @@
 {{form_errors(form)}}
 
 
-<input type="hidden" value="{{step}}"  name="step" />
+{# <input type="hidden" value="{{step}}"  name="step" />
 {% if step==1 %}
     {{ include('user/_form_step_1.html.twig') }}
-{% else %}
+{% else %} #}
 
-
+    <p>
+    {{form_label(form.email )}}
+    {{form_widget(form.email )}}
+    {{form_errors(form.email )}}
+    </p>
+    <p>
+    {{form_label(form.firstname )}}
+    {{form_widget(form.firstname )}}
+    </p>
 
     <p>
     {{form_label(form.lastname )}}
@@ -22,9 +30,14 @@
     {{form_label(form.phone )}}
     {{form_widget(form.phone )}}
     </p>
-    <p>
-    {{form_label(form.postalCode )}}
-    {{form_widget(form.postalCode )}}
+   <p>
+        {{ form_label(form.postalCode) }}
+        {{ form_widget(form.postalCode, {
+            'attr': {
+                'pattern': '^(0[1-9]|[1-8][0-9]|9[0-8])\d{3}$',
+            },
+        }) }}
+        {{ form_errors(form.postalCode) }}
     </p>
 
     <p>
@@ -61,7 +74,7 @@
     {{form_label(form.genres)}}
     {{form_widget(form.genres)}}
     </p> 
-{% endif %}
+{# {% endif %} #}
 {{form_widget(form.valid)}}
 
  <div class="col-6">
