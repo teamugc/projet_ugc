@@ -48,15 +48,13 @@ class UserController extends AbstractController
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-
-        // etape 1
-        // if ($form->isSubmitted() ) {
-        //     $step=$request->request->get("step");
-        //     $step++;
-        // } else {
-        //     $step = 1;
-        // }
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() ) {
+            $step=$request->request->get("step");
+            $step++;
+        } else {
+            $step = 1;
+        }
+        if ($form->isSubmitted() && $form->isValid() && $step == 3) {
            
             $userRepository->save($user, true);
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
@@ -65,7 +63,7 @@ class UserController extends AbstractController
         return $this->renderForm('user/new.html.twig', [
             'users' => $user,
             'form' => $form,
-            // 'step' => $step,
+            'step' => $step,
         ]);
     }
 
