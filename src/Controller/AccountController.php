@@ -22,6 +22,10 @@ class AccountController extends AbstractController
         $email = $session->get('email');
         $user = $userRepository->findOneBy(['email' => $email]);
 
+        // redirection si on est pas connecté
+        if (is_null($user)) {
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
+        }
     
         return $this->render('account/show.html.twig', [
             'user' => $user
