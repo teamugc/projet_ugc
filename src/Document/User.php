@@ -4,12 +4,7 @@ namespace App\Document;
 
 use DateTime;
 
-
-
-
-
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-
 
 #[MongoDB\Document]
 class User

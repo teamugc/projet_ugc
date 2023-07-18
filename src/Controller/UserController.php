@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 #[Route('/user')]
-class UserController extends AbstractController
+class UserController extends AbstractController 
 {
 
     #[Route('/connect/{email}', name: 'app_user_connect')]
@@ -83,6 +83,7 @@ class UserController extends AbstractController
             'user' => $user
         ]);
     }
+    
 }
 
 

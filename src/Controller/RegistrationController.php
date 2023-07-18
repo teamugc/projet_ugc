@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Document\User;
-use App\Form\RegistrationFormType;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +29,7 @@ class RegistrationController extends AbstractController
             //     //     $form->get('plainPassword')->getData()
             //     )
             // );
-            // $user->setRoles(['ROLE_ADMIN']);
+            // $user->setRoles(['ROLE_ADMIN']);/////
 
             $entityManager->save($user);
             // $entityManager->flush();
