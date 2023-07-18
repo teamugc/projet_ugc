@@ -7,12 +7,14 @@ use DateTime;
 use App\Validator\PostalCodeValidator;
 use App\Validator\PostalCode;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+
 
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 #[MongoDB\Document]
-class User
+class User implements PasswordAuthenticatedUserInterface
 {
     #[MongoDB\Id]
     protected string $id;
@@ -24,7 +26,7 @@ class User
     protected ?string $lastname = '';
 
     #[MongoDB\Field(type: 'string')]
-    protected string $city;
+    protected ?string $city = '';
 
     #[MongoDB\Field(type: 'string')]
     protected ?string $address = '';
@@ -167,12 +169,6 @@ class User
     }
 
     
-/**
-     * @Assert\Regex(
-     *     pattern="/^(0[1-9]|[1-8][0-9]|9[0-8])\d{3}$/",
-     *     message="Le code postal doit être un code postal français valide."
-     * )
-     */
 
 
     public function getPostalCode(): ?int

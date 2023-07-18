@@ -8,24 +8,27 @@
 
 <table class="table">
     {% for user in users %}
-  <tr>
+        <tr>
  
-  <td>
-        {{ user.firstname}}
-         </td>
-     <td>
-         {{ user.lastname}}
-          </td>
-         <td>
-           {{ user.address}}
+            <td>
+                    {{ user.firstname}}
             </td>
             <td>
-           {{ user.city}}
+                 {{ user.lastname}}
+            </td>
+                <td>
+                    {{ user.address}}
+                </td>
+                <td>
+                    {{ user.city}}
+                </td>
+                <td>
+                {{ user.fidelityPoints}} 
+            </td>
+                 <td>
+                 {{ user.email}}
             </td>
             <td>
-         {{ user.fidelityPoints}} 
-          </td>
-          <td>
  {{ user.postalCode}}
   </td>
  
