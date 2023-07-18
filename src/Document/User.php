@@ -7,12 +7,14 @@ use DateTime;
 use App\Validator\PostalCodeValidator;
 use App\Validator\PostalCode;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+
 
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 #[MongoDB\Document]
-class User
+class User implements PasswordAuthenticatedUserInterface
 {
     #[MongoDB\Id]
     protected string $id;
