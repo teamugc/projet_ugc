@@ -17,6 +17,9 @@ class User
     #[MongoDB\Id]
     protected string $id;
 
+    #[MongoDB\Field(type: 'bool')]
+    protected ?bool $gender = false;
+
     #[MongoDB\Field(type: 'string')]
     protected ?string $firstname = '';
 
@@ -61,6 +64,17 @@ class User
 
     #[MongoDB\Field(type: 'string')]
     protected string $seats;
+
+    public function getGender(): string
+    {
+        return $this->email;
+    }
+
+    public function setGender(string $gender): User
+    {
+        $this->gender = $gender;
+        return $this;
+    }
 
     public function getDateOfBirth(): ?DateTime
     {
