@@ -3,6 +3,12 @@
 namespace App\Document;
 
 use DateTime;
+
+use App\Validator\PostalCodeValidator;
+use App\Validator\PostalCode;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 #[MongoDB\Document]
@@ -160,10 +166,21 @@ class User
         return $this;
     }
 
+    
+/**
+     * @Assert\Regex(
+     *     pattern="/^(0[1-9]|[1-8][0-9]|9[0-8])\d{3}$/",
+     *     message="Le code postal doit être un code postal français valide."
+     * )
+     */
+
+
     public function getPostalCode(): ?int
     {
         return $this->postalCode;
     }
+
+     
 
     public function setPostalCode(?int $postalCode): User
     {

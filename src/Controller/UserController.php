@@ -42,11 +42,21 @@ class UserController extends AbstractController
     #[Route('/new', name: 'app_user_new')]
     public function createNew( Request $request, UserRepository $userRepository, DocumentManager $dm): Response
     {
+        
+        
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
 
+        // etape 1
+        // if ($form->isSubmitted() ) {
+        //     $step=$request->request->get("step");
+        //     $step++;
+        // } else {
+        //     $step = 1;
+        // }
+        if ($form->isSubmitted() && $form->isValid()) {
+           
             $userRepository->save($user, true);
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -54,6 +64,7 @@ class UserController extends AbstractController
         return $this->renderForm('user/new.html.twig', [
             'users' => $user,
             'form' => $form,
+            // 'step' => $step,
         ]);
     }
 
