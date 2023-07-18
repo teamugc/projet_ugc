@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BoardController!{% endblock %}
+
+{% block body %}
+<div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="{{path('app_board_home')}}" class="nav-link active" aria-current="page">
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="{{path('app_board_cinema')}}" class="nav-link text-white">
+          Mes Cinémas
+        </a>
+      </li>
+      <li>
+        <a href="{{path('app_board_film')}}" class="nav-link text-white">
+          Mes Films
+        </a>
+      </li>
+      <li>
+        <a href="{{path('app_board_reservation')}}" class="nav-link text-white">
+          Mes Réservations
+        </a>
+      </li>
+      <li>
+        <a href="{{path('app_board_fidelite')}}" class="nav-link text-white">
+          Mon Espace Fidélité
+        </a>
+      </li>
+       <li>
+        <a href="{{path('app_my_account_index')}}" class="nav-link text-white">
+          Mon Profil
+        </a>
+      </li>
+    </ul>
+    <hr>
+  </div>
+{% endblock %}
