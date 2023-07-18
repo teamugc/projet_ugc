@@ -2,10 +2,12 @@
 
 namespace App\Document;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use DateTime;
 
 use App\Validator\PostalCodeValidator;
 use App\Validator\PostalCode;
+
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
@@ -14,7 +16,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 #[MongoDB\Document]
-class User implements PasswordAuthenticatedUserInterface
+class User implements UserInterface , PasswordAuthenticatedUserInterface
 {
     #[MongoDB\Id]
     protected string $id;
@@ -59,16 +61,16 @@ class User implements PasswordAuthenticatedUserInterface
     protected ?int $fidelityPoints = 0;
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $actor;
+    protected ?array $actor=[];
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $director;
+    protected ?array $director=[];
 
     #[MongoDB\Field(type: 'collection')]
     protected array $genres = [];
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $location;
+    protected ?array $location=[];
 
     #[MongoDB\Field(type: 'collection')]
     protected array $seats = [];
@@ -334,3 +336,5 @@ class User implements PasswordAuthenticatedUserInterface
         return $this;
     }
 }
+
+
