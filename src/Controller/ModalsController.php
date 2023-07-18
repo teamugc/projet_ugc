@@ -21,14 +21,17 @@ class ModalsController extends AbstractController
         if ($forname == 'form_new_connection') {
             $success = true;
             
+        $email = $_POST['email'];    
             // faire ici tous les test et vérifications
-            if(true){
-                //$success = false;
+            if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+                $success = true;
+            } else {
+                $success = false;
                 $message .= 'Adresse email invalide.<br>';
             }
 
             if(true){
-               // $success = false;
+             //  $success = false;
                 $message .= 'Code postal erroné.<br>';
             }            
             // faire également les enregistrement en bdd
@@ -199,8 +202,8 @@ class ModalsController extends AbstractController
         }
         return $this->render('modals/modal_fidelity.html.twig', [
             'message' => $message,
-            'formName' => 'form_choose_fidelity',
-            'step' => '/modals/choose_fidelity',
+            'formName' => 'form_fidelity',
+            'step' => '/modals/fidelity',
             'previousStep' => '/modals/choose_categories',
         ]);
     }

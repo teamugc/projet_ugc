@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Document\Users;
+use App\Document\User;
 use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
 use Doctrine\Bundle\MongoDBBundle\Repository\ServiceDocumentRepository;
 use Doctrine\ODM\MongoDB\DocumentManager;
@@ -13,10 +13,10 @@ class UserRepository extends ServiceDocumentRepository
 {
     public function __construct(ManagerRegistry $managerRegistry)
     {
-        parent::__construct($managerRegistry, Users::class);
+        parent::__construct($managerRegistry, User::class);
     }
 
-    public function save(Users $users, bool $flush = false): void
+    public function save(User $users, bool $flush = false): void
     {
         $this->getDocumentManager()->persist($users);
 
