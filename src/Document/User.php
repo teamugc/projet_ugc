@@ -2,10 +2,12 @@
 
 namespace App\Document;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use DateTime;
 
 use App\Validator\PostalCodeValidator;
 use App\Validator\PostalCode;
+
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
@@ -14,7 +16,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 #[MongoDB\Document]
-class User implements PasswordAuthenticatedUserInterface
+class User implements UserInterface , PasswordAuthenticatedUserInterface
 {
     #[MongoDB\Id]
     protected string $id;
@@ -38,7 +40,7 @@ class User implements PasswordAuthenticatedUserInterface
     protected string $password;
 
     #[MongoDB\Field(type: 'string')]
-    protected string $phone;
+    protected ?string $phone='';
 
     #[MongoDB\Field(type: 'int')]
     protected ?int $postalCode = 0;
@@ -50,19 +52,22 @@ class User implements PasswordAuthenticatedUserInterface
     protected string $email;
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $actor;
+    protected ?array $actor=[];
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $director;
+    protected ?array $director=[];
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $genres;
+    protected ?array $genres=[];
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $location;
+    protected ?array $location=[];
 
     #[MongoDB\Field(type: 'string')]
-    protected string $seats;
+    protected ?string $seats='';
+
+    #[ORM\Column]
+    private array $roles = [];
 
     public function getDateOfBirth(): ?DateTime
     {
@@ -146,16 +151,7 @@ class User implements PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): User
-    {
-        $this->password = $password;
-        return $this;
-    }
+   
 
     public function getPhone(): string
     {
@@ -238,4 +234,59 @@ class User implements PasswordAuthenticatedUserInterface
         $this->seats = $seats;
         return $this;
     }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
 }
+
+

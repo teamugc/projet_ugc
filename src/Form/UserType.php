@@ -60,7 +60,7 @@ class UserType extends AbstractType
                 'class' => 'form-control'
             ]
         ])
-        ->add('phone', IntegerType::class, [
+        ->add('phone', TextType::class, [
             'label' => 'Téléphone',
             'attr' => [
                 'class' => 'form-control'
