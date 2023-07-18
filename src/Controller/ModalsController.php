@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Document\User;
+use App\Form\UserType;
+use App\Repository\UserRepository;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,26 +25,55 @@ class ModalsController extends AbstractController
         if ($forname == 'form_new_connection') {
             $success = true;
             
-        $email = $_POST['email'];    
+          
             // faire ici tous les test et vérifications
+        $email = $_POST['email']; 
             if(filter_var($email, FILTER_VALIDATE_EMAIL)){
                 $success = true;
             } else {
                 $success = false;
                 $message .= 'Adresse email invalide.<br>';
             }
-
-            if(true){
-             //  $success = false;
-                $message .= 'Code postal erroné.<br>';
+        $name = $request->get('name');
+            if(empty($name)) {
+               $success = false;
+                $message .= 'Veuillez entrer votre nom.<br>';
             }            
+        $surname = $request->get('surname');
+            if (empty($surname)) {
+               $success = false;
+                $message .= 'Veuillez entrer votre prénom.<br>';
+            }  
+        $password = $request->get('password');
+        $checkPassword = $request->get('check-password');
+            if (empty($password) | empty($checkPassword)) {
+               $success = false;
+                $message .= 'Veuillez entrer votre mot de passe.<br>';
+            }  
+
+            if ($password !== $checkPassword) {
+                $success = false;
+                $message .= 'La vérification du mot de passe est incorrecte.<br>';
+            }
             // faire également les enregistrement en bdd
-            //$success = false;
+            if ($success) {
+                #[Route('/new', name: 'app_user_new')]
+                public function createNew(Request $request, UserRepository $userRepository, DocumentManager $dm): Response
+                {
+                    $user = new User();
+                    $form = $this->createForm(UserType::class, $user);
+                    $form->handleRequest($request);
+                    $userRepository->save($user, true);
+                }
+            }
+
 
             // si tout va bien passer à l'étape suivante
-            if ($success)
+            if ($success) {
                 return $this->accueil($request);
+            }
         }
+    
 
         // affichage du formulaire
         return $this->render('modals/modal_new_connection.html.twig', [

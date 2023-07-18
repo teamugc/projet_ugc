@@ -15,7 +15,7 @@
         {% endif %}
 
         SI CHAMPS DE FORMULAIRE LES METTRE ICI </br>
-
+{#
 <div>
 
     <div>
@@ -64,7 +64,7 @@
     {{form_label(form.dateOfBirth)}}
     {{form_widget(form.dateOfBirth)}}
     </p>
-{# {% endif %} #}
+
 {{form_widget(form.valid)}}
 
  <div class="col-6">
@@ -75,7 +75,8 @@
 </div>
 
 </div>
-{#
+#}
+
         <label for="gender-h">Monsieur</label>
         <input type="checkbox" id ="gender-h"></br>
 
@@ -83,19 +84,19 @@
         <input type="checkbox" id ="gender-f"></br>
 
         <label for="name">Nom</label>
-        <input type="text" id ="name"></br>
+        <input type="text" name ="name" id ="name"></br>
 
         <label for="surname">Prénom</label>
-        <input type="text" id ="surname"></br>
+        <input type="text" name = "surname" id ="surname"></br>
 
         <label for="birthdate">Date de naissance</label>
         <input type="date" id = "birthdate"></br>
 
         <label for="password">Mot de passe</label>
-        <input type="password" id = "password"></br>
+        <input type="password" name ="password" id = "password"></br>
 
-        <label for="password">Confirmer le mot de passe</label>
-        <input type="password" id = "password"></br>
+        <label for="check-password">Confirmer le mot de passe</label>
+        <input type="password" name = "check-password" id = "check-password"></br>
 
         <label for="email">Adresse email</label>
         <input type="email" name = "email" id = "email"></br>
@@ -118,7 +119,7 @@
 
 
 
-#}
+
 
 
 
