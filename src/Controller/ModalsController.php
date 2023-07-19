@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Document\User;
 use App\Form\UserType;
+use App\Repository\CinemasRepository;
 use App\Repository\UserRepository;
 use DateTime;
 use Doctrine\ODM\MongoDB\DocumentManager;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 #[Route('/modals')]
 class ModalsController extends AbstractController
 {
@@ -23,7 +25,9 @@ class ModalsController extends AbstractController
     }
 
     #[Route('/new_connection', name: 'app_modals_new_connection')]
-    public function new_connection(Request $request, UserRepository $userRepository): Response
+    public function new_connection( Request $request, 
+                                    UserRepository $userRepository,
+                                    CinemasRepository $cinemasRepository): Response
     {
         $user = new User();
         
@@ -97,7 +101,7 @@ class ModalsController extends AbstractController
       
             // si tout va bien passer à l'étape suivante
             if ($success) {
-                return $this->accueil($request, $userRepository);
+                return $this->accueil($request, $userRepository, $cinemasRepository);
             }
         }
     
@@ -111,7 +115,9 @@ class ModalsController extends AbstractController
     }
 
     #[Route('/accueil', name: 'app_modals_accueil')]
-    public function accueil(Request $request, UserRepository $userRepository): Response
+    public function accueil(Request $request, 
+                            UserRepository $userRepository,
+                            CinemasRepository $cinemasRepository): Response
     {
         // recuperer l'id en session
         $userId = $_SESSION['id'];      
@@ -132,7 +138,7 @@ class ModalsController extends AbstractController
         if ($forname == 'form_accueil') {
 
             // si tout va bien passer à l'étape suivante
-            return $this->choose_cinema($request, $userRepository);
+            return $this->choose_cinema($request, $userRepository, $cinemasRepository);
         }
 
         // affichage du formulaire        
@@ -146,7 +152,9 @@ class ModalsController extends AbstractController
     }
 
     #[Route('/choose_cinema', name: 'app_modals_choose_cinema')]
-    public function choose_cinema(Request $request, UserRepository $userRepository): Response
+    public function choose_cinema(Request $request,
+                                UserRepository $userRepository, 
+                                CinemasRepository $cinemasRepository): Response
     {
         $message = '';
 
@@ -162,9 +170,25 @@ class ModalsController extends AbstractController
             $success = true;
            
             // faire ici tous les test et vérifications
+            $result = '';
+            
+            $cinemas = $cinemasRepository->findCinemaById($id);
 
+        if (isset ($_GET['key']) && !empty($_GET['key'])) {
+            $key = trim(strtolower($_GET['key']));
+            foreach ($cinemas as $cinema) {
+                $formattedCinema = '<li><img src="' . $cinema['image'] . '" alt="Image du cinéma">' . '<img src=" ./img/favori-full.svg">' . $cinema['name'] . ' - Adresse : ' . $cinema['address'] . ' - Code postal : ' . $cinema['zipcode'] . '- Ville : ' . $cinema['city'] . '</li>';
+                if (stripos($formattedCinema, $key) !== false) {  
+                    $result .= $formattedCinema;
+                }
+            }
+        }
+
+        if ($result  === '') {
+            $result = 'Aucun cinema trouvé';
+        }
             // faire également les enregistrement en bdd
-            $user->setLocation($request->get('location'));
+     //       $user->setLocation($request->get('location'));
 
             // si tout va bien passer à l'étape suivante
             return $this->choose_seats($request);
