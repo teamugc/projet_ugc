@@ -39,12 +39,9 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/user/, roles: ROLE_ADMIN }
+        #- { path: ^/teacher, roles: ROLE_ADMIN }
         #- { path: ^/classroom, roles: ROLE_ADMIN }
         #- { path: ^/, roles: PUBLIC_ACCESS }
-    
-    # Permet la redirection si un utilisateur essaie d'aller sur une page non autorisée
-    access_denied_url: /
 
 when@test:
     security:

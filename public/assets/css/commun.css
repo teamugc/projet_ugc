@@ -1,3 +1,5 @@
+/* CSS GLOBALES */
+
 * {
     box-sizing: border-box;
    
@@ -31,11 +33,73 @@ body{
     color:#fffcfc;
 }
 
+h1, h2.rubrique{
+    font-family: 'uniform-bold';
+    font-size:1.9rem; 
+     text-transform: uppercase;
+}
+
+h2, .card h3{
+    font-family: 'uniform-regular';
+   font-size:1.9rem; 
+    
+}
+
 #logo{
     width: 106px;
     height:auto;
 }
 
+/* CSS COMMUN */
+
+
+.icone-titre-rubrique{
+    margin-right:22px;
+}
+
+a.bouton{
+  
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    justify-content:center;
+    border: 0;
+    border-radius: 10px;
+    font-size: 0.94rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing:0.75px;   
+   
+}
+
+a:hover.bouton{
+    opacity: 80%;
+}
+
+.cta {
+    background: #A31F58;
+    color: #fffcfc;
+}
+
+.secondaire {
+    background: #40B3D1;
+    color: #010A3D;
+}
+
+
+a.cta img.icone-cta{
+    margin-right:10px;
+    width:20px;
+
+}
+
+
+p {
+    font-family: 'uniform-regular';
+    font-size:0.94rem;
+    margin-bottom:0;
+    line-height:normal;
+}
 
 
 /* CSS HEADER */
@@ -43,15 +107,13 @@ body{
 
 /* css barre navigation haute */
 
-.d-flex { /* on vise la balise qui contient le logo et la nav et que cette balise est un conteneur flex via la class d-flex */
-    display: flex;
+.d-flex { 
     flex-direction: row;
-    justify-content: space-between; /* agit sur l'axe horizontal par défaut */
-
+    justify-content: space-between;
 }
 
 header{
-    /* background: radial-gradient(at center top, #00568E, #020B3D); */
+    
     background: var(--radial-gradient-header, radial-gradient(77.25% 83.72% at 50% -23.26%, #00558E 10.95%, #010A3D 100%));
 }
 
@@ -80,8 +142,10 @@ header .nav-picto a.recherche {
 }
 
 header .nav-picto a.recherche:hover{
+    background-image: url(../icones/loupe-s-bleu-lumiere.svg);
     color:#40B3D1;
 }
+
 
 header .nav-picto a.compte {
     background-image: url(../icones/compte.svg);
@@ -99,6 +163,7 @@ header .nav-picto a.recrutement {
 }
 
 header .nav-picto a.recrutement:hover{
+    background-image: url(../icones/recrutement-bleu-lumiere.svg);
     color:#40B3D1;
 }
 
@@ -108,14 +173,11 @@ header .nav-picto a.pro {
 }
 
 header .nav-picto a.pro:hover {
+    background-image: url(../icones/pro-bleu-lumiere.svg);
     color:#40B3D1;
  
 }
-/* header .nav-picto a.lemag {
-    background-image: url(../icones/lemag.svg);
-  
 
-} */
 
 
 /* CSS barre navigation basse */
@@ -160,29 +222,34 @@ a.lien-bas:hover{
     
 }
 
+.top-menu {
+    margin-top:60px;
+
+}
+
 a.menu-gauche, a.power {
 
     font-family: 'uniform-regular';
     display: inline-block;
-    padding: 20px;
+    padding: 15px;
     background: #010A3D;
     color: #fffcfc;
     border: 0;
     text-decoration: none;   
-    font-size:1.7rem;
+    font-size:1.2rem;
     text-transform:capitalize;
-    /* width:255px; */
-    width:104%;
+    width: 106%;
 }
 
 a.menu-gauche:hover {
     
-   /*  border-right: solid 8px #40B3D1; */
     background-image: url(../icones/barre-hover-menu-bleu.svg);
     background-repeat: no-repeat;
     background-position: right center;
+    
    
 }
+
 
 a.power:hover{
     background-color: #A31F58;
@@ -190,110 +257,55 @@ a.power:hover{
 
 #deconnecte{
         border-bottom: solid 8px #A31F58;
-        padding-bottom: 12px;
+        padding-bottom: 6px;
        
         }
 
 .icone-menu-gauche{
     margin-right:10px;
+    width:30px;
+    height:auto;
 }
-
 
 
 /* CSS SECTION CENTRALE */
 
-
-.top-menu {
-    margin-top:60px;
-
-}
 .top-article {
     margin-top:80px;
 }
 
 
-/* CSS COMMUN */
-
-h2{
-    font-family: 'uniform-bold';
-   /*  font-size:1.9rem; */
-    text-transform: uppercase;
-}
-
-
-.icone-titre-rubrique{
-    margin-right:22px;
-}
-
-a.bouton{
-  
-    display: flex;
-    flex-direction: row;
-    padding: 10px;
-    justify-content:center;
-    border: 0;
-    border-radius: 10px;
-    font-size: 0.94rem;
-    text-transform: uppercase;
-    text-decoration: none;
-    letter-spacing:0.75px;   
-   
-}
-
-a:hover.bouton{
-    opacity: 80%;
-}
-
-.cta {
-    background: #A31F58;
-    color: #fffcfc;
-}
-
-.secondaire {
-    background: #40B3D1;
-    color: #010A3D;
-}
-
-
-.icone-cta{
-    margin-right:10px;
-    
-}
-
-
-
-
-
-p{
-    font-family: 'uniform-regular';
-    font-size:0.94rem;
-    margin-bottom:0;
-    line-height:normal;
-    
-}
-
-
 /* CSS COMMUNES CARD FILM / WIDGET*/
 
-.card_border {
-    width:256px; /* a retier lorsque la card sera dans la page avec un col */
+.size {
+    width: 50%;
+}
+.card-border {
+    
     border-radius:10px;
     border:solid 1px #40B3D1;
-    padding: 10px;               
-     
+    padding: 10px;   
+    min-width: 230px; 
+    max-width: 230px;
+    margin-left: 10px;
+        
 }
 
 .card{
-    flex-basis:230px;  
     border-radius:0;
     background-color:#010A3D;
     gap: 9px;
     color:#fffcfc;
+    position:relative;    
 }
+
 .card h3{
-font-family:'uniform-regular';
-font-size:1.9rem;
 margin-bottom:0;
+}
+
+.card img.affiche{
+    width: 100%;
+ 
 }
 
 .card .tag {
@@ -305,18 +317,21 @@ margin-bottom:0;
     text-transform: uppercase;
     text-align: center;
     letter-spacing:0.96px;
-    width: 117px;
+    width: 70%;
     padding: 10px 20px;
     position: absolute;
-    left: 25%;
+    left: 15%;
     top: -30px;
 }
 
-.avis{
+.avis {
     display:flex;
     justify-content:flex-end;
     width:100%;
     background-color:rgb(1 10 61/0.7) ;
+    position:absolute;
+    top:250px;
+
 
 }
 
@@ -324,47 +339,12 @@ margin-bottom:0;
     width: 20px;
 }
 
-/* CSS CARD FILM COMPTE */
-
-/* Dimension haute max pour une card film affichée dans la liste des préférences films */
-.film{
-    max-height: 496px;
-}
-/* positionnement spécifique à la crad film des avis */
-.film .avis{
-    position: absolute;
-    top:62%;
-}
-/* CSS CARD WIDGET */
-
-.widget .avis{
-    position: absolute;
-    top:50%;
-}
-.seance{
-    display:flex;
-    justify-content: space-between;
-    text-transform: uppercase;
-    border-bottom: #A31F58 1px solid;
-    padding-bottom: 10px;   
-}
-.seance p{
-    font-family:'uniform-medium';
-    font-size: 1.1rem;
-}
-
-.bleu{
-    color:#40B3D1;
-}
-
-
-
-
 /* CSS FOOTER*/
 
  #top{
     border-top:#A31F58 10px solid;
-    margin-top : 40px;
+    /* margin-top : 40px; */
+    
 }
 footer a{
     font-family: 'uniform-medium';
@@ -383,9 +363,20 @@ a:hover.footer{
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 10px;
 
 }
 
+/* .fond{
+    background-color:#00558E;
+}
+.cadre{
+    border-right :#40B3D1 1px solid;
+    border-left :#40B3D1 1px solid;
+    border-bottom :none;
+    border-top :none;
+}
+ */
 
 /* MEDIA QUERIES*/
 
@@ -393,8 +384,9 @@ a:hover.footer{
     .flex-footer{
         flex-direction: row;
         justify-content: space-between;
-        
-        
     }
+   
+  
+  
     
 }
