@@ -54,6 +54,9 @@
                         <a class="lien-bas d-none d-lg-inline-block" href="#">Cartes & offres</a> <!--item-->
                         <a class="lien-bas d-none d-lg-inline-block" href="#">News</a> <!--item-->
                         <a class="lien-bas d-none d-lg-inline-block" href="#">Viva Opéra&nbsp;!</a> <!--item-->
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <a class="lien-bas d-none d-lg-inline-block" href="{{ path('app_user_index') }}">Liste des utilisateurs</a> <!--item-->
+                        {% endif %}
                     </div>
 
 
