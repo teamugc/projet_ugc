@@ -1,0 +1,392 @@
+/* CSS GLOBALES */
+
+* {
+    box-sizing: border-box;
+   
+}
+
+@font-face {
+    font-family: 'uniform-black';
+    src: url(../fonts/Uniform-Extra-Condensed-Black.ttf);
+}
+
+@font-face {
+    font-family: 'uniform-bold';
+    src: url(../fonts/Uniform-Extra-Condensed-Bold.ttf);
+}
+
+@font-face {
+    font-family: 'uniform-medium';
+    src: url(../fonts/Uniform-Extra-Condensed-Medium.ttf);
+}
+
+@font-face {
+    font-family: 'uniform-regular';
+    src: url(../fonts/Uniform-Extra-Condensed.ttf);
+}
+
+
+body{
+    font-family: 'uniform-regular';
+    background-color: #010A3D;
+    font-size: 1.9rem;
+    color:#fffcfc;
+}
+
+h1, h2.rubrique{
+    font-family: 'uniform-bold';
+    font-size:1.9rem; 
+     text-transform: uppercase;
+}
+
+h2, .card h3{
+    font-family: 'uniform-regular';
+   font-size:1.9rem; 
+    
+}
+
+#logo{
+    width: 106px;
+    height:auto;
+}
+
+/* CSS COMMUN */
+
+
+.icone-titre-rubrique{
+    margin-right:22px;
+}
+
+a.bouton{
+  
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    justify-content:center;
+    border: 0;
+    border-radius: 10px;
+    font-size: 0.94rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing:0.75px;   
+   
+}
+
+a:hover.bouton{
+    opacity: 80%;
+}
+
+.cta {
+    background: #A31F58;
+    color: #fffcfc;
+}
+
+.secondaire {
+    background: #40B3D1;
+    color: #010A3D;
+}
+
+
+a.cta img.icone-cta{
+    margin-right:10px;
+    width:20px;
+
+}
+
+
+p {
+    font-family: 'uniform-regular';
+    font-size:0.94rem;
+    margin-bottom:0;
+    line-height:normal;
+}
+
+
+/* CSS HEADER */
+
+
+/* css barre navigation haute */
+
+.d-flex { 
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+header{
+    
+    background: var(--radial-gradient-header, radial-gradient(77.25% 83.72% at 50% -23.26%, #00558E 10.95%, #010A3D 100%));
+}
+
+header .nav-haute{   
+   padding: 20px 0;
+    
+}
+
+header .nav-picto a {
+    margin-left: 44px;
+    color:#40B3D1;
+    background-repeat: no-repeat;
+    background-position: top center;
+   padding-top:42px; 
+    color:#fffcfc;
+    font-family: 'uniform-medium';
+    font-size:1.1rem;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+
+header .nav-picto a.recherche {
+    background-image: url(../icones/loupe-s.svg);
+  
+}
+
+header .nav-picto a.recherche:hover{
+    background-image: url(../icones/loupe-s-bleu-lumiere.svg);
+    color:#40B3D1;
+}
+
+
+header .nav-picto a.compte {
+    background-image: url(../icones/compte.svg);
+    
+}
+
+header .nav-picto a.compte:hover{
+    background-image: url(../icones/compte-bleu.svg);
+    color:#40B3D1;
+}
+
+header .nav-picto a.recrutement {
+    background-image: url(../icones/recrutement.svg);
+    
+}
+
+header .nav-picto a.recrutement:hover{
+    background-image: url(../icones/recrutement-bleu-lumiere.svg);
+    color:#40B3D1;
+}
+
+header .nav-picto a.pro {
+    background-image: url(../icones/pro.svg);
+ 
+}
+
+header .nav-picto a.pro:hover {
+    background-image: url(../icones/pro-bleu-lumiere.svg);
+    color:#40B3D1;
+ 
+}
+
+
+
+/* CSS barre navigation basse */
+
+
+ header .nav-basse{
+    background: #A31F58;
+    padding: 10px 0;
+
+}
+
+
+a.lien-bas{
+  
+    color: #fffcfc;
+    font-family: 'uniform-bold';
+    font-size:1.25rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin-right: 24px;
+  
+}
+
+a.lien-bas:hover{
+    text-decoration: underline  #fffcfc;
+}
+
+.nav-basse .rs img {
+    width:36px;
+}
+
+.nav-basse .rs {
+    margin-left:13px;
+}
+
+
+/* CSS MENU GAUCHE */
+
+#separateur{
+    
+    border-right: solid 1px #40B3D1;
+    
+}
+
+.top-menu {
+    margin-top:60px;
+
+}
+
+a.menu-gauche, a.power {
+
+    font-family: 'uniform-regular';
+    display: inline-block;
+    padding: 15px;
+    background: #010A3D;
+    color: #fffcfc;
+    border: 0;
+    text-decoration: none;   
+    font-size:1.2rem;
+    text-transform:capitalize;
+    width: 106%;
+}
+
+a.menu-gauche:hover {
+    
+    background-image: url(../icones/barre-hover-menu-bleu.svg);
+    background-repeat: no-repeat;
+    background-position: right center;
+    
+   
+}
+
+
+a.power:hover{
+    background-color: #A31F58;
+    }
+
+#deconnecte{
+        border-bottom: solid 8px #A31F58;
+        padding-bottom: 6px;
+       
+        }
+
+.icone-menu-gauche{
+    margin-right:10px;
+    width:30px;
+    height:auto;
+}
+
+
+/* CSS SECTION CENTRALE */
+
+.top-article {
+    margin-top:80px;
+}
+
+
+/* CSS COMMUNES CARD FILM / WIDGET*/
+
+.size {
+    width: 50%;
+}
+.card-border {
+    
+    border-radius:10px;
+    border:solid 1px #40B3D1;
+    padding: 10px;   
+    min-width: 230px; 
+    max-width: 230px;
+    margin-left: 10px;
+        
+}
+
+.card{
+    border-radius:0;
+    background-color:#010A3D;
+    gap: 9px;
+    color:#fffcfc;
+    position:relative;    
+}
+
+.card h3{
+margin-bottom:0;
+}
+
+.card img.affiche{
+    width: 100%;
+ 
+}
+
+.card .tag {
+    background: #010A3D;
+    border: 1px solid #40B3D1;
+    border-radius: 10px;
+    font-family:'uniform-medium';
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing:0.96px;
+    width: 70%;
+    padding: 10px 20px;
+    position: absolute;
+    left: 15%;
+    top: -30px;
+}
+
+.avis {
+    display:flex;
+    justify-content:flex-end;
+    width:100%;
+    background-color:rgb(1 10 61/0.7) ;
+    position:absolute;
+    top:250px;
+
+
+}
+
+.avis .star{
+    width: 20px;
+}
+
+/* CSS FOOTER*/
+
+ #top{
+    border-top:#A31F58 10px solid;
+    /* margin-top : 40px; */
+    
+}
+footer a{
+    font-family: 'uniform-medium';
+    font-size:0.94rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    color:#fffcfc;
+}
+
+a:hover.footer{
+    text-decoration: underline  #fffcfc;
+
+}
+
+.flex-footer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+
+}
+
+/* .fond{
+    background-color:#00558E;
+}
+.cadre{
+    border-right :#40B3D1 1px solid;
+    border-left :#40B3D1 1px solid;
+    border-bottom :none;
+    border-top :none;
+}
+ */
+
+/* MEDIA QUERIES*/
+
+@media screen and (min-width:769px) {
+    .flex-footer{
+        flex-direction: row;
+        justify-content: space-between;
+    }
+   
+  
+  
+    
+}
