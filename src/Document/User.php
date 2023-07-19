@@ -2,19 +2,18 @@
 
 namespace App\Document;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use DateTime;
-
 use App\Validator\PostalCodeValidator;
 use App\Validator\PostalCode;
 use Symfony\Component\Validator\Constraints as Assert;
-
-
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[MongoDB\Document]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface , PasswordAuthenticatedUserInterface
 {
     #[MongoDB\Id]
     protected string $id;
@@ -29,7 +28,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected ?string $lastname = '';
 
     #[MongoDB\Field(type: 'string')]
-    protected string $city;
+    protected ?string $city = '';
 
     #[MongoDB\Field(type: 'string')]
     protected ?string $address = '';
@@ -41,7 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected string $password;
 
     #[MongoDB\Field(type: 'string')]
-    protected string $phone;
+    protected ?string $phone='';
 
     #[MongoDB\Field(type: 'int')]
     protected ?int $postalCode = 0;
@@ -53,19 +52,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     protected string $email;
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $actor;
+    protected ?array $actor=[];
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $director;
+    protected ?array $director=[];
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $genres;
+    protected ?array $genres=[];
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $location;
+    protected ?array $location=[];
 
     #[MongoDB\Field(type: 'string')]
-    protected string $seats;
+    protected ?string $seats='';
+
+    #[ORM\Column]
+    private array $roles = [];
 
     #[ORM\Column]
     private array $roles = [];
@@ -295,5 +297,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
-
 }
+
+

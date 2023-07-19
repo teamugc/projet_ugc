@@ -39,12 +39,8 @@
     </p>
    <p>
         {{ form_label(form.postalCode) }}
-        {{ form_widget(form.postalCode, {
-            'attr': {
-                'pattern': '^(0[1-9]|[1-8][0-9]|9[0-8])\d{3}$',
-            },
-        }) }}
-        {{ form_errors(form.postalCode) }}
+        {{ form_widget(form.postalCode) }}
+       
     </p>
     <p>
     {{form_label(form.address)}}
