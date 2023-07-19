@@ -3,51 +3,6 @@
 {% block title %}Hello UserController!{% endblock %}
 
 {% block body %}
-{{form_start(form)}}
-<p>
-{{form_label(form.firstname )}}
-{{form_widget(form.firstname )}}
-</p>
-<p>
-{{form_label(form.lastname )}}
-{{form_widget(form.lastname )}}
-</p>
-<p>
-{{form_label(form.city )}}
-{{form_widget(form.city )}}
-</p>
-<p>
-{{form_label(form.phone )}}
-{{form_widget(form.phone )}}
-</p>
-<p>
-{{form_label(form.postal_code )}}
-{{form_widget(form.postal_code )}}
-</p>
 
-<p>
-{{form_label(form.fidelity_points)}}
-{{form_widget(form.fidelity_points)}}
-</p>
-
-<p>
-{{form_label(form.dateOfBirth)}}
-{{form_widget(form.dateOfBirth)}}
-</p>
-
-<p>
-{{form_label(form.preferencies)}}
-{{form_widget(form.preferencies)}}
-</p>
-
-{{form_widget(form.valid)}}
-
- <div class="col-6">
-    <a href="{{ path('app_user_index') }}">
-        {{ form_widget(form.annuler) }}
-    </a>
- </div>
-
-{{form_end(form, {render_rest:false})}}
 
 {% endblock %}
