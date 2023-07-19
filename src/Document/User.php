@@ -17,38 +17,44 @@ class User
     #[MongoDB\Id]
     protected string $id;
 
-    #[MongoDB\Field(type: 'bool')]
-    protected ?bool $gender = false;
-
     #[MongoDB\Field(type: 'string')]
-    protected ?string $firstname = '';
+    protected ?string $gender = '';
 
     #[MongoDB\Field(type: 'string')]
     protected ?string $lastname = '';
 
     #[MongoDB\Field(type: 'string')]
-    protected string $city;
-
-    #[MongoDB\Field(type: 'string')]
-    protected ?string $address = '';
-
-    #[MongoDB\Field(type: 'int')]
-    protected ?int $fidelityPoints = 0;
-
-    #[MongoDB\Field(type: 'string')]
-    protected string $password;
-
-    #[MongoDB\Field(type: 'string')]
-    protected string $phone;
-
-    #[MongoDB\Field(type: 'int')]
-    protected ?int $postalCode = 0;
+    protected ?string $firstname = '';
 
     #[MongoDB\Field(type: 'date')]
     protected ?DateTime $dateOfBirth = null;
 
     #[MongoDB\Field(type: 'string')]
+    protected string $password;
+
+    #[MongoDB\Field(type: 'string')]
+    protected string $checkPassword;
+
+    #[MongoDB\Field(type: 'string')]
     protected string $email;
+
+    #[MongoDB\Field(type: 'string')]
+    protected string $phone;
+
+    #[MongoDB\Field(type: 'string')]
+    protected ?string $address = '';
+
+    #[MongoDB\Field(type: 'int')]
+    protected ?int $postalCode = 0;
+
+    #[MongoDB\Field(type: 'string')]
+    protected string $city;
+
+    #[MongoDB\Field(type: 'string')]
+    protected string $country;   
+
+    #[MongoDB\Field(type: 'int')]
+    protected ?int $fidelityPoints = 0;
 
     #[MongoDB\Field(type: 'collection')]
     protected array $actor;
@@ -65,6 +71,11 @@ class User
     #[MongoDB\Field(type: 'string')]
     protected string $seats;
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
     public function getGender(): string
     {
         return $this->email;
@@ -73,6 +84,28 @@ class User
     public function setGender(string $gender): User
     {
         $this->gender = $gender;
+        return $this;
+    }
+
+    public function getLastName(): string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastName(string $lastname): User
+    {
+        $this->lastname = $lastname;
+        return $this;
+    }
+
+    public function getFirstName(): string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstName(string $firstname): User
+    {
+        $this->firstname = $firstname;
         return $this;
     }
 
@@ -87,77 +120,6 @@ class User
         return $this;
     }
 
-    public function getEmail(): string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): User
-    {
-        $this->email = $email;
-        return $this;
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
-    public function getCity(): string
-    {
-        return $this->city;
-    }
-
-    public function getFirstName(): string
-    {
-        return $this->firstname;
-    }
-
-    public function getLastName(): string
-    {
-        return $this->lastname;
-    }
-
-    public function setCity(string $city): User
-    {
-        $this->city = $city;
-        return $this;
-    }
-
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(string $address): User
-    {
-        $this->address = $address;
-        return $this;
-    }
-
-    public function setFirstName(string $firstname): User
-    {
-        $this->firstname = $firstname;
-        return $this;
-    }
-
-    public function setLastName(string $lastname): User
-    {
-        $this->lastname = $lastname;
-        return $this;
-    }
-
-    public function getFidelityPoints(): ?int
-    {
-        return $this->fidelityPoints;
-    }
-
-    public function setFidelityPoints(?int $fidelityPoints): User
-    {
-        $this->fidelityPoints = $fidelityPoints;
-        return $this;
-    }
-
     public function getPassword(): string
     {
         return $this->password;
@@ -166,6 +128,27 @@ class User
     public function setPassword(string $password): User
     {
         $this->password = $password;
+        return $this;
+    }
+    public function getCheckPassword(): string
+    {
+        return $this->checkPassword;
+    }
+
+    public function setCheckPassword(string $checkPassword): User
+    {
+        $this->checkPassword = $checkPassword;
+        return $this;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): User
+    {
+        $this->email = $email;
         return $this;
     }
 
@@ -180,25 +163,76 @@ class User
         return $this;
     }
 
-    
-/**
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): User
+    {
+        $this->address = $address;
+        return $this;
+    }
+
+    /**
      * @Assert\Regex(
      *     pattern="/^(0[1-9]|[1-8][0-9]|9[0-8])\d{3}$/",
      *     message="Le code postal doit être un code postal français valide."
      * )
      */
 
+     public function getPostalCode(): ?int
+     {
+         return $this->postalCode;
+     }    
+ 
+     public function setPostalCode(?int $postalCode): User
+     {
+         $this->postalCode = $postalCode;
+         return $this;
+     }
 
-    public function getPostalCode(): ?int
+    public function getCity(): string
     {
-        return $this->postalCode;
+        return $this->city;
+    }
+  
+    public function setCity(string $city): User
+    {
+        $this->city = $city;
+        return $this;
     }
 
-     
-
-    public function setPostalCode(?int $postalCode): User
+    public function getCountry(): string
     {
-        $this->postalCode = $postalCode;
+        return $this->country;
+    }
+  
+    public function setCountry(string $country): User
+    {
+        $this->country = $country;
+        return $this;
+    }  
+
+    public function getLocation(): array
+    {
+        return $this->location;
+    }
+
+    public function setLocation(array $location): User
+    {
+        $this->location = $location;
+        return $this;
+    }
+
+    public function getFidelityPoints(): ?int
+    {
+        return $this->fidelityPoints;
+    }
+
+    public function setFidelityPoints(?int $fidelityPoints): User
+    {
+        $this->fidelityPoints = $fidelityPoints;
         return $this;
     }
 
@@ -232,17 +266,6 @@ class User
     public function setGenres(array $genres): User
     {
         $this->genres = $genres;
-        return $this;
-    }
-
-    public function getLocation(): array
-    {
-        return $this->location;
-    }
-
-    public function setLocation(array $location): User
-    {
-        $this->location = $location;
         return $this;
     }
 

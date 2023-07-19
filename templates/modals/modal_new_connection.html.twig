@@ -12,119 +12,51 @@
         <div class="alert alert-danger" role="alert">
             {{message|raw}}
         </div>
-        {% endif %}
 
-        SI CHAMPS DE FORMULAIRE LES METTRE ICI </br>
-{#
-<div>
-
-    <div>
-    <p>
-    {{ form_widget(user.gender) }}
-    </p>
-    <p>
-    {{form_label(form.email )}}
-    {{form_widget(form.email )}}
-    {{form_errors(form.email )}}
-    </p>
-    <p>
-    {{form_label(form.firstname )}}
-    {{form_widget(form.firstname )}}
-    </p>
-
-    <p>
-    {{form_label(form.lastname )}}
-    {{form_widget(form.lastname )}}
-    </p>
-    </div>
-    <div>
-    <p>
-    {{form_label(form.city )}}
-    {{form_widget(form.city )}}
-    </p>
-    <p>
-    {{form_label(form.phone )}}
-    {{form_widget(form.phone )}}
-    </p>
-   <p>
-        {{ form_label(form.postalCode) }}
-        {{ form_widget(form.postalCode, {
-            'attr': {
-                'pattern': '^(0[1-9]|[1-8][0-9]|9[0-8])\d{3}$',
-            },
-        }) }}
-        {{ form_errors(form.postalCode) }}
-    </p>
-    <p>
-    {{form_label(form.address)}}
-    {{form_widget(form.address)}}
-    </p> 
-
-    <p>
-    {{form_label(form.dateOfBirth)}}
-    {{form_widget(form.dateOfBirth)}}
-    </p>
-
-{{form_widget(form.valid)}}
-
- <div class="col-6">
-    <a href="{{ path('app_user_index') }}">
-        {{ form_widget(form.annuler) }}
-    </a>
- </div>
-</div>
-
-</div>
-#}
+         {% else %}     
 
         <label for="gender-h">Monsieur</label>
-        <input type="checkbox" id ="gender-h"></br>
+        <input type="radio" name ="gender" id ="gender-h" value ="gender-h"></br>
 
         <label for="gender-f">Madame</label>
-        <input type="checkbox" id ="gender-f"></br>
+        <input type="radio" name ="gender" id ="gender-f" value ="gender-f"></br>
 
-        <label for="name">Nom</label>
-        <input type="text" name ="name" id ="name"></br>
+        <label for="lastname">Nom</label>
+        <input type="text" name ="lastname" id ="lastname"></br>
 
-        <label for="surname">Prénom</label>
-        <input type="text" name = "surname" id ="surname"></br>
+        <label for="firstname">Prénom</label>
+        <input type="text" name = "firstname" id ="firstname"></br>
 
-        <label for="birthdate">Date de naissance</label>
-        <input type="date" id = "birthdate"></br>
+        <label for="dateOfBirth">Date de naissance</label>
+        <input type="date" name="dateOfBirth" id = "dateOfBirth"></br>
 
         <label for="password">Mot de passe</label>
         <input type="password" name ="password" id = "password"></br>
 
-        <label for="check-password">Confirmer le mot de passe</label>
-        <input type="password" name = "check-password" id = "check-password"></br>
+        <label for="checkPassword">Confirmer le mot de passe</label>
+        <input type="password" name = "checkPassword" id = "checkPassword"></br>
 
         <label for="email">Adresse email</label>
         <input type="email" name = "email" id = "email"></br>
 
         <label for="phone">Téléphone mobile</label>
-        <input type="tel" id ="phone"></br>
+        <input type="tel" name="phone" id ="phone"></br>
 
         <label for="address">Adresse</label>
-        <input type="text" id = "address"></br>
+        <input type="text" name="address" id = "address"></br>
 
-        <label for="zip">Code postal</label>
-        <input type="text" id = "zip"></br>
+        <label for="postalCode">Code postal</label>
+        <input type="text" name="postalCode" id = "postalCode"></br>
 
         <label for="city">Ville</label>
-        <input type="text" id = "city"></br>
+        <input type="text" name="city" id = "city"></br>
 
         <label for="country">Pays</label>
-        <input type="text" id="country"></br>
+        <input type="text" name="country" id="country"></br>
 
-
-
-
-
-
-
-
-
+        {% endif %}
     </div>
+    
     <div class="modal-footer">
         <button type="submit" id="submit">Valider</button>
     </div>

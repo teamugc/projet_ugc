@@ -25,5 +25,12 @@ class UserRepository extends ServiceDocumentRepository
         }
     }
 
+    // Retrieve one document by id from the collection
+    public function findUserById(string $id): ?User
+    {
+        return $this->findOneBy(['id' => $id]);
+    }
+
+
 }
 

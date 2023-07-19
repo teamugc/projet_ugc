@@ -12,9 +12,10 @@
         <div class="alert alert-danger" role="alert">
             {{message|raw}}
         </div>
+        {% else %}
+            <p>Bonjour {{ firstname }}</p>
         {% endif %}
-    
-        SI CHAMPS DE FORMULAIRE LES METTRE ICI
+       
     </div>
     <div class="modal-footer">
         <button type="submit" id="submit">Valider</button>

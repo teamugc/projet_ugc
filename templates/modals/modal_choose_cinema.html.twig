@@ -12,9 +12,15 @@
         <div class="alert alert-danger" role="alert">
             {{message|raw}}
         </div>
+
+        {% else %}     
+
+        <label for="location">Ajoutez votre cinéma favori</label>
+        <input type="text" name="location" id = "location"></br>
+
         {% endif %}
 
-        SI CHAMPS DE FORMULAIRE LES METTRE ICI
+        
     </div>
     <div class="modal-footer">
         <button type="submit" id="submit">Valider</button>
