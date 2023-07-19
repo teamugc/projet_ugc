@@ -28,7 +28,8 @@ class AccountController extends AbstractController
     public function show(UserRepository $userRepository, SessionInterface $session): Response
     {
         $email = $session->get('email');
-        $user = $userRepository->findOneBy(['email' => $email]);
+        $user = $this->getUser();
+        // $user = $userRepository->findOneBy(['email' => $email]);
 
         // redirection si on est pas connecté
         if (is_null($user)) {
@@ -45,13 +46,13 @@ class AccountController extends AbstractController
     {
       
         // Recuperer le 1er utilisateur de la bdd
-        $user = $userRepository->findOneBy([]);
+        $user = $this->getUser();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
             $userRepository->save($user, true);
-            return $this->redirectToRoute('app_my_account_show', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('account/edit.html.twig', [

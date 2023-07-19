@@ -7,7 +7,7 @@ security:
     providers:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
-            entity:
+            mongodb:
                 class: App\Document\User
                 property: email
     firewalls:
