@@ -9,8 +9,6 @@ use App\Validator\PostalCode;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 #[MongoDB\Document]
 class User implements UserInterface , PasswordAuthenticatedUserInterface
@@ -65,9 +63,6 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 
     #[MongoDB\Field(type: 'string')]
     protected ?string $seats='';
-
-    #[ORM\Column]
-    private array $roles = [];
 
     #[ORM\Column]
     private array $roles = [];
