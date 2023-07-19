@@ -32,13 +32,13 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
                 );
-            // $user->setRoles(['ROLE_ADMIN']);
+            $user->setRoles(['ROLE_ADMIN']);
 
             $documentManager->persist($user);
             $documentManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_index');
         }
 
         return $this->render('registration/register.html.twig', [
