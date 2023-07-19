@@ -11,7 +11,7 @@ let suggest = document.getElementById('suggest');        // L'objet DOM représe
 
     function searchCinema() {
         let search = input.value.trim().toLowerCase();
-        window.fetch('./api_cinema.php?key=' + search)
+        window.fetch('http://localhost:8000.php?key=' + search)
             .then(function(response)
             {
                 return response.text();
