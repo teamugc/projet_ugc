@@ -67,7 +67,6 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private array $roles = [];
 
-
     public function getGender(): string
     {
         return $this->email;
@@ -176,8 +175,6 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     {
         return $this->postalCode;
     }
-
-     
 
     public function setPostalCode(?int $postalCode): User
     {

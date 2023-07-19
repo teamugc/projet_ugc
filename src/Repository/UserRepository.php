@@ -25,5 +25,14 @@ class UserRepository extends ServiceDocumentRepository
         }
     }
 
+    /////test remove
+    public function remove(User $user, bool $flush = false): void
+    {
+        $this->getDocumentManager()->remove($user);
+
+        if ($flush) {
+            $this->getDocumentManager()->flush();
+        }
+    }
 }
 

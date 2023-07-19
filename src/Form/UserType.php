@@ -98,7 +98,7 @@ class UserType extends AbstractType
         ->add('valid', SubmitType::class, [
             'label' => 'Validez',
             'attr' => [
-                'class' => 'btn btn-success'
+                'class' => 'btn btn-success form-control'
             ]
         ])
         ->add('annuler', ButtonType::class,[
@@ -109,9 +109,6 @@ class UserType extends AbstractType
             ]
             ]);
     }
-
-   
-
 
     public function configureOptions(OptionsResolver $resolver): void
     {

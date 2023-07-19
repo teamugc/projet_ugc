@@ -1,0 +1,32 @@
+/* CSS CARD FILM COMPTE */
+
+/* Dimension haute max pour une card film affichée dans la liste des préférences films */
+.film{
+    max-height: 496px;
+}
+/* positionnement spécifique à la crad film des avis */
+.film .avis{
+    position: absolute;
+    top:62%;
+}
+/* CSS CARD WIDGET */
+
+.widget .avis{
+    position: absolute;
+    top:50%;
+}
+.seance{
+    display:flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    border-bottom: #A31F58 1px solid;
+    padding-bottom: 10px;   
+}
+.seance p{
+    font-family:'uniform-medium';
+    font-size: 1.1rem;
+}
+
+.bleu{
+    color:#40B3D1;
+}
