@@ -8,19 +8,34 @@ parameters:
     env(MONGODB_DB): ''
 
 services:
-    # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        autowire: true
+        autoconfigure: true
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
+    App\Validator\PostalCodeValidator:
+        tags: ['validator.constraint_validator']
+
+    App\CustomAuthenticator: # Replace with your actual class name and namespace
+        # Define the class and any necessary dependencies
+        class: App\Security\AppCustomAuthenticator
+        arguments:
+            # Arguments for the constructor if required
+            # - argument1: '@service_id'
+        tags:
+            - { name: security.authenticator }
+
+    security.command.debug_firewall:
+        class: App\Security\AppCustomAuthenticator # Update the service reference here
+
+
+
     App\:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
