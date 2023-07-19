@@ -41,6 +41,5 @@ class UserRepository extends ServiceDocumentRepository
             $this->getDocumentManager()->flush();
         }
     }
-
 }
 
