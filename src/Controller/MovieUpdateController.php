@@ -14,15 +14,18 @@ const REGEX_CATCH_MOVIES_TITLES = '/<a[^>]*?class\s*=\s*["\']meta-title-link["\'
 const REGEX_CATCH_MOVIE_YEAR = '/<span itemprop="datePublished" content="([0-9]{4}-[0-9]{2}-[0-9]{2})">/i';
 
 
+#[Route('/movies')]
 class MovieUpdateController extends AbstractController
 {
+    const TMDB_API_KEY = '79471b721cbdf1609bd7fae4469f0560';
+
     /**
      * Undocumented function
      *
      * @param DocumentManager $dm
      * @return Response
      */
-    #[Route('/movies_update', name: 'app_movies_update')]
+    #[Route('/update', name: 'app_movies_update')]
     public function index(DocumentManager $dm): Response
     {
 
@@ -45,10 +48,10 @@ class MovieUpdateController extends AbstractController
             $success = preg_match_all(REGEX_CATCH_MOVIES_TITLES, $html, $matches);
             if ($success) {
         
-                
                 for ($i=0; $i<count($matches[0]); $i++) {
                     $nom = $matches[2][$i];
                     $url = $matches[1][$i];
+                    $nom = html_entity_decode($nom);
                     $moviesList[$nom] = [
                         'name' => $nom,
                         'url' => $url
@@ -74,7 +77,6 @@ class MovieUpdateController extends AbstractController
             $moviesList[$movie['name']]['date_fr'] = date('d/F/Y', strtotime($matches[1][0]));
         }
 
-
         // Persiste les datas en BDD
         $compteur = 0;
         foreach ($moviesList as $datasMovie){
@@ -86,13 +88,12 @@ class MovieUpdateController extends AbstractController
 
         $dm->flush();
 
-        return $this->render('movie_update/index.html.twig', [
+        return $this->render('movies_admin/index.html.twig', [
             'movieCount'    => $compteur,
             'controller_name' => 'MovieUpdateController',
             'controller_url'  => 'MovieUpdateController'
         ]);
     }
-
 
     /**
      * Undocumented function
@@ -100,7 +101,7 @@ class MovieUpdateController extends AbstractController
      * @param DocumentManager $dm
      * @return void
      */
-    #[Route('/movies_empty', name: 'app_movies_empty')]
+    #[Route('/empty', name: 'app_movies_empty')]
     public function empty(DocumentManager $dm){
 
         $this->emptyMovies($dm);
@@ -124,5 +125,105 @@ class MovieUpdateController extends AbstractController
             $dm->remove($movie);
         }
         $dm->flush();
+    }
+
+
+    /**
+     * Undocumented function
+     *
+     * @param DocumentManager $dm
+     * @return Response
+     */
+    #[Route('/match_tmdb', name: 'app_movies_match_tmdb')]
+    public function matchTMDB(DocumentManager $dm): Response {
+
+        $movies = [];
+
+        // récupère les films en BDD mongo
+        $moviesDocuments = $dm->getRepository(Movie::class)->findAll();
+
+        foreach ($moviesDocuments as $movie) {
+
+            // extraction de l'année
+            $year = substr($movie->getDate(), 0, 4);
+            
+            // création de l'url d'appel à lapi TMDB
+            $TMDBApiUrl = 'https://api.themoviedb.org/3/search/movie?api_key=' . self::TMDB_API_KEY . '&query='. urlencode($movie->getName()) .'&language=fr-FR&primary_release_year=' . $year;
+            $response = file_get_contents($TMDBApiUrl);
+            $data = json_decode($response, true);
+
+            // au cas où aucun résultat, relancer sans filtrer sur l'année
+            if (!$data['total_results']) {
+                $TMDBApiUrl = 'https://api.themoviedb.org/3/search/movie?api_key=' . self::TMDB_API_KEY . '&query='. urlencode($movie->getName()) .'&language=fr-FR';
+                $response = file_get_contents($TMDBApiUrl);
+                $data = json_decode($response, true);                
+            }
+
+            // candidat vide
+            $TMDBCandidate = [
+                'id'                => '',
+                'title'             => '',
+                'original_title'    => '',
+                'poster_path'       => '',
+                'overview'          => '',
+                'vote_average'      => '',
+                'release_date'      => ''
+            ];
+
+            // récupération du candidat
+            $TMDBCandidate = isset($data['results']['0']) ? $data['results']['0'] : $TMDBCandidate;
+
+            // création des données du film à envoyer vers twig
+            $movies[] = [
+                'id'                    => $movie->getId(),
+                'name'                  => $movie->getName(),
+                'date_fr'               => $movie->getDateFr(),
+                'TMDB_id'               => $TMDBCandidate['id'],
+                'TMDB_name'             => $TMDBCandidate['title'],
+                'TMDB_original_name'    => $TMDBCandidate['original_title'],
+                'TMDB_poster'           => 'https://image.tmdb.org/t/p/w500' . $TMDBCandidate['poster_path'],
+                'TMDB_overview'         => $TMDBCandidate['overview'],
+                'TMDB_vote_avg'         => $TMDBCandidate['vote_average'],
+                'TMDB_release_date'     => $TMDBCandidate['release_date'],
+            ];                     
+        }
+
+        // affiche le template twig
+        return $this->render('movies_admin/match_tmdb.html.twig', [
+            'movies' => $movies
+        ]);
+    }    
+
+
+    /**
+     * Traitement du formulairee
+     *
+     * @param DocumentManager $dm
+     * @return Response
+     */
+    #[Route('/save_matches', name: 'app_movies_save_matches')]
+    public function saveMatches(DocumentManager $dm): Response {
+
+        // récupérer les datas du formulaire
+
+        // boucle sur toutes les checkbox cochées (pour chaque)
+        
+            // eclater le nom pour récupérer ID_MONGO en DB et ID_TMDB
+
+            // charge le document mongo 'movie' en utilisant l'ID_MONGO 
+
+            // lance une nouvelle demande a l'api TMDB, en utilisant l'ID_TMDB, pour obenir a nouveau toutes les datas du la fiche TMDB
+
+            // enrichi le document mongo 'movie' avec les données de TMDB
+
+            // persist
+
+            // flush
+
+        // fin pour
+
+        // affiche le template twig
+        return $this->render('movies_admin/save_matches.html.twig', [
+        ]);
     }
 }           
