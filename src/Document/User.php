@@ -9,8 +9,13 @@ use App\Validator\PostalCode;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique as MongoDBUnique;
+
 
 #[MongoDB\Document]
+// #[UniqueEntity("email", message:"Cet e-mail est déjà utilisé.")]
+#[MongoDBUnique(fields:"email")]
 class User implements UserInterface , PasswordAuthenticatedUserInterface
 {
     #[MongoDB\Id]
@@ -64,7 +69,7 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     #[MongoDB\Field(type: 'string')]
     protected ?string $seats='';
 
-    #[ORM\Column]
+    #[MongoDB\Field]
     private array $roles = [];
 
     public function getGender(): string

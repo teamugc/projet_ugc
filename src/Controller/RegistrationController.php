@@ -39,7 +39,7 @@ class RegistrationController extends AbstractController
             $documentManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_board_home');
         }
 
         return $this->render('registration/register.html.twig', [
