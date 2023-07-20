@@ -67,10 +67,20 @@ class Movie {
         return $this;
     }
 
+    public function getDate(): string
+    {
+        return $this->date;
+    }   
+
     public function setDateFr(string $date_fr): Movie
     {
         $this->date_fr = $date_fr;
 
         return $this;
     }
+
+    public function getDateFr(): string
+    {
+        return $this->date_fr;
+    }    
 }
