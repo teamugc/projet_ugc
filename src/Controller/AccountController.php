@@ -16,6 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/mon-compte')]
 class AccountController extends AbstractController
 {
+    #[Route('/', name: 'app_my_account_index')]
+    public function index(): Response
+    {
+        return $this->render('account/index.html.twig', [
+            'controller_name' => 'ProfilController',
+        ]);
+    }
+
     #[Route('/', name: 'app_my_account_show')]
     public function show(UserRepository $userRepository, SessionInterface $session): Response
     {
@@ -45,7 +53,7 @@ class AccountController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $userRepository->save($user, true);
-            return $this->redirectToRoute('app_my_account_show', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('account/edit.html.twig', [

@@ -9,9 +9,6 @@ use DateTime;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-
-
-
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique as MongoDBUnique;
 
@@ -23,6 +20,9 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 {
     #[MongoDB\Id]
     protected string $id;
+
+    #[MongoDB\Field(type: 'bool')]
+    protected ?bool $gender = false;
 
     #[MongoDB\Field(type: 'string')]
     protected ?string $firstname = '';
@@ -69,8 +69,19 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     #[MongoDB\Field(type: 'string')]
     protected ?string $seats='';
 
-    #[MongoDB\Field]
+    #[ORM\Column]
     private array $roles = [];
+
+    public function getGender(): string
+    {
+        return $this->email;
+    }
+
+    public function setGender(string $gender): User
+    {
+        $this->gender = $gender;
+        return $this;
+    }
 
     public function getDateOfBirth(): ?DateTime
     {
@@ -154,8 +165,6 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         return $this;
     }
 
-   
-
     public function getPhone(): string
     {
         return $this->phone;
@@ -167,15 +176,10 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    
-
-
     public function getPostalCode(): ?int
     {
         return $this->postalCode;
     }
-
-     
 
     public function setPostalCode(?int $postalCode): User
     {
@@ -238,7 +242,7 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
+     /**
      * A visual identifier that represents this user.
      *
      * @see UserInterface

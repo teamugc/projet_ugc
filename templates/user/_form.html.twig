@@ -7,7 +7,12 @@
 {% if step==1 %}
     {{ include('user/_form_step_1.html.twig') }}
 {% else %} #}
+<div class="container">
 
+    <div>
+    <p>
+    {{ form_widget(form.gender) }}
+    </p>
     <p>
     {{form_label(form.email )}}
     {{form_widget(form.email )}}
@@ -22,6 +27,7 @@
     {{form_label(form.lastname )}}
     {{form_widget(form.lastname )}}
     </p>
+    
     <p>
     {{form_label(form.city )}}
     {{form_widget(form.city )}}
@@ -35,11 +41,6 @@
         {{ form_widget(form.postalCode) }}
        
     </p>
-
-    <p>
-    {{form_label(form.fidelity_points)}}
-    {{form_widget(form.fidelity_points)}}
-    </p>
     <p>
     {{form_label(form.address)}}
     {{form_widget(form.address)}}
@@ -49,91 +50,19 @@
     {{form_label(form.dateOfBirth)}}
     {{form_widget(form.dateOfBirth)}}
     </p>
-
-    <p>
-    {{form_label(form.seats)}}
-    {{form_widget(form.seats)}}
-    </p> 
-    <p>
-    {{form_label(form.location)}}
-    {{form_widget(form.location)}}
-    </p> 
-    <p>
-    {{form_label(form.actor)}}
-    {{form_widget(form.actor)}}
-    </p> 
-    <p>
-    {{form_label(form.director)}}
-    {{form_widget(form.director)}}
-    </p> 
-    <p>
-    {{form_label(form.genres)}}
-    {{form_widget(form.genres)}}
-    </p> 
+    <div class="col-1">
 {# {% endif %} #}
 {{form_widget(form.valid)}}
+    </div>
 
- <div class="col-6">
+ <div class="col-1">
     <a href="{{ path('app_user_index') }}">
         {{ form_widget(form.annuler) }}
     </a>
  </div>
-
-{{form_end(form, {render_rest:false})}}
- 
-{# {{ form_start(form) }}
-{{ form_widget(form._token) }}
-{{ form_errors(form) }}
-
-{{ form_label(form.email) }}
-{{ form_widget(form.email) }}
-{{ form_errors(form.email) }}
-
-{{ form_label(form.firstname) }}
-{{ form_widget(form.firstname) }}
-
-{{ form_label(form.lastname) }}
-{{ form_widget(form.lastname) }}
-
-{{ form_label(form.city) }}
-{{ form_widget(form.city) }}
-
-{{ form_label(form.phone) }}
-{{ form_widget(form.phone) }}
-
-{{ form_label(form.postalCode) }}
-{{ form_widget(form.postalCode) }}
-
-{{ form_label(form.fidelity_points) }}
-{{ form_widget(form.fidelity_points) }}
-
-{{ form_label(form.address) }}
-{{ form_widget(form.address) }}
-
-{{ form_label(form.dateOfBirth) }}
-{{ form_widget(form.dateOfBirth) }}
-
-{{ form_label(form.seats) }}
-{{ form_widget(form.seats) }}
-
-{{ form_label(form.location) }}
-{{ form_widget(form.location) }}
-
-{{ form_label(form.actor) }}
-{{ form_widget(form.actor) }}
-
-{{ form_label(form.director) }}
-{{ form_widget(form.director) }}
-
-{{ form_label(form.genres) }}
-{{ form_widget(form.genres) }}
-
-{{ form_widget(form.valid) }}
-
-<div class="col-6">
-    <a href="{{ path('app_user_index') }}">
-        {{ form_widget(form.annuler) }}
-    </a>
 </div>
 
-{{ form_end(form, {render_rest: false}) }} #}
+</div>
+{{form_end(form, {render_rest:false})}}
+ 
+
