@@ -7,6 +7,7 @@ use App\Document\Movie;
 use App\Document\MovieUpdate;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -57,9 +58,7 @@ class MovieUpdateController extends AbstractController
                         'url' => $url
                     ];
                 }
-        
             }
-           
         }
 
         // va chercher pour chaque film la date de sortie
@@ -74,7 +73,7 @@ class MovieUpdateController extends AbstractController
             // fclose($h);
             
             $moviesList[$movie['name']]['date'] = $matches[1][0];
-            $moviesList[$movie['name']]['date_fr'] = date('d/F/Y', strtotime($matches[1][0]));
+            $moviesList[$movie['name']]['date_fr'] = date('d/m/Y', strtotime($matches[1][0]));
         }
 
         // Persiste les datas en BDD
@@ -140,9 +139,9 @@ class MovieUpdateController extends AbstractController
         $movies = [];
 
         // récupère les films en BDD mongo
-        $moviesDocuments = $dm->getRepository(Movie::class)->findAll();
+        $moviesMongoDB = $dm->getRepository(Movie::class)->findAll();
 
-        foreach ($moviesDocuments as $movie) {
+        foreach ($moviesMongoDB as $movie) {
 
             // extraction de l'année
             $year = substr($movie->getDate(), 0, 4);
@@ -202,28 +201,74 @@ class MovieUpdateController extends AbstractController
      * @return Response
      */
     #[Route('/save_matches', name: 'app_movies_save_matches')]
-    public function saveMatches(DocumentManager $dm): Response {
+    public function saveMatches(DocumentManager $dm, Request $request): Response {
 
-        // récupérer les datas du formulaire
-
-        // boucle sur toutes les checkbox cochées (pour chaque)
+        // RÉCUPÉRER LES DATAS DU FORMULAIRE
         
-            // eclater le nom pour récupérer ID_MONGO en DB et ID_TMDB
+        // Récupération du nom du formulaire
+        $request->request->get('form-name');
 
-            // charge le document mongo 'movie' en utilisant l'ID_MONGO 
+        // Récupération de la valeur du paramètre "matches" de l'URL
+        $matches = $request->query->get('matches');
+    
+        // BOUCLE SUR TOUTES LES CHECKBOX COCHÉES (POUR CHAQUE)
+  
+        $ids = explode('_', $matches);
+        $id_mongo = $ids[1];
+        $id_TMDB = $ids[2];
+            dd($ids[1]);
 
-            // lance une nouvelle demande a l'api TMDB, en utilisant l'ID_TMDB, pour obenir a nouveau toutes les datas du la fiche TMDB
+        $movies = [];
+        
+        $moviesMongoDB = $dm->getRepository(Movie::class)->find($id_mongo);
+        
+        foreach ($moviesMongoDB as $movie) {
 
-            // enrichi le document mongo 'movie' avec les données de TMDB
+            // ECLATER LE NOM POUR RÉCUPÉRER ID_MONGO EN DB ET ID_TMDB
+            
 
+            // CHARGE LE DOCUMENT MONGO 'MOVIE' EN UTILISANT L'ID_MONGO 
+         
+
+            // LANCE UNE NOUVELLE DEMANDE A L'API TMDB, EN UTILISANT L'ID_TMDB, POUR OBENIR A NOUVEAU TOUTES LES DATAS DE LA FICHE TMDB
+            $TMDBApiUrl = 'https://api.themoviedb.org/3/movie/' . $id_TMDB . '?api_key=' . self::TMDB_API_KEY . '&language=fr-FR';
+            $response = file_get_contents($TMDBApiUrl);
+            $data = json_decode($response, true);
+
+            // candidat vide
+            $TMDBCandidate = [
+                'id'                => '',
+                'poster_path'       => '',
+                'overview'          => '',
+                'vote_average'      => '',
+                'release_date'      => ''
+            ];
+
+            // récupération du candidat
+            $TMDBCandidate = isset($data['results']['0']) ? $data['results']['0'] : $TMDBCandidate;
+
+            // création des données du film à envoyer vers la base de donnée mongoDB
+            $movies[] = [
+                'id'                    => $movie->getId(),
+                'name'                  => $movie->getName(),
+                'date_fr'               => $movie->getDateFr(),
+                'TMDB_poster'           => 'https://image.tmdb.org/t/p/w500' . $TMDBCandidate['poster_path'],
+                'TMDB_overview'         => $TMDBCandidate['overview'],
+                'TMDB_vote_avg'         => $TMDBCandidate['vote_average'],
+                'TMDB_release_date'     => $TMDBCandidate['release_date'],
+            ];
+
+            // ENRICHI LE DOCUMENT MONGO 'MOVIE' AVEC LES DONNÉES DE TMDB
+            $moviesMongoDB = $movies;
             // persist
-
+            $dm->persist($moviesMongoDB);
             // flush
-
+            $dm->flush();
         // fin pour
-
+        }   
+ 
         // affiche le template twig
         return $this->render('movies_admin/save_matches.html.twig', [
         ]);
-    }
-}           
+    }           
+}
