@@ -32,7 +32,11 @@
 
                 <nav class="nav-picto d-flex "> <!--item--> <!--Conteneur Flex-->
                     <a class="recherche" href="#">Recherche</a> <!--item-->
+                    {% if app.user %}
+                    <a class="compte" href="{{ path('app_my_account_index') }}">Mon Compte</a> <!--item-->
+                    {% else %}
                     <a class="compte" href="{{ path('app_login') }}">Mon Compte</a> <!--item-->
+                     {% endif %}
                     <a class="recrutement" href="#">Recrutement</a> <!--item-->
                     <a class="pro" href="#">Espace Pro</a> <!--item-->
 

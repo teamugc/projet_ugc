@@ -2,6 +2,7 @@
 
                     <!-- MENU GAUCHE -->
                     <aside class="col-2 col-md-2 " id="separateur">
+                    {% if app.user %}
                         <a class="menu-gauche top-menu" href="{{path('app_board_cinema')}}">
                             <img class="icone-menu-gauche" src="../assets/icones/bobine-s.svg" alt="Icone Bobine film">
                             <span class="d-none d-lg-inline">Mes cinémas</span>
@@ -22,11 +23,17 @@
                             <img class="icone-menu-gauche" src="../assets/icones/roue-xs.svg" alt="Icone paramètres">
                             <span class="d-none d-lg-inline">Mon profil</span>
                         </a>
+                        {% if 'ROLE_ADMIN' in app.user.roles %}
+                        <a class="menu-gauche" href="{{path('app_user_index')}}">
+                            <img class="icone-menu-gauche" src="../assets/icones/roue-xs.svg" alt="Icone paramètres">
+                            <span class="d-none d-lg-inline">Admin</span>
+                        </a>
+                        {% endif %}
                         <a class="power" id="deconnecte" href="{{path('app_user_logout')}}">
                             <img class="icone-menu-gauche" src="../assets/icones/power.svg" alt="Icone déconnexion">
                             <span class="d-none d-lg-inline">Se déconnecter</span>
                         </a>
-
+                    {% endif %}
                     </aside>
                     <!-- FIN MENU GAUCHE -->
 
