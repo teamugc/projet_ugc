@@ -69,7 +69,7 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     #[MongoDB\Field(type: 'string')]
     protected ?string $seats='';
 
-    #[ORM\Column]
+    #[MongoDB\Field]
     private array $roles = [];
 
     public function getGender(): string
