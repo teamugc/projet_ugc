@@ -22,11 +22,10 @@ class CinemasController extends AbstractController
     }
 
     #[Route('/cinemas/{search}', name: 'app_cinemas')]
-    public function index(Request $request): Response
+    public function index(Request $request, string $search): Response
     {
         $search = $request->get('search');
-        dump($search);
-
+        
         // Récupérer les cinémas à partir du repository
         $cinemas = $this->cinemasRepository->findAll();
 
@@ -34,7 +33,7 @@ class CinemasController extends AbstractController
         $response = [];
         $result = '';
         if (isset ($_GET['search']) && !empty($_GET['search'])) {
-            $key = trim(strtolower($_GET['search']));
+            $search = trim(strtolower($_GET['search']));
         foreach ($cinemas as $cinema) {
             $response[] = [
                 'id' => $cinema->getId(),
@@ -44,13 +43,15 @@ class CinemasController extends AbstractController
                 'city' => $cinema->getCity(),
                 'image' => $cinema->getImage(),
             ];
+            
             $formattedCinema = '<li><img src="' . $cinema['image'] . '" alt="Image du cinéma">' . '<img src=" ./img/favori-full.svg">' . $cinema['name'] . ' - Adresse : ' . $cinema['address'] . ' - Code postal : ' . $cinema['zipcode'] . '- Ville : ' . $cinema['city'] . '</li>';
-            if (stripos($formattedCinema, $key) !== false) {  
+            if (stripos($formattedCinema, $search) !== false) {  
                 $result .= $formattedCinema;
             }
             if ($result  === '') {
                 $result = 'Aucun cinema trouvé';
             }
+          
         }
          
         // Retourner la réponse JSON avec les données des cinémas

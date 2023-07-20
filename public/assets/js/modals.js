@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
 
     function autocompletionCinema() {
-        let input = document.getElementById('modal-choose-location-cinema');          // L'objet DOM représentant la balise <input>
-        let suggest = document.getElementById('suggest');        // L'objet DOM représentant la balise <ul>
+        let input = document.getElementById('modal-choose-location-cinema');    // L'objet DOM représentant la balise <input>
+        let suggest = document.getElementById('suggest');    // L'objet DOM représentant la balise <ul>
 
         // ---- FONCTIONS
 
