@@ -1,4 +1,4 @@
-let input = document.getElementById('location');          // L'objet DOM représentant la balise <input>
+let input = document.getElementById('modal-choose-location-cinema');          // L'objet DOM représentant la balise <input>
 let suggest = document.getElementById('suggest');        // L'objet DOM représentant la balise <ul>
 
 
@@ -10,15 +10,16 @@ let suggest = document.getElementById('suggest');        // L'objet DOM représe
     }
 
     function searchCinema() {
+        console.log(input);
         let search = input.value.trim().toLowerCase();
-        window.fetch('http://localhost:8000.php?key=' + search)
+        window.fetch('http://localhost:8000/cinemas/' + search)
             .then(function(response)
             {
-                return response.text();
+                return response.json();
             })
             .then(function(result)
             {
-                console.log(result);
+                
                 refresh(result);
             });
        

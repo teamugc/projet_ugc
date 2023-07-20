@@ -19,16 +19,19 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/modals')]
 class ModalsController extends AbstractController
 {
+    
     public function __construct()
     {
-        session_start(); // Appel à session_start() dans le constructeur du contrôleur
+        if(!isset($_SESSION)){
+            session_start();
+        }
     }
 
     #[Route('/new_connection', name: 'app_modals_new_connection')]
     public function new_connection( Request $request, 
-                                    UserRepository $userRepository,
-                                    CinemasRepository $cinemasRepository): Response
+                                    UserRepository $userRepository): Response
     {
+        
         $user = new User();
         
         $message = '';
@@ -101,7 +104,7 @@ class ModalsController extends AbstractController
       
             // si tout va bien passer à l'étape suivante
             if ($success) {
-                return $this->accueil($request, $userRepository, $cinemasRepository);
+                return $this->accueil($request, $userRepository);
             }
         }
     
@@ -116,9 +119,9 @@ class ModalsController extends AbstractController
 
     #[Route('/accueil', name: 'app_modals_accueil')]
     public function accueil(Request $request, 
-                            UserRepository $userRepository,
-                            CinemasRepository $cinemasRepository): Response
+                            UserRepository $userRepository): Response
     {
+    
         // recuperer l'id en session
         $userId = $_SESSION['id'];      
 
@@ -138,7 +141,7 @@ class ModalsController extends AbstractController
         if ($forname == 'form_accueil') {
 
             // si tout va bien passer à l'étape suivante
-            return $this->choose_cinema($request, $userRepository, $cinemasRepository);
+            return $this->choose_cinema($request, $userRepository);
         }
 
         // affichage du formulaire        
@@ -153,8 +156,7 @@ class ModalsController extends AbstractController
 
     #[Route('/choose_cinema', name: 'app_modals_choose_cinema')]
     public function choose_cinema(Request $request,
-                                UserRepository $userRepository, 
-                                CinemasRepository $cinemasRepository): Response
+                                UserRepository $userRepository): Response
     {
         $message = '';
 
@@ -167,26 +169,9 @@ class ModalsController extends AbstractController
         // traitement du formulaire
         $forname = $request->get('form-name');
         if ($forname == 'form_choose_cinema') {
-            $success = true;
-           
-            // faire ici tous les test et vérifications
-            $result = '';
-            
-            $cinemas = $cinemasRepository->findCinemaById($id);
+          
 
-        if (isset ($_GET['key']) && !empty($_GET['key'])) {
-            $key = trim(strtolower($_GET['key']));
-            foreach ($cinemas as $cinema) {
-                $formattedCinema = '<li><img src="' . $cinema['image'] . '" alt="Image du cinéma">' . '<img src=" ./img/favori-full.svg">' . $cinema['name'] . ' - Adresse : ' . $cinema['address'] . ' - Code postal : ' . $cinema['zipcode'] . '- Ville : ' . $cinema['city'] . '</li>';
-                if (stripos($formattedCinema, $key) !== false) {  
-                    $result .= $formattedCinema;
-                }
-            }
-        }
-
-        if ($result  === '') {
-            $result = 'Aucun cinema trouvé';
-        }
+        
             // faire également les enregistrement en bdd
      //       $user->setLocation($request->get('location'));
 

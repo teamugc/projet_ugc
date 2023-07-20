@@ -8,6 +8,7 @@ use Doctrine\Bundle\MongoDBBundle\Repository\ServiceDocumentRepository;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Document;
 use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
+use Symfony\Component\HttpFoundation\Response;
 
 class CinemasRepository extends ServiceDocumentRepository
 {
@@ -23,12 +24,6 @@ class CinemasRepository extends ServiceDocumentRepository
         if ($flush) {
             $this->getDocumentManager()->flush();
         }
-    }
-
-    public function findCinemaById(string $id): ?Cinemas
-    {
-        return $this->findOneBy(['id' => $id]);
-
     }
 
 }
