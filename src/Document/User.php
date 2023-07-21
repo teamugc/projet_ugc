@@ -226,14 +226,23 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 
     public function getLocation(): array
     {
-        return $this->location;
+        return $this->locations;
     }
 
-    public function setLocation(array $location): User
+    public function setLocation(array $locations): User
     {
-        $this->location = $location;
+        $this->locations = $locations;
         return $this;
     }
+
+    public function addLocation(string $location): User
+    {
+        if (!in_array($location, $this->locations))
+            $this->locations[] = $location;
+
+        return $this;
+    }
+    
 
     public function getFidelityPoints(): ?int
     {
