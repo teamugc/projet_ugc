@@ -23,6 +23,18 @@ class Movie {
     #[MongoDB\Field(type: 'string')]
     protected string $date_fr;
 
+    #[MongoDB\Field(type: 'float')]
+    protected float $tmdbVoteAvg;
+
+    #[MongoDB\Field(type: 'string')]
+    protected string $tmdbOverview;
+
+    #[MongoDB\Field(type: 'string')]
+    protected string $tmdbPoster;
+
+    #[MongoDB\Field(type: 'string')]
+    protected string $tmdbGenre;
+
     public function __construct(array $datas)
     {
         $this->name     = isset($datas['name'])     ? $datas['name'] : '' ;
@@ -82,5 +94,25 @@ class Movie {
     public function getDateFr(): string
     {
         return $this->date_fr;
-    }    
+    }
+
+    public function setTmdbVoteAvg($tmdbVoteAvg)
+    {
+        $this->tmdbVoteAvg = $tmdbVoteAvg;
+    }
+
+    public function setTmdbOverview($tmdbOverview)
+    {
+        $this->tmdbOverview = $tmdbOverview;
+    }
+
+    public function setTmdbPoster($tmdbPoster)
+    {
+        $this->tmdbPoster = $tmdbPoster;
+    }
+
+    public function setTmdbGenre($tmdbGenre)
+    {
+        $this->tmdbGenre = $tmdbGenre;
+    }
 }
