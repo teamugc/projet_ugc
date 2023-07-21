@@ -259,7 +259,8 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     public function setLocation(array $location): User
     {
         $this->location = $location;
-        
+        return $this;
+    }
 
     public function getSeats(): string
     {
