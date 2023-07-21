@@ -62,7 +62,7 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     protected ?array $director=[];
 
     #[MongoDB\Field(type: 'collection')]
-    protected ?array $genres=[];
+    protected array $genres = [];
 
     #[MongoDB\Field(type: 'collection')]
     protected ?array $location=[];
@@ -242,6 +242,14 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         $this->genres = $genres;
         return $this;
     }
+    
+    public function addGenre(string $genre): User
+    {
+        if (!in_array($genre, $this->genres))
+            $this->genres[] = $genre;
+
+        return $this;
+    }
 
     public function getLocation(): array
     {
@@ -251,8 +259,7 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     public function setLocation(array $location): User
     {
         $this->location = $location;
-        return $this;
-    }
+        
 
     public function getSeats(): string
     {

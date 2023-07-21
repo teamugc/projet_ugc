@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                     if (document.getElementById('modal-choose-location-cinema')) {
                         initCinemaAutocompletion();
                     }
+                   
                 });
         });
     }
