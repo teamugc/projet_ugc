@@ -1,1 +1,22 @@
-<h2>Mes préférences de films - acteurs</h2>
+<form action="" method="POST" id="modal-form">
+    <input type="hidden" name="form-name" id="form-name" value="{{formName}}">
+    <input type="hidden" name="step" id="step" value="{{step}}">
+    <input type="hidden" name="previous-step" id="previous-step" value="{{previousStep}}">
+
+    <div class="modal-header">
+        <h2 class="modal-title fs-5" id="ModalLabel">Mes préférences de films - acteurs</h2>
+        {# <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> #}
+    </div>
+    <div class="modal-body">
+        {% if message %}
+        <div class="alert alert-danger" role="alert">
+            {{message|raw}}
+        </div>
+        {% endif %}
+
+        SI CHAMPS DE FORMULAIRE LES METTRE ICI
+    </div>
+    <div class="modal-footer">
+        <button type="submit" id="submit">Valider</button>
+    </div>
+</form>

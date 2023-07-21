@@ -16,38 +16,44 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     #[MongoDB\Id]
     protected string $id;
 
-    #[MongoDB\Field(type: 'bool')]
-    protected ?bool $gender = false;
-
     #[MongoDB\Field(type: 'string')]
-    protected ?string $firstname = '';
+    protected ?bool $gender = false;
 
     #[MongoDB\Field(type: 'string')]
     protected ?string $lastname = '';
 
     #[MongoDB\Field(type: 'string')]
-    protected ?string $city = '';
-
-    #[MongoDB\Field(type: 'string')]
-    protected ?string $address = '';
-
-    #[MongoDB\Field(type: 'int')]
-    protected ?int $fidelityPoints = 0;
-
-    #[MongoDB\Field(type: 'string')]
-    protected string $password;
-
-    #[MongoDB\Field(type: 'string')]
-    protected ?string $phone='';
-
-    #[MongoDB\Field(type: 'int')]
-    protected ?int $postalCode = 0;
+    protected ?string $firstname = '';
 
     #[MongoDB\Field(type: 'date')]
     protected ?DateTime $dateOfBirth = null;
 
     #[MongoDB\Field(type: 'string')]
+    protected string $password;
+
+    #[MongoDB\Field(type: 'string')]
+    protected string $checkPassword;
+
+    #[MongoDB\Field(type: 'string')]
     protected string $email;
+
+    #[MongoDB\Field(type: 'string')]
+    protected ?string $phone='';
+
+    #[MongoDB\Field(type: 'string')]
+    protected ?string $address = '';
+
+    #[MongoDB\Field(type: 'int')]
+    protected ?int $postalCode = 0;
+
+    #[MongoDB\Field(type: 'string')]
+    protected ?string $city = '';
+
+    #[MongoDB\Field(type: 'string')]
+    protected ?string $country = '';
+
+    #[MongoDB\Field(type: 'int')]
+    protected ?int $fidelityPoints = 0;
 
     #[MongoDB\Field(type: 'collection')]
     protected ?array $actor=[];
@@ -97,6 +103,28 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     public function setEmail(string $email): User
     {
         $this->email = $email;
+        return $this;
+    }
+
+    public function getCheckPassword(): string
+    {
+        return $this->checkPassword;
+    }
+
+    public function setCheckPassword(string $checkPassword): User
+    {
+        $this->checkPassword = $checkPassword;
+        return $this;
+    }
+    
+    public function getCountry(): string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): User
+    {
+        $this->country = $country;
         return $this;
     }
 
