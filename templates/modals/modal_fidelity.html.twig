@@ -14,8 +14,25 @@
         </div>
         {% endif %}
 
-        SI CHAMPS DE FORMULAIRE LES METTRE ICI
+       <p>Sélectionnez vos préférences de cadeaux :</p>
+
+        <label for="gifts">Snacking (popcorn, boissons...)</label>
+        <input type="checkbox" name ="gifts[]" id ="gifts" value="Snacking"></br>
+
+        <label for="gifts">Billets de cinéma</label>
+        <input type="checkbox" name ="gifts[]" id ="gifts" value="Billets"></br>
+
+        <label for="gifts">Coupons de remises</label>
+        <input type="checkbox" name ="gifts[]" id ="gifts" value="Coupons"></br>
+
+        <label for="gifts">Goodies</label>
+        <input type="checkbox" name ="gifts[]" id ="gifts" value="Goodies"></br>
+
+         <label for="gifts">Réductions de restaurants partenaires</label>
+        <input type="checkbox" name ="gifts[]" id ="gifts" value="Reductions"></br>
+     
     </div>
+    
     <div class="modal-footer">
         <button type="submit" id="submit">Valider</button>
     </div>

@@ -73,6 +73,14 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     #[MongoDB\Field(type: 'collection')]
     private array $roles = [];
 
+    #[MongoDB\Field(type: 'collection')]
+    protected array $gifts = [];
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
     public function getGender(): string
     {
         return $this->email;
@@ -126,11 +134,6 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     {
         $this->country = $country;
         return $this;
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
     }
 
     public function getCity(): string
@@ -325,6 +328,23 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    public function getGifts(): array
+    {
+        return $this->gifts;
+    }
+
+    public function setGifts(array $gifts): User
+    {
+        $this->gifts = $gifts;
+        return $this;
+    }
+
+    public function addGift(string $gift): User
+    {
+        if (!in_array($gift, $this->gifts))
+            $this->gifts[] = $gift;
+
+        return $this;
+    }
 }
-
-
