@@ -66,7 +66,7 @@ class User
     protected array $genres = [];
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $location;
+    protected array $locations = [];
 
     #[MongoDB\Field(type: 'string')]
     protected string $seats;
@@ -216,14 +216,23 @@ class User
 
     public function getLocation(): array
     {
-        return $this->location;
+        return $this->locations;
     }
 
-    public function setLocation(array $location): User
+    public function setLocation(array $locations): User
     {
-        $this->location = $location;
+        $this->locations = $locations;
         return $this;
     }
+
+    public function addLocation(string $location): User
+    {
+        if (!in_array($location, $this->locations))
+            $this->locations[] = $location;
+
+        return $this;
+    }
+    
 
     public function getFidelityPoints(): ?int
     {

@@ -99,7 +99,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
                      // crée un autre élément
                      let box = document.createElement('checkbox');
-                     box.innerHTML = `<input type="checkbox">`
+                     box.innerHTML = `<input type="checkbox" name ="locations[]" id ="locations" value="${suggestion['name']}">`
+
                     // crée la div générale pour cette suggestion
                     let el = document.createElement('div');
                     el.classList.add('suggestionClass');
