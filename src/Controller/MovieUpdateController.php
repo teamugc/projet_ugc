@@ -34,9 +34,8 @@ class MovieUpdateController extends AbstractController
         
         $moviesList = [];
 
-        $route_json = __DIR__ . '/salles-ugc.full.json';
-        //dd ($route_json);
-
+        $route_json = __DIR__ . '/salles-ugc.json';
+    
         $json = file_get_contents($route_json);
 
         $codes = json_decode ($json);
@@ -247,7 +246,7 @@ class MovieUpdateController extends AbstractController
             if ($TMDBCandidate['vote_average'] == 0)
             $TMDBCandidate['vote_average'] = 6;
 
-            // Renommer ma catégorie 'musyère' par 'thriller'
+            // Renommer ma catégorie 'musyère' par 'thriller' (marche pas pr le moment)
             // if ($TMDBCandidate['genre']['genres'][0]['name'] == 'Mystère')
             // $TMDBCandidate['genre']['genres'][0]['name'] = 'Thriller';
             // dd($TMDBCandidate['genre']['genres'][0]['name']);
