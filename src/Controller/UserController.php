@@ -18,8 +18,6 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
-
-
 #[Route('/user')]
 class UserController extends AbstractController
 {
@@ -31,12 +29,22 @@ class UserController extends AbstractController
 
         return $this->render('login/success.html.twig', [
             'message' => "Utilisateur $email connecté.",
-            
         ]);
     }
 
-    #[Route('/', name: 'app_user_index')]
+    #[Route('/list', name: 'app_user_list')]
     public function index(UserRepository $userRepository): Response
+    {
+ 
+        $users = $userRepository->findAll();
+        return $this->render('user/usersList.html.twig', [
+            'controller_name' => 'UserController',
+            'users' => $users
+        ]);
+    }
+
+    #[Route('/modalStart', name: 'app_user_index')]
+    public function modalStart(UserRepository $userRepository): Response
     {
  
         $users = $userRepository->findAll();
@@ -109,8 +117,6 @@ class UserController extends AbstractController
     #[Route('/new', name: 'app_user_new')]
     public function createNew( Request $request, UserRepository $userRepository, DocumentManager $dm): Response
     {
-        
-        
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);

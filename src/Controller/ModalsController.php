@@ -87,7 +87,6 @@ class ModalsController extends AbstractController
                 }
                 
             $user->setEmail($request->get('email'));
-
             $user->setPhone($request->get('phone'));
             $user->setAddress($request->get('address'));
             $user->setPostalCode($request->get('postalCode'));
