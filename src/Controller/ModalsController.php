@@ -176,7 +176,7 @@ class ModalsController extends AbstractController
      //       $user->setLocation($request->get('location'));
 
             // si tout va bien passer à l'étape suivante
-            return $this->choose_seats($request);
+            return $this->choose_seats($request, $userRepository);
         }
 
         return $this->render('modals/modal_choose_cinema.html.twig', [
@@ -188,7 +188,8 @@ class ModalsController extends AbstractController
     }
 
     #[Route('/choose_seats', name: 'app_modals_choose_seats')]
-    public function choose_seats(Request $request): Response
+    public function choose_seats(Request $request,
+                                UserRepository $userRepository): Response
     {
         $message = '';
 
@@ -202,7 +203,7 @@ class ModalsController extends AbstractController
 
 
             // si tout va bien passer à l'étape suivante
-            return $this->choose_categories($request);
+            return $this->choose_categories($request, $userRepository);
         }
 
         return $this->render('modals/modal_choose_seats.html.twig', [
@@ -215,9 +216,16 @@ class ModalsController extends AbstractController
     }
 
     #[Route('/choose_categories', name: 'app_modals_choose_categories')]
-    public function choose_categories(Request $request): Response
+    public function choose_categories(Request $request,
+                                      UserRepository $userRepository): Response
     {
         $message = '';
+
+        // recuperer l'id en session
+        $userId = $_SESSION['id']; 
+
+        // faire un find pour retrouver le user
+        $user = $userRepository->findUserById($userId);
 
         // traitement du formulaire
         $forname = $request->get('form-name');

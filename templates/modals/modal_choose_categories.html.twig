@@ -12,9 +12,66 @@
         <div class="alert alert-danger" role="alert">
             {{message|raw}}
         </div>
+
+         {% else %}     
+
+        <p>Saisissez vos genres de films :</p>
+
+        <label for="category">Action</label>
+        <input type="checkbox" name ="category" id ="category" value="action"></br>
+
+        <label for="category">Aventure</label>
+        <input type="checkbox" name ="category" id ="category" value="Aventure"></br>
+
+        <label for="category">Animation</label>
+        <input type="checkbox" name ="category" id ="category" value="Animation"></br>
+        
+        <label for="category">Comédie</label>
+        <input type="checkbox" name ="category" id ="category" value="Comédie"></br>
+
+        <label for="category">Policier</label>
+        <input type="checkbox" name ="category" id ="category" value="Crime"></br>
+
+        <label for="category">Documentaire</label>
+        <input type="checkbox" name ="category" id ="category" value="Documentaire"></br>
+
+        <label for="category">Drame</label>
+        <input type="checkbox" name ="category" id ="category" value="Drame"></br>
+
+        <label for="category">Familial</label>
+        <input type="checkbox" name ="category" id ="category" value="Familial"></br>
+
+        <label for="category">Fantastique</label>
+        <input type="checkbox" name ="category" id ="category" value="Fantastique"></br>
+
+        <label for="category">Histoire</label>
+        <input type="checkbox" name ="category" id ="category" value="Histoire"></br>
+        
+        <label for="category">Horreur</label>
+        <input type="checkbox" name ="category" id ="category" value="Horreur"></br>
+
+        <label for="category">Musique</label>
+        <input type="checkbox" name ="category" id ="category" value="Musique"></br>
+
+        <label for="category">Romance</label>
+        <input type="checkbox" name ="category" id ="category" value="Romance"></br>
+
+        <label for="category">Science-Fiction</label>
+        <input type="checkbox" name ="category" id ="category" value="Science-Fiction"></br>
+
+        <label for="category">Thriller</label>
+        <input type="checkbox" name ="category" id ="category" value="Thriller"></br>
+
+        <label for="category">Guerre</label>
+        <input type="checkbox" name ="category" id ="category" value="Guerre"></br>
+
+        <label for="category">Western</label>
+        <input type="checkbox" name ="category" id ="category" value="Western"></br>
+
+
         {% endif %}
 
-        SI CHAMPS DE FORMULAIRE LES METTRE ICI
+       
     </div>
     <div class="modal-footer">
         <button type="submit" id="submit">Valider</button>
