@@ -26,5 +26,23 @@ class CinemasRepository extends ServiceDocumentRepository
         }
     }
 
-}
+    public function findByCriterias(string $searchData, int $limit = 0): array
+    {
 
+        $qb = $this->createQueryBuilder(Cinemas::class)
+            ->field('name')->equals(new \MongoDB\BSON\Regex($searchData, 'i'));
+
+        if ($limit)
+            $qb->limit($limit);
+
+        $iter = $qb->getQuery()->execute();
+
+        $datas = [];
+        while ($iter->valid()) {
+            $datas[] = $iter->current();
+            $iter->next();
+        }
+
+        return $datas;
+    }
+}

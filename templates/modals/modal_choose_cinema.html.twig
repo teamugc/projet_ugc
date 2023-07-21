@@ -1,34 +1,29 @@
 <form action="" method="POST" id="modal-form">
-    <input type="hidden" name="form-name" id="form-name" value="{{formName}}">
-    <input type="hidden" name="step" id="step" value="{{step}}">
-    <input type="hidden" name="previous-step" id="previous-step" value="{{previousStep}}">
+	<input type="hidden" name="form-name" id="form-name" value="{{formName}}">
+	<input type="hidden" name="step" id="step" value="{{step}}">
+	<input type="hidden" name="previous-step" id="previous-step" value="{{previousStep}}">
 
-    <div class="modal-header">
-        <h2 class="modal-title fs-5" id="ModalLabel">Mes cinémas préférés</h2>
-        {# <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> #}
-    </div>
-    <div class="modal-body">
-        {% if message %}
-        <div class="alert alert-danger" role="alert">
-            {{message|raw}}
-        </div>
+	<div class="modal-header">
+		<h2 class="modal-title fs-5" id="ModalLabel">Mes cinémas préférés</h2>
+		{# <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> #}
+	</div>
+	<div class="modal-body">
+		{% if message %}
+			<div class="alert alert-danger" role="alert">
+				{{message|raw}}
+			</div>
 
-        {% else %}     
+		{% else %}
 
-        <label for="modal-choose-location-cinema">Ajoutez votre cinéma favori</label>
-        <input type="text" name="location" id="modal-choose-location-cinema"></br>
+			<label for="modal-choose-location-cinema">Ajoutez votre cinéma favori</label>
+			<input type="text" name="location" id="modal-choose-location-cinema"></br>
 
-        <p>Votre cinéma préféré est :</p>
-        <div id="suggest"></div>
-        {% endif %}
-
-        
-    </div>
-    <div class="modal-footer">
-        <button type="submit" id="submit">Valider</button>
-    </div>
-
-</form>
+		<p>Votre cinéma préféré est :</p>
+		<div id="suggestions"></div>
+	{% endif %}
 
 
-
+</div>
+<div class="modal-footer">
+	<button type="submit" id="submit">Valider</button>
+</div></form>

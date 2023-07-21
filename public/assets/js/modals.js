@@ -39,50 +39,77 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 })
                 .then(function(html) {
                     document.querySelector('#modal .modal-content').innerHTML = html;
-                    console.log('html rechargé');
+                    
                     addEventOnButton();
                     if (document.getElementById('modal-choose-location-cinema')) {
-                        console.log('test');
-                        autocompletionCinema();
+                        initCinemaAutocompletion();
                     }
                 });
         });
     }
 
 
-    function autocompletionCinema() {
-        let input = document.getElementById('modal-choose-location-cinema');          // L'objet DOM représentant la balise <input>
-        let suggest = document.getElementById('suggest');        // L'objet DOM représentant la balise <ul>
+    /**
+     * Initialise l'auto completion
+     * 
+     * @returns 
+     */
+    function initCinemaAutocompletion() {
 
-        // ---- FONCTIONS
+        // si la modal n'est pas la bonne quitter
+        if (!document.getElementById('modal-choose-location-cinema'))
+            return;
 
-            refresh = (result) => {
-                suggest.innerHTML = result; 
-            }
+        // ajout de l'evenement keyup sur le champ de saisie
+        document.getElementById('modal-choose-location-cinema').addEventListener('keyup', (e) => {
 
-            function searchCinema() {
-                console.log(input);
-                let search = input.value.trim().toLowerCase();
-                window.fetch('http://localhost:8000/cinemas/' + search)
-                    .then(function(response)
-                    {
-                        return response.json();
-                    })
-                    .then(function(result)
-                    {
-                        console.log(result);
-                        refresh(result);
-                    });
-            
-            }
+            let search = document.getElementById('modal-choose-location-cinema').value.trim().toLowerCase();
+            fetch('/cinemas/' + search)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(json) {  
+                refresh(json);
+            });
+        });
 
-        // ---- CODE PRINCIPAL
 
-        // Recherche du champ de saisie et de la balise <ul> qui va contenir les résultats.
+        /**
+         * Recharge la liste des suggestion de l'autocomplétion à partir du json
+         * 
+         * @param {*} suggestions 
+         */
+         function refresh (suggestions) {
 
-        // Installation d'un gestionnaire d'évènement sur la saisie au clavier dans le champ.
-        input.addEventListener('keyup', searchCinema);
+            // vide la div des suggestions
+            document.getElementById('suggestions').innerHTML = '';
+
+            // pour chaque suggestions reçues en json
+            suggestions.forEach( suggestion => {
+
+                    // crée le titre
+                    let titre = document.createElement('h5');
+                    titre.innerHTML = suggestion['name'];
+                    titre.classList.add('maClasse');
+
+                    // crée un autre élément
+
+                    // crée la div générale pour cette suggestion
+                    let el = document.createElement('div');
+                    el.classList.add('suggestionClass');
+
+                    // ajoute les éléments dans l'ordre
+                    el.appendChild(titre);
+
+                    // ajout de la div de la suggestion dans la div des suggestions
+                    
+                    document.getElementById('suggestions').appendChild(el);
+            });
+
+            //console.log(JSON.parse(json));
+        }
     }
+
 
 });
 
