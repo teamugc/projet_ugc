@@ -9,70 +9,66 @@
     </div>
     <div class="modal-body">
         {% if message %}
-        <div class="alert alert-danger" role="alert">
-            {{message|raw}}
-        </div>
-
-         {% else %}     
+            <div class="alert alert-danger" role="alert">
+                {{message|raw}}
+            </div>
+        {% endif %}     
 
         <p>Saisissez vos genres de films :</p>
 
-        <label for="category">Action</label>
-        <input type="checkbox" name ="category" id ="category" value="action"></br>
+        <label for="genres">Action</label>
+        <input type="checkbox" name ="genres[]" id ="genres" value="Action"></br>
 
-        <label for="category">Aventure</label>
-        <input type="checkbox" name ="category" id ="category" value="Aventure"></br>
+        <label for="genres">Aventure</label>
+        <input type="checkbox" name ="genres[]" id ="genres" value="Aventure"></br>
 
-        <label for="category">Animation</label>
-        <input type="checkbox" name ="category" id ="category" value="Animation"></br>
+        <label for="genres">Animation</label>
+        <input type="checkbox" name ="genres[]" id ="genres" value="Animation"></br>
         
-        <label for="category">Comédie</label>
-        <input type="checkbox" name ="category" id ="category" value="Comédie"></br>
+        <label for="genres">Comédie</label>
+        <input type="checkbox" name ="genres[]" id ="genres" value="Comédie"></br>
 
-        <label for="category">Policier</label>
-        <input type="checkbox" name ="category" id ="category" value="Crime"></br>
+        <label for="genres">Policier</label>
+        <input type="checkbox" name ="genres[]" id ="genres" value="Crime"></br>
 
-        <label for="category">Documentaire</label>
-        <input type="checkbox" name ="category" id ="category" value="Documentaire"></br>
+        <label for="genres">Documentaire</label>
+        <input type="checkbox" name ="genres[]" id ="genres" value="Documentaire"></br>
 
-        <label for="category">Drame</label>
-        <input type="checkbox" name ="category" id ="category" value="Drame"></br>
+        <label for="genres">Drame</label>
+        <input type="checkbox" name ="genres[]" id ="genres" value="Drame"></br>
 
-        <label for="category">Familial</label>
-        <input type="checkbox" name ="category" id ="category" value="Familial"></br>
+        <label for="genres">Familial</label>
+        <input type="checkbox" name ="genres[]" id ="genres" value="Familial"></br>
 
-        <label for="category">Fantastique</label>
-        <input type="checkbox" name ="category" id ="category" value="Fantastique"></br>
+        <label for="genres">Fantastique</label>
+        <input type="checkbox" name ="genres[]" id ="genres" value="Fantastique"></br>
 
-        <label for="category">Histoire</label>
-        <input type="checkbox" name ="category" id ="category" value="Histoire"></br>
+        <label for="genres">Histoire</label>
+        <input type="checkbox" name ="genres[]" id ="genres" value="Histoire"></br>
         
-        <label for="category">Horreur</label>
-        <input type="checkbox" name ="category" id ="category" value="Horreur"></br>
+        <label for="genres">Horreur</label>
+        <input type="checkbox" name ="genres[]" id ="genres" value="Horreur"></br>
 
-        <label for="category">Musique</label>
-        <input type="checkbox" name ="category" id ="category" value="Musique"></br>
+        <label for="genres">Musique</label>
+        <input type="checkbox" name ="genres[]" id ="genres" value="Musique"></br>
 
-        <label for="category">Romance</label>
-        <input type="checkbox" name ="category" id ="category" value="Romance"></br>
+        <label for="genres">Romance</label>
+        <input type="checkbox" name ="genres[]" id ="genres" value="Romance"></br>
 
-        <label for="category">Science-Fiction</label>
-        <input type="checkbox" name ="category" id ="category" value="Science-Fiction"></br>
+        <label for="genres">Science-Fiction</label>
+        <input type="checkbox" name ="genres[]" id ="genres" value="Science-Fiction"></br>
 
-        <label for="category">Thriller</label>
-        <input type="checkbox" name ="category" id ="category" value="Thriller"></br>
+        <label for="genres">Thriller</label>
+        <input type="checkbox" name ="genres[]" id ="genres" value="Thriller"></br>
 
-        <label for="category">Guerre</label>
-        <input type="checkbox" name ="category" id ="category" value="Guerre"></br>
+        <label for="genres">Guerre</label>
+        <input type="checkbox" name ="genres[]" id ="genres" value="Guerre"></br>
 
-        <label for="category">Western</label>
-        <input type="checkbox" name ="category" id ="category" value="Western"></br>
+        <label for="genres">Western</label>
+        <input type="checkbox" name ="genres[]" id ="genres" value="Western"></br>
 
-
-        {% endif %}
-
-       
     </div>
+
     <div class="modal-footer">
         <button type="submit" id="submit">Valider</button>
     </div>

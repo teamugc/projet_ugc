@@ -13,23 +13,17 @@ use PhpParser\Node\Expr\Cast\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 
 #[Route('/modals')]
 class ModalsController extends AbstractController
 {
-    
-    public function __construct()
-    {
-        if(!isset($_SESSION)){
-            session_start();
-        }
-    }
-
     #[Route('/new_connection', name: 'app_modals_new_connection')]
     public function new_connection( Request $request, 
-                                    UserRepository $userRepository): Response
+                                    UserRepository $userRepository,
+                                    SessionInterface $session): Response
     {
         
         $user = new User();
@@ -99,12 +93,15 @@ class ModalsController extends AbstractController
                     $userId = $user->getId();
 
                     // memorise l'id en session
-                    $_SESSION['id'] = $userId;
+                    
+                    $session->set('id', $userId);
                 }
       
             // si tout va bien passer à l'étape suivante
             if ($success) {
-                return $this->accueil($request, $userRepository);
+                return $this->accueil($request, 
+                                      $userRepository, 
+                                      $session);
             }
         }
     
@@ -117,13 +114,21 @@ class ModalsController extends AbstractController
         ]);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @return Response
+     */
     #[Route('/accueil', name: 'app_modals_accueil')]
     public function accueil(Request $request, 
-                            UserRepository $userRepository): Response
+                            UserRepository $userRepository,
+                            SessionInterface $session): Response
     {
     
         // recuperer l'id en session
-        $userId = $_SESSION['id'];      
+        $userId = $session->get('id'); 
 
         // faire un find pour retrouver le user
         $user = $userRepository->findUserById($userId);
@@ -141,7 +146,9 @@ class ModalsController extends AbstractController
         if ($forname == 'form_accueil') {
 
             // si tout va bien passer à l'étape suivante
-            return $this->choose_cinema($request, $userRepository);
+            return $this->choose_cinema($request, 
+                                        $userRepository,
+                                        $session);
         }
 
         // affichage du formulaire        
@@ -156,12 +163,13 @@ class ModalsController extends AbstractController
 
     #[Route('/choose_cinema', name: 'app_modals_choose_cinema')]
     public function choose_cinema(Request $request,
-                                UserRepository $userRepository): Response
+                                UserRepository $userRepository,
+                                SessionInterface $session): Response
     {
         $message = '';
 
          // recuperer l'id en session
-         $userId = $_SESSION['id']; 
+         $userId = $session->get('id'); 
 
          // faire un find pour retrouver le user
         $user = $userRepository->findUserById($userId);
@@ -176,7 +184,7 @@ class ModalsController extends AbstractController
      //       $user->setLocation($request->get('location'));
 
             // si tout va bien passer à l'étape suivante
-            return $this->choose_seats($request, $userRepository);
+            return $this->choose_seats($request, $userRepository, $session);
         }
 
         return $this->render('modals/modal_choose_cinema.html.twig', [
@@ -187,11 +195,14 @@ class ModalsController extends AbstractController
         ]);
     }
 
+
     #[Route('/choose_seats', name: 'app_modals_choose_seats')]
     public function choose_seats(Request $request,
-                                UserRepository $userRepository): Response
+                                UserRepository $userRepository,
+                                SessionInterface $session): Response
     {
         $message = '';
+
 
         // traitement du formulaire
         $forname = $request->get('form-name');
@@ -203,7 +214,7 @@ class ModalsController extends AbstractController
 
 
             // si tout va bien passer à l'étape suivante
-            return $this->choose_categories($request, $userRepository);
+            return $this->choose_categories($request, $userRepository, $session);
         }
 
         return $this->render('modals/modal_choose_seats.html.twig', [
@@ -215,14 +226,23 @@ class ModalsController extends AbstractController
         ]);
     }
 
+    /**
+     * Formulaire de choix des catégories de films préférées
+     *
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @return Response
+     */
     #[Route('/choose_categories', name: 'app_modals_choose_categories')]
     public function choose_categories(Request $request,
-                                      UserRepository $userRepository): Response
+                                      UserRepository $userRepository,
+                                      SessionInterface $session
+                                      ): Response
     {
         $message = '';
 
         // recuperer l'id en session
-        $userId = $_SESSION['id']; 
+        $userId = $session->get('id'); 
 
         // faire un find pour retrouver le user
         $user = $userRepository->findUserById($userId);
@@ -230,15 +250,22 @@ class ModalsController extends AbstractController
         // traitement du formulaire
         $forname = $request->get('form-name');
         if ($forname == 'form_choose_categories') {
-           
+            $success = true;
+
+            $genres = $request->get('genres');
+            foreach( $genres as $genre){
+                $user->addGenre($genre);
+            }
+
+            $userRepository->save($user, true);
             // faire ici tous les test et vérifications
 
             // faire également les enregistrement en bdd
-
-
+            
             // si tout va bien passer à l'étape suivante
             return $this->choose_actors($request);
         }
+
         return $this->render('modals/modal_choose_categories.html.twig', [
             'message' => $message,
             'formName' => 'form_choose_categories',

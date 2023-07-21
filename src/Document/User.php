@@ -63,7 +63,7 @@ class User
     protected array $director;
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $genres;
+    protected array $genres = [];
 
     #[MongoDB\Field(type: 'collection')]
     protected array $location;
@@ -266,6 +266,14 @@ class User
     public function setGenres(array $genres): User
     {
         $this->genres = $genres;
+        return $this;
+    }
+
+    public function addGenre(string $genre): User
+    {
+        if (!in_array($genre, $this->genres))
+            $this->genres[] = $genre;
+
         return $this;
     }
 
