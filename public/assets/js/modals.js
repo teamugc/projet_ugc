@@ -94,13 +94,23 @@ document.addEventListener('DOMContentLoaded', (e) => {
                     titre.classList.add('maClasse');
 
                     // crée un autre élément
+                    let image = document.createElement('div');
+                    image.innerHTML = `<img src="${suggestion['image']}"></img>`;
+
+                     // crée un autre élément
+                     let box = document.createElement('checkbox');
+                     box.innerHTML = `<input type="checkbox" name ="locations[]" id ="locations" value="${suggestion['name']}">`
 
                     // crée la div générale pour cette suggestion
                     let el = document.createElement('div');
                     el.classList.add('suggestionClass');
+                    
 
                     // ajoute les éléments dans l'ordre
+                    el.appendChild(box);
                     el.appendChild(titre);
+                    el.appendChild(image);
+                    
 
                     // ajout de la div de la suggestion dans la div des suggestions
                     

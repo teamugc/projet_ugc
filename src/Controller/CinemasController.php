@@ -32,7 +32,7 @@ class CinemasController extends AbstractController
 
         // Récupérer les cinémas à partir du repository
         // $cinemas = $this->cinemasRepository->findAll();
-        $cinemas = $this->cinemasRepository->findByCriterias($search, 5);
+        $cinemas = $this->cinemasRepository->findByCriterias($search, 3);
 
         foreach ($cinemas as $cinema) {
             $response[] = [
@@ -47,4 +47,5 @@ class CinemasController extends AbstractController
 
         return new JsonResponse($response);
     }
+  
 }

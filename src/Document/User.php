@@ -65,7 +65,7 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     protected array $genres = [];
 
     #[MongoDB\Field(type: 'collection')]
-    protected ?array $location=[];
+    protected array $locations = [];
 
     #[MongoDB\Field(type: 'string')]
     protected ?string $seats='';
@@ -176,9 +176,34 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 
     public function setLastName(string $lastname): User
     {
-        $this->lastname = $lastname;
+        return $this->country;
+    }
+  
+    public function setCountry(string $country): User
+    {
+        $this->country = $country;
+        return $this;
+    }  
+
+    public function getLocation(): array
+    {
+        return $this->locations;
+    }
+
+    public function setLocation(array $locations): User
+    {
+        $this->locations = $locations;
         return $this;
     }
+
+    public function addLocation(string $location): User
+    {
+        if (!in_array($location, $this->locations))
+            $this->locations[] = $location;
+
+        return $this;
+    }
+    
 
     public function getFidelityPoints(): ?int
     {

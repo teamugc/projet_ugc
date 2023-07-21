@@ -31,6 +31,7 @@ class CinemasRepository extends ServiceDocumentRepository
 
         $qb = $this->createQueryBuilder(Cinemas::class)
             ->field('name')->equals(new \MongoDB\BSON\Regex($searchData, 'i'));
+        
 
         if ($limit)
             $qb->limit($limit);
