@@ -71,6 +71,9 @@ class User
     #[MongoDB\Field(type: 'string')]
     protected string $seats;
 
+    #[MongoDB\Field(type: 'collection')]
+    protected array $gifts = [];
+
     public function getId(): string
     {
         return $this->id;
@@ -285,6 +288,25 @@ class User
     public function setSeats(string $seats): User
     {
         $this->seats = $seats;
+        return $this;
+    }
+
+    public function getGifts(): array
+    {
+        return $this->gifts;
+    }
+
+    public function setGifts(array $gifts): User
+    {
+        $this->gifts = $gifts;
+        return $this;
+    }
+
+    public function addGift(string $gift): User
+    {
+        if (!in_array($gift, $this->gifts))
+            $this->gifts[] = $gift;
+
         return $this;
     }
 }

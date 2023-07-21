@@ -20,6 +20,14 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/modals')]
 class ModalsController extends AbstractController
 {
+    /**
+     * Formulaire d'inscription pour un nouvel utilisateur
+     *
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @param SessionInterface $session
+     * @return Response
+     */
     #[Route('/new_connection', name: 'app_modals_new_connection')]
     public function new_connection( Request $request, 
                                     UserRepository $userRepository,
@@ -115,7 +123,7 @@ class ModalsController extends AbstractController
     }
 
     /**
-     * Undocumented function
+     * Affichage de la page expliquant la fonctionnalité
      *
      * @param Request $request
      * @param UserRepository $userRepository
@@ -263,7 +271,7 @@ class ModalsController extends AbstractController
             // faire également les enregistrement en bdd
             
             // si tout va bien passer à l'étape suivante
-            return $this->choose_actors($request);
+            return $this->choose_actors($request, $userRepository, $session);
         }
 
         return $this->render('modals/modal_choose_categories.html.twig', [
@@ -276,9 +284,17 @@ class ModalsController extends AbstractController
     }
 
     #[Route('/choose_actors', name: 'app_modals_choose_actors')]
-    public function choose_actors(Request $request): Response
+    public function choose_actors(Request $request,
+                                UserRepository $userRepository,
+                                SessionInterface $session): Response
     {
         $message = '';
+
+          // recuperer l'id en session
+          $userId = $session->get('id'); 
+
+          // faire un find pour retrouver le user
+          $user = $userRepository->findUserById($userId);
 
         // traitement du formulaire
         $forname = $request->get('form-name');
@@ -290,7 +306,7 @@ class ModalsController extends AbstractController
 
 
             // si tout va bien passer à l'étape suivante
-            return $this->fidelity($request);
+            return $this->fidelity($request, $userRepository, $session);
         }
         return $this->render('modals/modal_choose_actors.html.twig', [
             'message' => $message,
@@ -301,14 +317,29 @@ class ModalsController extends AbstractController
     }
 
     #[Route('/fidelity', name: 'app_modals_fidelity')]
-    public function fidelity(Request $request): Response
+    public function fidelity(Request $request,
+                            UserRepository $userRepository,
+                            SessionInterface $session
+                            ): Response
     {
         $message = '';
+
+        // recuperer l'id en session
+        $userId = $session->get('id'); 
+
+        // faire un find pour retrouver le user
+        $user = $userRepository->findUserById($userId);
 
         // traitement du formulaire
         $forname = $request->get('form-name');
         if ($forname == 'form_fidelity') {
            
+            $gifts = $request->get('gifts');
+            foreach( $gifts as $gift){
+                $user->addGift($gift);
+            }
+
+            $userRepository->save($user, true);
             // faire ici tous les test et vérifications
 
             // faire également les enregistrement en bdd
