@@ -57,10 +57,10 @@ class User
     protected ?int $fidelityPoints = 0;
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $actor;
+    protected array $actor = [];
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $director;
+    protected array $director = [];
 
     #[MongoDB\Field(type: 'collection')]
     protected array $genres = [];
@@ -68,8 +68,8 @@ class User
     #[MongoDB\Field(type: 'collection')]
     protected array $location;
 
-    #[MongoDB\Field(type: 'string')]
-    protected string $seats;
+    #[MongoDB\Field(type: 'collection')]
+    protected array $seats = [];
 
     #[MongoDB\Field(type: 'string')]
     protected string $language;
@@ -283,14 +283,22 @@ class User
         return $this;
     }
 
-    public function getSeats(): string
+    public function getSeats(): array
     {
         return $this->seats;
     }
 
-    public function setSeats(string $seats): User
+    public function setSeats(array $seats): User
     {
         $this->seats = $seats;
+        return $this;
+    }
+
+    public function addSeat(string $seat): User
+    {
+        if (!in_array($seat, $this->seats))
+            $this->seats[] = $seat;
+
         return $this;
     }
 

@@ -203,7 +203,14 @@ class ModalsController extends AbstractController
         ]);
     }
 
-
+    /**
+     * Formulaire de choix d'emplacement dans le cinema
+     *
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @param SessionInterface $session
+     * @return Response
+     */
     #[Route('/choose_seats', name: 'app_modals_choose_seats')]
     public function choose_seats(Request $request,
                                 UserRepository $userRepository,
@@ -220,11 +227,17 @@ class ModalsController extends AbstractController
         // traitement du formulaire
         $forname = $request->get('form-name');
         if ($forname == 'form_choose_seats') {
-           
+            $success = true;
             // faire ici tous les test et vérifications
 
             // faire également les enregistrement en bdd
+            $seats = $request->get('seats');
+            
+            foreach( $seats as $seat){
+                $user->addSeat($seat);
+            }
 
+            $userRepository->save($user, true);
 
             // si tout va bien passer à l'étape suivante
             return $this->choose_categories($request, $userRepository, $session);
