@@ -71,6 +71,9 @@ class User
     #[MongoDB\Field(type: 'string')]
     protected string $seats;
 
+    #[MongoDB\Field(type: 'string')]
+    protected string $language;
+
     #[MongoDB\Field(type: 'collection')]
     protected array $gifts = [];
 
@@ -291,6 +294,17 @@ class User
         return $this;
     }
 
+    public function getLanguage(): string
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(string $language): User
+    {
+        $this->language = $language;
+        return $this;
+    }
+    
     public function getGifts(): array
     {
         return $this->gifts;

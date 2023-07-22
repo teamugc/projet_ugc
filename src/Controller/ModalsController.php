@@ -211,6 +211,11 @@ class ModalsController extends AbstractController
     {
         $message = '';
 
+         // recuperer l'id en session
+         $userId = $session->get('id'); 
+
+         // faire un find pour retrouver le user
+         $user = $userRepository->findUserById($userId);
 
         // traitement du formulaire
         $forname = $request->get('form-name');
@@ -303,7 +308,8 @@ class ModalsController extends AbstractController
             // faire ici tous les test et vérifications
 
             // faire également les enregistrement en bdd
-
+            $user->setLanguage($request->get('language'));
+            $userRepository->save($user, true);
 
             // si tout va bien passer à l'étape suivante
             return $this->fidelity($request, $userRepository, $session);
