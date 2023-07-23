@@ -15,6 +15,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
+
 #[MongoDB\Document]
 class User implements UserInterface , PasswordAuthenticatedUserInterface
 {
