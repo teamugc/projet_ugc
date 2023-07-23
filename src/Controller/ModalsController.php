@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -31,6 +32,7 @@ class ModalsController extends AbstractController
     #[Route('/new_connection', name: 'app_modals_new_connection')]
     public function new_connection( Request $request, 
                                     UserRepository $userRepository,
+                                    UserPasswordHasherInterface $userPasswordHasher,
                                     SessionInterface $session): Response
     {
         
@@ -63,29 +65,39 @@ class ModalsController extends AbstractController
             
             $user->setDateOfBirth(new DateTime($request->get('dateOfBirth')));
 
-            $password = $request->get('password');
-            $checkPassword = $request->get('checkPassword');
-                if (empty($password) || empty($checkPassword)) {
-                    $success = false;
-                        $message .= 'Veuillez entrer votre mot de passe.<br>';
-                }  
-        
-                if ($password !== $checkPassword) {
-                        $success = false;
-                        $message .= 'La vérification du mot de passe est incorrecte.<br>';
-                }
-
-            $user->setPassword($request->get('password'));
-            $user->setCheckPassword($request->get('checkPassword'));
-
             $email = $_POST['email']; 
+            // vérifier que l'email est valide (je l'ai remonté ici car le success = true écrasait la vérification du mot de passe)
                 if(filter_var($email, FILTER_VALIDATE_EMAIL)){
                     $success = true;
                 } else {
                     $success = false;
                     $message .= 'Adresse email invalide.<br>';
                 }
-                
+
+            $password = $request->get('password');
+
+            $checkPassword = $request->get('checkPassword');
+
+            // vérifie que le pawword et le checkpassword ne soient pas null
+            if (empty($password) || empty($checkPassword)) {
+                    $success = false;
+                    $message .= 'Veuillez entrer votre mot de passe.<br>';
+                }  
+        
+            // vérifie si le password et le checkpassword sont identiques
+            if ($password !== $checkPassword) {
+                    $success = false;
+                    $message .= 'La vérification du mot de passe est incorrecte.<br>';
+                }
+
+            // hashage du password
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $password
+                )
+                );
+        
             $user->setEmail($request->get('email'));
             $user->setPhone($request->get('phone'));
             $user->setAddress($request->get('address'));
@@ -93,14 +105,12 @@ class ModalsController extends AbstractController
             $user->setCity($request->get('city'));
             $user->setCountry($request->get('country'));
               
-            // faire également les enregistrement en bdd
+            // si succès, enregistrement en bdd
              if ($success) {              
                     $userRepository->save($user, true);
                     // trouver l'id du user
                     $userId = $user->getId();
-
                     // memorise l'id en session
-                    
                     $session->set('id', $userId);
                 }
       
@@ -109,12 +119,18 @@ class ModalsController extends AbstractController
                 return $this->accueil($request, 
                                       $userRepository, 
                                       $session);
+            } else {
+                $session->set('errors', $message);
+                return $this->redirectToRoute('app_modals_new_connection');
             }
         }
     
+        // récupérer les erreurs depuis les variables de session et supprimer ensuite les erreurs de la session
+        $errors = $session->get('errors', '');
+        $session->remove('errors');
         // affichage du formulaire
         return $this->render('modals/modal_new_connection.html.twig', [
-            'message' => $message,
+            'message' => $errors,
             'formName' => 'form_new_connection',
             'step' => '/modals/new_connection',
             'previousStep' => '',
@@ -184,15 +200,11 @@ class ModalsController extends AbstractController
         // traitement du formulaire
         $forname = $request->get('form-name');
         if ($forname == 'form_choose_cinema') {
-            $success = true;
-            
+          
+
+        
             // faire également les enregistrement en bdd
-            $locations = $request->get('locations');
-            foreach( $locations as $location){
-                $user->addLocation($location);
-            }
-            $userRepository->save($user, true);
-            // $user->setLocation($request->get('location'));
+     //       $user->setLocation($request->get('location'));
 
             // si tout va bien passer à l'étape suivante
             return $this->choose_seats($request, $userRepository, $session);
@@ -235,9 +247,11 @@ class ModalsController extends AbstractController
 
             // faire également les enregistrement en bdd
             $seats = $request->get('seats');
-            
+
+            if (is_array($seats)) {
             foreach( $seats as $seat){
                 $user->addSeat($seat);
+                }
             }
 
             $userRepository->save($user, true);
@@ -282,8 +296,12 @@ class ModalsController extends AbstractController
             $success = true;
 
             $genres = $request->get('genres');
+
+            // if permettant de ne pas faire planter le programme si l'utilisateur ne sélectionne aucun genre
+            if (is_array($genres)) {
             foreach( $genres as $genre){
                 $user->addGenre($genre);
+                }
             }
 
             $userRepository->save($user, true);
@@ -317,14 +335,26 @@ class ModalsController extends AbstractController
           // faire un find pour retrouver le user
           $user = $userRepository->findUserById($userId);
 
-        // traitement du formulaire
-        $forname = $request->get('form-name');
-        if ($forname == 'form_choose_actors') {
+          // traitement du formulaire
+          $forname = $request->get('form-name');
+          if ($forname == 'form_choose_actors') {
            
+        $actor = $request->get('actor');
+        if (!empty($actor)) {
+            $user->setActor($actor);
+        }
+        $director = $request->get('director');
+        if (!empty($director)) {
+            $user->setDirector($director);
+        }
             // faire ici tous les test et vérifications
 
             // faire également les enregistrement en bdd
-            $user->setLanguage($request->get('language'));
+            // Vérifier si la valeur language n'est pas vide ou null
+            $language = $request->get('language');
+            if (!empty($language)) {
+                $user->setLanguage($language);
+            }
             $userRepository->save($user, true);
 
             // si tout va bien passer à l'étape suivante
@@ -357,8 +387,10 @@ class ModalsController extends AbstractController
         if ($forname == 'form_fidelity') {
            
             $gifts = $request->get('gifts');
-            foreach( $gifts as $gift){
+            if (is_array($gifts)) {
+            foreach($gifts as $gift){
                 $user->addGift($gift);
+                }
             }
 
             $userRepository->save($user, true);

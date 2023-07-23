@@ -37,9 +37,6 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     protected string $password;
 
     #[MongoDB\Field(type: 'string')]
-    protected string $checkPassword;
-
-    #[MongoDB\Field(type: 'string')]
     protected string $email;
 
     #[MongoDB\Field(type: 'string')]
@@ -61,16 +58,16 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     protected ?int $fidelityPoints = 0;
 
     #[MongoDB\Field(type: 'collection')]
-    protected ?array $actor=[];
+    protected array $actor = [];
 
     #[MongoDB\Field(type: 'collection')]
-    protected ?array $director=[];
+    protected array $director = [];
 
     #[MongoDB\Field(type: 'collection')]
     protected array $genres = [];
 
     #[MongoDB\Field(type: 'collection')]
-    protected ?array $location=[];
+    protected array $location=[];
 
     #[MongoDB\Field(type: 'collection')]
     protected array $seats = [];
@@ -80,6 +77,9 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 
     #[MongoDB\Field(type: 'collection')]
     protected array $gifts = [];
+
+    #[MongoDB\Field(type: 'collection')]
+    protected array $roles = [];
 
     public function getId(): string
     {
