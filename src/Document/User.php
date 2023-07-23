@@ -32,9 +32,6 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     protected string $password;
 
     #[MongoDB\Field(type: 'string')]
-    protected string $checkPassword;
-
-    #[MongoDB\Field(type: 'string')]
     protected string $email;
 
     #[MongoDB\Field(type: 'string')]
@@ -56,25 +53,28 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     protected ?int $fidelityPoints = 0;
 
     #[MongoDB\Field(type: 'collection')]
-    protected ?array $actor=[];
+    protected array $actor = [];
 
     #[MongoDB\Field(type: 'collection')]
-    protected ?array $director=[];
+    protected array $director = [];
 
     #[MongoDB\Field(type: 'collection')]
     protected array $genres = [];
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $locations = [];
-
-    #[MongoDB\Field(type: 'string')]
-    protected ?string $seats='';
+    protected array $location;
 
     #[MongoDB\Field(type: 'collection')]
-    private array $roles = [];
+    protected array $seats = [];
+
+    #[MongoDB\Field(type: 'string')]
+    protected string $language;
 
     #[MongoDB\Field(type: 'collection')]
     protected array $gifts = [];
+
+    #[MongoDB\Field(type: 'collection')]
+    protected array $roles = [];
 
     public function getId(): string
     {
@@ -89,6 +89,28 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     public function setGender(string $gender): User
     {
         $this->gender = $gender;
+        return $this;
+    }
+
+    public function getLastName(): string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastName(string $lastname): User
+    {
+        $this->lastname = $lastname;
+        return $this;
+    }
+
+    public function getFirstName(): string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstName(string $firstname): User
+    {
+        $this->firstname = $firstname;
         return $this;
     }
 
@@ -114,105 +136,14 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCheckPassword(): string
+    public function getPassword(): string
     {
-        return $this->checkPassword;
+        return $this->password;
     }
 
-    public function setCheckPassword(string $checkPassword): User
+    public function setPassword(string $password): User
     {
-        $this->checkPassword = $checkPassword;
-        return $this;
-    }
-    
-    public function getCountry(): string
-    {
-        return $this->country;
-    }
-
-    public function setCountry(string $country): User
-    {
-        $this->country = $country;
-        return $this;
-    }
-
-    public function getCity(): string
-    {
-        return $this->city;
-    }
-
-    public function getFirstName(): string
-    {
-        return $this->firstname;
-    }
-
-    public function getLastName(): string
-    {
-        return $this->lastname;
-    }
-
-    public function setCity(string $city): User
-    {
-        $this->city = $city;
-        return $this;
-    }
-
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(string $address): User
-    {
-        $this->address = $address;
-        return $this;
-    }
-
-    public function setFirstName(string $firstname): User
-    {
-        $this->firstname = $firstname;
-        return $this;
-    }
-
-    public function setLastName(string $lastname): User
-    {
-        return $this->country;
-    }
-  
-    public function setCountry(string $country): User
-    {
-        $this->country = $country;
-        return $this;
-    }  
-
-    public function getLocation(): array
-    {
-        return $this->locations;
-    }
-
-    public function setLocation(array $locations): User
-    {
-        $this->locations = $locations;
-        return $this;
-    }
-
-    public function addLocation(string $location): User
-    {
-        if (!in_array($location, $this->locations))
-            $this->locations[] = $location;
-
-        return $this;
-    }
-    
-
-    public function getFidelityPoints(): ?int
-    {
-        return $this->fidelityPoints;
-    }
-
-    public function setFidelityPoints(?int $fidelityPoints): User
-    {
-        $this->fidelityPoints = $fidelityPoints;
+        $this->password = $password;
         return $this;
     }
 
@@ -227,14 +158,78 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): User
+    {
+        $this->address = $address;
+        return $this;
+    }
+
     public function getPostalCode(): ?int
     {
         return $this->postalCode;
-    }
+    }    
 
     public function setPostalCode(?int $postalCode): User
     {
         $this->postalCode = $postalCode;
+        return $this;
+    }
+
+    public function getCity(): string
+    {
+        return $this->city;
+    }
+  
+    public function setCity(string $city): User
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    public function getCountry(): string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): User
+    {
+        $this->country = $country;
+        return $this;
+    }
+
+    public function getLocation(): array
+    {
+        return $this->location;
+    }
+
+    public function setLocation(array $location): User
+    {
+        $this->location = $location;
+        return $this;
+    }
+
+    // a garder ? (Coralie ne l'a pas)
+    public function addLocation(string $location): User
+    {
+        if (!in_array($location, $this->location))
+            $this->location[] = $location;
+
+        return $this;
+    }
+    
+    public function getFidelityPoints(): ?int
+    {
+        return $this->fidelityPoints;
+    }
+
+    public function setFidelityPoints(?int $fidelityPoints): User
+    {
+        $this->fidelityPoints = $fidelityPoints;
         return $this;
     }
 
@@ -279,28 +274,54 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getLocation(): array
-    {
-        return $this->location;
-    }
-
-    public function setLocation(array $location): User
-    {
-        $this->location = $location;
-        return $this;
-    }
-
-    public function getSeats(): string
+    public function getSeats(): array
     {
         return $this->seats;
     }
 
-    public function setSeats(string $seats): User
+    public function setSeats(array $seats): User
     {
         $this->seats = $seats;
         return $this;
     }
 
+    public function addSeat(string $seat): User
+    {
+        if (!in_array($seat, $this->seats))
+            $this->seats[] = $seat;
+
+        return $this;
+    }
+
+    public function getLanguage(): string
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(string $language): User
+    {
+        $this->language = $language;
+        return $this;
+    }
+    
+    public function getGifts(): array
+    {
+        return $this->gifts;
+    }
+
+    public function setGifts(array $gifts): User
+    {
+        $this->gifts = $gifts;
+        return $this;
+    }
+
+    public function addGift(string $gift): User
+    {
+        if (!in_array($gift, $this->gifts))
+            $this->gifts[] = $gift;
+
+        return $this;
+    }
      /**
      * A visual identifier that represents this user.
      *
@@ -331,45 +352,11 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @see PasswordAuthenticatedUserInterface
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
      * @see UserInterface
      */
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function getGifts(): array
-    {
-        return $this->gifts;
-    }
-
-    public function setGifts(array $gifts): User
-    {
-        $this->gifts = $gifts;
-        return $this;
-    }
-
-    public function addGift(string $gift): User
-    {
-        if (!in_array($gift, $this->gifts))
-            $this->gifts[] = $gift;
-
-        return $this;
     }
 }
