@@ -51,7 +51,7 @@ class ModalsController extends AbstractController
             $lastname = $request->get('lastname');
                 if(empty($lastname) || !is_string($lastname)) {
                 $success = false;
-                    $message .= 'Veuillez entrer votre nom.<br>';
+                $message .= 'Veuillez entrer votre nom.<br>';
                 }
             $user->setLastName($request->get('lastname'));    
 
@@ -83,11 +83,11 @@ class ModalsController extends AbstractController
 
             $checkPassword = $request->get('checkPassword');
 
-            // vérifie que le pawword et le checkpassword ne soient pas null
-            if (empty($password) || empty($checkPassword)) {
-                    $success = false;
-                    $message .= 'Veuillez entrer votre mot de passe.<br>';
-                }  
+            // vérifie que le pawword ne soit pas null et fasse au minimum 6 caractères
+            if (empty($password) || strlen($password) < 6) {
+                $success = false;
+                $message .= 'Le mot de passe doit comporter au moins 6 caractères.<br>';
+            }
         
             // vérifie si le password et le checkpassword sont identiques
             if ($password !== $checkPassword) {
@@ -106,7 +106,15 @@ class ModalsController extends AbstractController
             $user->setEmail($request->get('email'));
             $user->setPhone($request->get('phone'));
             $user->setAddress($request->get('address'));
-            $user->setPostalCode($request->get('postalCode'));
+            $postalCode = $request->get('postalCode');
+            // Protection contre un code postal vide (pour le moment, aux vues des besoin de notre site, nous n'avons pas besoin de le rendre obligatoire)
+            if (!empty($postalCode)) {
+                // Convertir la valeur en entier
+                $postalCode = intval($postalCode);
+            } else {
+                $postalCode = null;
+            }
+            $user->setPostalCode($postalCode);
             $user->setCity($request->get('city'));
             $user->setCountry($request->get('country'));
               
@@ -125,14 +133,11 @@ class ModalsController extends AbstractController
                                       $userRepository, 
                                       $session);
             } else {
-                $session->set('errors', $message);
-                return $this->redirectToRoute('app_modals_new_connection');
+                $session->set('message', $message);
+                return $this->redirectToRoute('app_show_errors');
             }
         }
     
-        // // récupérer les erreurs depuis les variables de session et supprimer ensuite les erreurs de la session
-        // $errors = $session->get('errors', '');
-        // $session->remove('errors');
         // affichage du formulaire
         return $this->render('modals/modal_new_connection.html.twig', [
             'message' => $message,
@@ -140,6 +145,36 @@ class ModalsController extends AbstractController
             'step' => '/modals/new_connection',
             'previousStep' => '',
         ]);
+    }
+    
+    /**
+     * Undocumented function
+     *
+     * @param SessionInterface $session
+     * @return Response
+     */
+    #[Route('/show_errors', name: 'app_show_errors')]
+    public function show_errors(SessionInterface $session): Response
+    {
+        // Récupérer les erreurs depuis la variable de session
+        $message = $session->get('message', '');
+
+        // Supprimer les erreurs de la variable de session pour qu'elles n'apparaissent pas lors du prochain affichage
+        $session->remove('message');
+
+        // Afficher la vue Twig avec les erreurs
+        return $this->render('modals/modal_errors.html.twig', [
+            'message' => $message,
+            'formName' => 'form_new_connection',
+            'step' => '/modals/new_connection',
+            'previousStep' => '',
+        ]);
+    }
+
+    #[Route('/previous_step', name: 'app_modals_previous_step')]
+    public function previous_step(): Response
+    {
+        return $this->redirectToRoute('app_modals_new_connection');
     }
 
     /**
