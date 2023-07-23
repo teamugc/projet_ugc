@@ -35,7 +35,6 @@ class ModalsController extends AbstractController
                                     UserPasswordHasherInterface $userPasswordHasher,
                                     SessionInterface $session): Response
     {
-        
         $user = new User();
         
         $message = '';
@@ -45,7 +44,7 @@ class ModalsController extends AbstractController
         if ($forname == 'form_new_connection') {
             $success = true;
             
-            // faire ici tous les test et vérifications
+            // faire ici tous les tests et vérifications
 
             $user->setGender($request->get('gender'));
             
@@ -64,15 +63,21 @@ class ModalsController extends AbstractController
             $user->setFirstName($request->get('firstname'));
             
             $user->setDateOfBirth(new DateTime($request->get('dateOfBirth')));
-
-            $email = $_POST['email']; 
-            // vérifier que l'email est valide (je l'ai remonté ici car le success = true écrasait la vérification du mot de passe)
-                if(filter_var($email, FILTER_VALIDATE_EMAIL)){
-                    $success = true;
-                } else {
+ 
+            // vérifier que l'email est valide
+            // $email = $_POST['email'];
+            $email = $request->request->get('email');
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $success = false;
+                $message .= 'Adresse email invalide.<br>';
+            } else {
+                // vérifier si l'email est déjà utilisé par un autre utilisateur
+                $existingUser = $userRepository->findOneBy(['email' => $email]);
+                if ($existingUser) {
                     $success = false;
-                    $message .= 'Adresse email invalide.<br>';
+                    $message .= 'Cet email est déjà utilisé.<br>';
                 }
+            }
 
             $password = $request->get('password');
 
@@ -125,12 +130,12 @@ class ModalsController extends AbstractController
             }
         }
     
-        // récupérer les erreurs depuis les variables de session et supprimer ensuite les erreurs de la session
-        $errors = $session->get('errors', '');
-        $session->remove('errors');
+        // // récupérer les erreurs depuis les variables de session et supprimer ensuite les erreurs de la session
+        // $errors = $session->get('errors', '');
+        // $session->remove('errors');
         // affichage du formulaire
         return $this->render('modals/modal_new_connection.html.twig', [
-            'message' => $errors,
+            'message' => $message,
             'formName' => 'form_new_connection',
             'step' => '/modals/new_connection',
             'previousStep' => '',
@@ -327,38 +332,40 @@ class ModalsController extends AbstractController
                                 UserRepository $userRepository,
                                 SessionInterface $session): Response
     {
-        $message = '';
+            $message = '';
 
-          // recuperer l'id en session
-          $userId = $session->get('id'); 
+            // recuperer l'id en session
+            $userId = $session->get('id'); 
 
-          // faire un find pour retrouver le user
-          $user = $userRepository->findUserById($userId);
+            // faire un find pour retrouver le user
+            $user = $userRepository->findUserById($userId);
 
-          // traitement du formulaire
-          $forname = $request->get('form-name');
-          if ($forname == 'form_choose_actors') {
-           
-        $actor = $request->get('actor');
-        if (!empty($actor)) {
-            $user->setActor($actor);
-        }
-        $director = $request->get('director');
-        if (!empty($director)) {
-            $user->setDirector($director);
-        }
-            // faire ici tous les test et vérifications
+            // traitement du formulaire
+            $forname = $request->get('form-name');
+            if ($forname == 'form_choose_actors') {
+            
+            // set que si ce n'est pas vide
+            $actor = $request->get('actor');
+            if (!empty($actor)) {
+                $user->setActor($actor);
+            }
 
-            // faire également les enregistrement en bdd
-            // Vérifier si la valeur language n'est pas vide ou null
+            // set que si ce n'est pas vide
+            $director = $request->get('director');
+            if (!empty($director)) {
+                $user->setDirector($director);
+            }
+        
+            // set que si ce n'est pas vide
             $language = $request->get('language');
             if (!empty($language)) {
                 $user->setLanguage($language);
             }
-            $userRepository->save($user, true);
 
-            // si tout va bien passer à l'étape suivante
-            return $this->fidelity($request, $userRepository, $session);
+        $userRepository->save($user, true);
+
+        // si tout va bien passer à l'étape suivante
+        return $this->fidelity($request, $userRepository, $session);
         }
         return $this->render('modals/modal_choose_actors.html.twig', [
             'message' => $message,
