@@ -1,191 +1,35 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-<form method="post">
+
+<form class="container" method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            Vous-êtes connectez en-tant que {{ app.user.firstname }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
         </div>
     {% endif %}
 
-    <main>
-        <section id="zone-centrale">
-            <div class="container filet-fin">
-                <div class="row ">
-                    <div class="col-12 col-md-3"></div><!-- vide -->
+    <h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
+    <label for="inputEmail">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+    <label for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-                    <div class="col-12 col-md-6 espace">
-                        <h1 class="text-center taille-connexion">Connexion</h1>
-
-                        <div class="d-flex justify-content-between espace">
-
-                            <div class="taille-titre titre-color filet">
-                                <a href="{{ path('app_register')}}">
-                                Je m'identifie
-                                </a>
-                            </div>
-
-                            <div class="taille-titre titre-color ">
-                            {# id-new-connection va lancer le chemin de modales #}
-                                <a class="identification" href="" id="btn-new-connection">Je crée un compte</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-3"></div><!-- vide -->
-                </div>
-            </div>
-
-            <div class="container ">
-                <div class="row ">
-                    <div class="col-12 col-md-3"></div><!-- vide -->
-
-                    <form class="col-12 col-md-6 espace" action="" method="post">
-                        <div class="size-email">
-                            <input type="mail" class="input-infos-persos form-control" placeholder="E-mail*">
-                        </div>
-                        <div class="size-email">
-                            <input type="mot-passe" class="input-infos-persos form-control" placeholder="Mot de passe*">
-                        </div>
-
-                        <div class="validation bouton-retour">
-                            <div class=" justify-content-between">
-                                <div>
-                                    <div class="d-flex justify-content-between bouton-retour form-check">
-                                        <div>
-                                            <input class="form-check-input" type="checkbox" value=""
-                                                id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                Se souvenir de moi
-                                            </label>
-                                        </div>
-                                        <a class="bouton-retour" href="">MOT DE PASSE OUBLIÉ ?</a>
-                                    </div>
-                                    <div class="text-end">
-                                        <button class="cta bouton-inscrire" type="submit">
-                                            <img src="assets/icones/select.svg" alt="select"><a href="modale-message.html">
-                                            Se connecter</a>
-                                        </button>
-                                        <p class="mt-2">
-                                            *champs obligatoires
-                                        </p>
-                                    </div>
-
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="espace mentions">
-                            Le responsable de traitement est UGC CINÉ CITÉ – SAS au capital de 12.325.016 euros – 24
-                            avenue
-                            Charles de Gaulle – 92200 Neuilly-sur-Seine – RCS DE NANTERRE 347.806.002. Les
-                            informations
-                            seront utilisées par les services internes d'UGC CINÉ CITÉ et les sociétés en lien avec
-                            UGC
-                            CINÉ
-                            CITÉ pour la réalisation de la prestation et seront exclusivement destinées à
-                            l'identification
-                            de l’utilisateur, à la gestion de son espace en ligne, au traitement complet de ses
-                            réservations
-                            et/ou ses achats sur le site ugc.fr, la version mobile ou sur l’application UGC DIRECT,
-                            à
-                            des
-                            fins statistiques, et plus généralement à la gestion de la relation client. Les données
-                            marquées
-                            d'un astérisque, nécessaires aux traitements précédemment énoncés, sont obligatoires.
-                            Toutes
-                            les
-                            autres informations sont facultatives, en cas de non-renseignement, UGC CINÉ CITÉ ne
-                            pourra
-                            traiter la demande du client.
-                            Les données personnelles sont conservées trois ans à l’issue de la suppression du compte
-                            ou
-                            suite à une inactivité ininterrompue sur le compte de trois ans. L’utilisateur dispose
-                            de
-                            l’ensemble des droits prévus par la loi n° 78-17 du 6 janvier 1978 "Informatique et
-                            Libertés",
-                            et notamment d'un droit d'accès, de rectification, de suppression, d'opposition, de
-                            limitation,
-                            de portabilité des données le concernant, ainsi que de la possibilité de fournir des
-                            directives
-                            quant au sort des données après le décès. L’utilisateur peut, à tout moment, exercer son
-                            droit
-                            en adressant sa demande par courrier à UGC CINÉ CITÉ, SERVICE CLIENTÈLE, 24 avenue
-                            Charles
-                            de
-                            Gaulle, 92 522 NEUILLY-SUR-SEINE CEDEX ou via la rubrique « Besoin d'aide ? » du site
-                            www.ugc.fr.
-                        </div>
-                    </form>
-
-
-                    <div class="col-12 col-md-3"></div><!-- vide -->
-
-
-                </div>
-            </div>
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}">
 
 
 
-        </section>
-    </main>
+    <button class="btn btn-lg btn-primary" type="submit">
+        Sign in
+    </button>
+    <p>Si vous n'avez pas de compte, <a href="" id="btn-new-connection">créez en un</a></p>
 
-
-
-    <footer id="top">
-        <div class="container mt-md-3 ">
-            <div class="flex-footer">
-
-                <a href="https://www.ugc.fr/aide.html"
-                target="_blank">Besoin d'aide?</a>
-                <a href="https://www.ugc.fr/contact.html"
-                target="_blank">Contact</a>
-                <a href="https://www.ugc.fr/metiers-recrutement.html"
-                target="_blank">UGC recrute</a>
-                <a href="https://www.ugc.fr/groupe-ugc.html"
-                target="_blank">Groupe UGC</a>
-                <a href="https://www.ugc-pro.fr/"
-                target="_blank">UGC Pro</a>
-                <a href="hhttps://www.ugc.be/"
-                target="_blank">UGC BE</a>
-                <a href="https://ugcdistribution.fr/"
-                target="_blank">UGC Distribution</a>
-                <a href="https://www.ugc.fr/comptoir.html"
-                target="_blank">Formule Gourmande</a>
-
-            </div>
-
-            <div class="flex-footer fond">
-
-                <a href="https://www.ugc.fr/politique-rh-groupe-ugc.html"
-                target="_blank">Politique RH du groupe</a>
-                <a href="https://www.ugc.fr/politique_confidentialite.html"
-                target="_blank">Politique de confidentialité</a>
-                <a href="https://www.ugc.fr/conditions-MonCompte.html"
-                target="_blank">Conditions générales</a>
-                <a href="https://www.ugc.fr/mentionslegales.html"
-                target="_blank">Mentions légales/ Cookies</a>
-                <a href="https://www.ugc.fr/chartespectateurs.html"
-                target="_blank">Charte de spectateurs</a>
-
-
-            </div>
-
-        </div>
-
-    </footer>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-        crossorigin="anonymous"></script>
-</body>
-
-</html>
+</form>
 
   
 

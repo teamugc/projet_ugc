@@ -16,7 +16,7 @@ class UserRepository extends ServiceDocumentRepository
         parent::__construct($managerRegistry, User::class);
     }
 
-    public function save(User $users, bool $flush = false): void
+    public function save(User $user, bool $flush = false): void
     {
         $this->getDocumentManager()->persist($user);
 
@@ -25,6 +25,15 @@ class UserRepository extends ServiceDocumentRepository
         }
     }
 
+    /////test remove
+    public function remove(User $user, bool $flush = false): void
+    {
+        $this->getDocumentManager()->remove($user);
+
+        if ($flush) {
+            $this->getDocumentManager()->flush();
+        }
+    }
     // Retrieve one document by id from the collection
     public function findUserById(string $id): ?User
     {

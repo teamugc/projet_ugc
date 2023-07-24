@@ -240,11 +240,14 @@ class ModalsController extends AbstractController
         // traitement du formulaire
         $forname = $request->get('form-name');
         if ($forname == 'form_choose_cinema') {
-          
-
-        
+            
             // faire également les enregistrement en bdd
-     //       $user->setLocation($request->get('location'));
+            $locations = $request->get('locations');
+            foreach( $locations as $location){
+                $user->addLocation($location);
+            }
+            $userRepository->save($user, true);
+            // $user->setLocation($request->get('location'));
 
             // si tout va bien passer à l'étape suivante
             return $this->choose_seats($request, $userRepository, $session);

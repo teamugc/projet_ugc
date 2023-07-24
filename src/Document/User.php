@@ -4,26 +4,28 @@ namespace App\Document;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use DateTime;
-
 use App\Validator\PostalCodeValidator;
 use App\Validator\PostalCode;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-
-
-
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique as MongoDBUnique;
+
+
 
 
 #[MongoDB\Document]
+// #[UniqueEntity("email", message:"Cet e-mail est déjà utilisé.")]
+#[MongoDBUnique(fields:"email")]
 class User implements UserInterface , PasswordAuthenticatedUserInterface
 {
     #[MongoDB\Id]
     protected string $id;
 
     #[MongoDB\Field(type: 'string')]
-    protected ?string $gender = '';
+    protected ?bool $gender = false;
 
     #[MongoDB\Field(type: 'string')]
     protected ?string $lastname = '';
@@ -41,7 +43,7 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     protected string $email;
 
     #[MongoDB\Field(type: 'string')]
-    protected string $phone;
+    protected ?string $phone='';
 
     #[MongoDB\Field(type: 'string')]
     protected ?string $address = '';
@@ -50,10 +52,10 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     protected ?int $postalCode = 0;
 
     #[MongoDB\Field(type: 'string')]
-    protected string $city;
+    protected ?string $city = '';
 
     #[MongoDB\Field(type: 'string')]
-    protected string $country;   
+    protected ?string $country = '';
 
     #[MongoDB\Field(type: 'int')]
     protected ?int $fidelityPoints = 0;
@@ -81,6 +83,9 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 
     #[MongoDB\Field(type: 'collection')]
     protected array $roles = [];
+
+    #[MongoDB\Field(type: 'collection')]
+    protected array $locations = [];
 
     public function getId(): string
     {
@@ -131,17 +136,6 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): User
-    {
-        $this->password = $password;
-        return $this;
-    }
-
     public function getEmail(): string
     {
         return $this->email;
@@ -150,6 +144,17 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     public function setEmail(string $email): User
     {
         $this->email = $email;
+        return $this;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): User
+    {
+        $this->password = $password;
         return $this;
     }
 
@@ -175,23 +180,16 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @Assert\Regex(
-     *     pattern="/^(0[1-9]|[1-8][0-9]|9[0-8])\d{3}$/",
-     *     message="Le code postal doit être un code postal français valide."
-     * )
-     */
+    public function getPostalCode(): ?int
+    {
+        return $this->postalCode;
+    }    
 
-     public function getPostalCode(): ?int
-     {
-         return $this->postalCode;
-     }    
- 
-     public function setPostalCode(?int $postalCode): User
-     {
-         $this->postalCode = $postalCode;
-         return $this;
-     }
+    public function setPostalCode(?int $postalCode): User
+    {
+        $this->postalCode = $postalCode;
+        return $this;
+    }
 
     public function getCity(): string
     {
@@ -208,13 +206,13 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     {
         return $this->country;
     }
-  
+
     public function setCountry(string $country): User
     {
         $this->country = $country;
         return $this;
-    }  
-/*
+    }
+
     public function getLocation(): array
     {
         return $this->locations;
@@ -233,8 +231,7 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    */
-
+    
     public function getFidelityPoints(): ?int
     {
         return $this->fidelityPoints;
@@ -278,7 +275,7 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         $this->genres = $genres;
         return $this;
     }
-
+    
     public function addGenre(string $genre): User
     {
         if (!in_array($genre, $this->genres))
@@ -335,12 +332,26 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    
-    public function getUserIdentifier(): string{
-      return (string) $this->email;}
 
     
-  public function getRoles(): array{$roles = $this->roles;// guarantee every user at least has ROLE_USER$roles[] = 'ROLE_USER';
+     /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
@@ -352,10 +363,12 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    
-  public function eraseCredentials(): void{// If you store any temporary, sensitive data on the user, clear it here// $this->plainPassword = null;}
-    
-}
-
-
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
 }

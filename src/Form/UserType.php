@@ -26,6 +26,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 
 
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
 
 class UserType extends AbstractType
 {
@@ -109,10 +110,7 @@ class UserType extends AbstractType
             ]
             ]);
     }
-
-   
-
-
+    
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

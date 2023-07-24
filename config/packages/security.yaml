@@ -45,6 +45,9 @@ security:
         - { path: ^/movies/save_matches, roles: ROLE_ADMIN }
         #- { path: ^/classroom, roles: ROLE_ADMIN }
         #- { path: ^/, roles: PUBLIC_ACCESS }
+    
+    # Permet la redirection si un utilisateur essaie d'aller sur une page non autorisée
+    access_denied_url: /
 
 when@test:
     security:
