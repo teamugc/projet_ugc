@@ -35,117 +35,29 @@
 										<div
 											class="card">
 											{# <div class="tag">Aventure</div> #}
-											<div class="tag">
-													{{movie.tmdbGenre}}
-											</div>
-
-											<a href="">
-												<img class="affiche" src="/assets/images/adele.jpg" alt="Adele Blanc sec">
-											</a>
-											<div class="avis">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-demi.svg" alt="étoile">
-											</div>
-											<h3>Adèle Blanc Sec</h3>
-											<p>En cette année 1912, Adèle Blanc-Sec, jeune journaliste intrépide, est
-												                                                prête à tout pour arriver à
-												                                                ses fins...
-											</p>
-
-											<a href="#" class="bouton cta">
-												<img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
-												<span>Réserver</span>
-											</a>
-
-										</div>
-									</article>
-                                    
-									<article class="card-border film">
-										<div class="card">
 											<div class="tag">{{movie.tmdbGenre}}</div>
-
 											<a href="">
-												<img class="affiche" src="/assets/images/indiana-jones.jpg" alt="Indiana Jones">
+												<img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}">
 											</a>
-											<div class="avis">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
+
+											<div class="avis"> 
+											{% for img in imgStar[movie.id] %}
+                        						<img class="star" src="{{ img }}" alt="star">
+                    						{% endfor %}
 											</div>
-											<h3>Indiana Jones</h3>
-											<p>Plus de dix ans à enseigner au Hunter College de New York,
-												                                                Jones, professeur d'archéologie, est sur le point de...
-											</p>
+
+											<h3>{{movie.name}}</h3>
+											<p>{{movie.tmdbOverview}}</p>
 
 											<a href="#" class="bouton cta">
 												<img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
 												<span>Réserver</span>
 											</a>
-
 										</div>
 									</article>
-									<article class="card-border film">
-										<div class="card">
-											<div class="tag">Jeunesse</div>
-
-											<a href="">
-												<img class="affiche" src="/assets/images/rebelle.jpg" alt="Rebelle">
-											</a>
-											<div class="avis">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-											</div>
-											<h3>Rebelle</h3>
-											<p>Merida, l’impétueuse fille du roi Fergus et de la reine Elinor, a un
-												                                                problème. Elle est la seule fille au monde...
-											</p>
-
-											<a href="#" class="bouton cta">
-												<img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
-												<span>Réserver</span>
-											</a>
-
-										</div>
-									</article>
-									<article class="card-border film">
-										<div class="card">
-											<div class="tag">Drame</div>
-
-											<a href="">
-												<img class="affiche" src="/assets/images/mascarade.jpg" alt="Mascarade">
-											</a>
-											<div class="avis">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
-											</div>
-											<h3>Mascarade</h3>
-											<p>Le séduisant Adrien était promis à une carrière de danseur, jusqu'à un
-												                                                terrible accident de moto...
-											</p>
-
-											<a href="#" class="bouton cta">
-												<img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
-												<span>Réserver</span>
-											</a>
-
-										</div>
-									</article>
-                                    {% endfor %}
+									{% endfor %}
 								</div>
-
 								<img class="d-none d-lg-inline arrow-film" src="/assets/icones/bouton-slider.svg" alt="bouton slider">
-
 							</div>
 
 							{# fin film by genres #}

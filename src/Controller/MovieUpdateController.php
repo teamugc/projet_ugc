@@ -81,7 +81,6 @@ class MovieUpdateController extends AbstractController
             $dm->persist($mv);
             $compteur++;
         }
-        // FIN DU FOREACH
 
         $dm->flush();
 

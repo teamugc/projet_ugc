@@ -61,21 +61,28 @@ class BoardController extends AbstractController
 
         // Rechercher les films correspondant aux genres préférés de l'utilisateur
         $recommendedMovies = $movieRepository->findByGenres($preferredGenres);
-        // dd($recommendedMovies);
+
+        // Initialiser $imgStar en tant que tableau vide
+        $imgStar = [];
+
+        // Accéder à la note de chaque film dans le tableau $recommendedMovies
+        foreach ($recommendedMovies as $movie) {
+            // On va chercher la note du film dans la base de
+            $stars = $movie->getTmdbVoteAvg();
+            // Utiliser la fonction calculateStars pour obtenir le tableau d'images d'étoiles
+            $starsImages  = $movieRepository->calculateStars($stars);
+            // assigner $imgStar à chaque movie en fonction de son id
+            $imgStar[$movie->getId()] = $starsImages;
+        }   
         
         return $this->render('board/film.html.twig', [
             'recommendedMovies' => $recommendedMovies,
+            'imgStar' => $imgStar
         ]);
         } else {
             // Si l'utilisateur n'a pas de préférences de genre,lui proposer des films populaires.
             // return $this->render('film/no_preferences.html.twig');
         }
     }
-
-    // #[Route('/film', name: 'app_board_film')]
-    // public function film(): Response
-    // {
-    //     return $this->render('board/film.html.twig', [
-    //     ]);
-    // }
 }
+

@@ -96,14 +96,29 @@ class Movie {
         return $this->date_fr;
     }
 
+    public function getTmdbVoteAvg()
+    {
+        return $this->tmdbVoteAvg;
+    }
+
     public function setTmdbVoteAvg($tmdbVoteAvg)
     {
         $this->tmdbVoteAvg = $tmdbVoteAvg;
     }
 
+    public function getTmdbOverview()
+    {
+        return $this->tmdbOverview;
+    }
+
     public function setTmdbOverview($tmdbOverview)
     {
         $this->tmdbOverview = $tmdbOverview;
+    }
+
+    public function getTmdbPoster()
+    {
+        return $this->tmdbPoster;
     }
 
     public function setTmdbPoster($tmdbPoster)
