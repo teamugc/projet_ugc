@@ -141,16 +141,6 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         $this->password = $password;
         return $this;
     }
-    public function getCheckPassword(): string
-    {
-        return $this->checkPassword;
-    }
-
-    public function setCheckPassword(string $checkPassword): User
-    {
-        $this->checkPassword = $checkPassword;
-        return $this;
-    }
 
     public function getEmail(): string
     {
@@ -224,7 +214,7 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         $this->country = $country;
         return $this;
     }  
-
+/*
     public function getLocation(): array
     {
         return $this->locations;
@@ -243,7 +233,7 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    
+    */
 
     public function getFidelityPoints(): ?int
     {
@@ -345,6 +335,27 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    
+    public function getUserIdentifier(): string{
+      return (string) $this->email;}
+
+    
+  public function getRoles(): array{$roles = $this->roles;// guarantee every user at least has ROLE_USER$roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    
+  public function eraseCredentials(): void{// If you store any temporary, sensitive data on the user, clear it here// $this->plainPassword = null;}
+    
 }
 
 
+}
