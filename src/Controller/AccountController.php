@@ -17,15 +17,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccountController extends AbstractController
 {
     #[Route('/', name: 'app_my_account_show')]
-    public function index(SessionInterface $session): Response
+    public function index(SessionInterface $session, UserRepository $userRepository): Response
     {
      
         // mémorise l'id du user en session
         $session->set('id', $this->getUser()->getId());
+        $userId = $session->get('id');
+        $user = $userRepository->findUserById($userId);
+        
+        $firstname = null;
+        $firstname = $user->getFirstName();
 
         return $this->render('account/index.html.twig', [
             'controller_name' => 'ProfilController',
-            'firsttime' => $this->getUser()->isFirstConnection()
+            'firsttime' => $this->getUser()->isFirstConnection(),
+            'firstname' => $firstname,
         ]);
     }
 
