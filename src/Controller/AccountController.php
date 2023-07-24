@@ -53,7 +53,7 @@ class AccountController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $userRepository->save($user, true);
-            return $this->redirectToRoute('app_my_account_show', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('account/edit.html.twig', [

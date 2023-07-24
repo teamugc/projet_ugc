@@ -96,13 +96,6 @@ class UserType extends AbstractType
             'format' => 'yyyy-MM-dd',
         ])
 
-        ->add('fidelity_points', IntegerType::class, [
-            'label' => 'points de fidélité',
-            'attr' => [
-                'class' => 'form-control'
-            ]
-        ])
-
         ->add('valid', SubmitType::class, [
             'label' => 'Validez',
             'attr' => [
