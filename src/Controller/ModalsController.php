@@ -109,12 +109,12 @@ class ModalsController extends AbstractController
             $postalCode = $request->get('postalCode');
             // Protection contre un code postal vide (pour le moment, aux vues des besoin de notre site, nous n'avons pas besoin de le rendre obligatoire)
             if (!empty($postalCode)) {
-                // Convertir la valeur en entier
-                $postalCode = intval($postalCode);
+                // Si le champ postalCode n'est pas vide, l'affecter directement à la propriété de l'utilisateur
+                $user->setPostalCode($postalCode);
             } else {
-                $postalCode = null;
+                // Si le champ postalCode est vide, l'affecter à null sinon ça plante
+                $user->setPostalCode(null);
             }
-            $user->setPostalCode($postalCode);
             $user->setCity($request->get('city'));
             $user->setCountry($request->get('country'));
               
@@ -146,7 +146,7 @@ class ModalsController extends AbstractController
             'previousStep' => '',
         ]);
     }
-    
+
     /**
      * Undocumented function
      *
