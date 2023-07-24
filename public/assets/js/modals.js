@@ -120,6 +120,11 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
 
 
+    function initActorAutocompletion(){
+        alert('ok');
+        document.getElementById('modal-choose-actor-cinema').addEventListener('click', (e) => {
+            console.log(e.target.value);
+            })
+    }
 });
-
 
