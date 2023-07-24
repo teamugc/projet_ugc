@@ -2,37 +2,89 @@
 {% block body %}
 
 
-<form class="container" method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+	<form class="container" method="post">
+		{% if error %}
+			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		{% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            Vous-êtes connectez en-tant que {{ app.user.firstname }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
-        </div>
-    {% endif %}
+		{% if app.user %}
+			<div class="mb-3">
+				Vous-êtes connectez en-tant que
+				{{ app.user.firstname }},
+				<a href="{{ path('app_logout') }}">Déconnexion</a>
+			</div>
+		{% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+		<h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
+		<label for="inputEmail">Email</label>
+		<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+		<label for="inputPassword">Password</label>
+		<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}">
-
-
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-    <p>Si vous n'avez pas de compte, <a href="" id="btn-new-connection">créez en un</a></p>
-
-</form>
-
-  
+		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
 
+		<button class="btn btn-lg btn-primary" type="submit">
+			Sign in
+		</button>
+		<p>Si vous n'avez pas de compte,
+			<a href="" id="btn-new-connection">créez en un</a>
+		</p>
+		{# VIRER CETTE LIGNE #}
+		<a href="" id="test-auto">Test autocompletion</a>
 
+	</form>
+
+	{# VIRER TOUT LE SCRIPT #}
+	<script>
+		document.getElementById('test-auto').addEventListener('click', (e) => { // annule le comportement normal du lien
+e.preventDefault();
+
+// lance l'url cible dans la modale
+fetch('/modals/choose_actors').then(function (response) {
+return response.text();
+}).then(function (html) {
+document.querySelector('#modal .modal-content').innerHTML = html;
+// addEventOnButton();
+
+	// *************** a copier dans modals.js
+	if (document.getElementById('modal-choose-actor-cinema')) {
+		initActorAutocompletion();
+	}
+	// ***************
+});
+
+// affiche la modal
+let modal = new bootstrap.Modal('#modal', []);
+modal.show();
+});
+
+/************
+* fonction d'initialisation de l'uto completion sur le input "modal-choose-actor-cinema" 
+*/
+function initActorAutocompletion() { // ajout de l'event "keyup" sur l'input des acteurs
+document.getElementById('modal-choose-actor-cinema').addEventListener('keyup', (e) => { // interrogation de notre API maison pour récupérer la liste des acteurs
+fetch('/api/actors/' + e.target.value + '/5').then(function (response) {
+return response.text();
+}).then(function (json) {
+const datas = JSON.parse(json);
+console.log(datas);
+const destinationEl = document.querySelector('#actors-container .suggestions-container');
+destinationEl.innerHTML = "";
+console.log(destinationEl);
+datas.forEach(suggestion => {
+
+let link = document.createElement('a');
+link.href = '#';
+link.innerHTML = suggestion;
+
+let div = document.createElement('div');
+div.appendChild(link);
+
+destinationEl.appendChild(div);
+});
+})
+})
+}
+	</script>
 {% endblock %}
