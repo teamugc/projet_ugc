@@ -82,6 +82,9 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     #[MongoDB\Field(type: 'collection')]
     protected array $roles = [];
 
+    #[MongoDB\Field(type: 'collection')]
+    protected array $locations = [];
+
     public function getId(): string
     {
         return $this->id;
@@ -213,17 +216,16 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         return $this->location;
     }
 
-    public function setLocation(array $location): User
+    public function setLocation(array $locations): User
     {
-        $this->location = $location;
+        $this->locations = $locations;
         return $this;
     }
 
-    // a garder ? (Coralie ne l'a pas)
     public function addLocation(string $location): User
     {
-        if (!in_array($location, $this->location))
-            $this->location[] = $location;
+        if (!in_array($location, $this->locations))
+            $this->locations[] = $location;
 
         return $this;
     }
@@ -328,6 +330,8 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    
      /**
      * A visual identifier that represents this user.
      *
