@@ -1,52 +1,36 @@
-a.actif {
-    
-    background-image: url(../icones/barre-hover-menu-bleu.svg);
-    background-repeat: no-repeat;
-    background-position: right center;
-   
-}
 
-.zone-centrale{
-    margin-left:100px;
-    margin-bottom:90px;
-}
-.bloc-liste{
-    overflow: hidden;
-    position:relative;
-}
 
 .bloc-liste img{
     width:50px;
     height:auto;
 }
 
- .d-flex-titre{
-    display:flex;
-    justify-content: left;
-    align-self:center;
-    margin-bottom:50px;
 
-}
+.d-flex-slider{
+     flex-basis:100%;
+     display:flex;
+     padding-top: 50px;
+     overflow: hidden;
+
+    
+ }
 
 img .icone-cta{
     margin-right:10px;
     width:20px;  
 }
 
-.d-flex-slider{
-    display:flex;
-    padding-top: 50px;
-    overflow: hidden;
-    
-
-}
-
-img.arrow{
+img.arrow-film{
 position:absolute;
-left:0px;
-top:-300px;
-z-index: 2; 
+top:310px;
+left:94%;
+z-index: 100;
 }
+
+.film{
+    max-height: 496px;
+}
+
 
 
 

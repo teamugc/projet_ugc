@@ -243,9 +243,11 @@ class ModalsController extends AbstractController
             
             // faire également les enregistrement en bdd
             $locations = $request->get('locations');
+
+            if (is_array($locations)) {
             foreach( $locations as $location){
                 $user->addLocation($location);
-            }
+            }}
             $userRepository->save($user, true);
             // $user->setLocation($request->get('location'));
 
