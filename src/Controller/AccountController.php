@@ -21,6 +21,7 @@ class AccountController extends AbstractController
     {
         return $this->render('account/index.html.twig', [
             'controller_name' => 'ProfilController',
+            'user' => $this->getUser(),
         ]);
     }
 

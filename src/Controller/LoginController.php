@@ -12,16 +12,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
-    // #[Route('/login', name: 'app_login')]
-    // public function new(): Response
-    // {
- 
-    //     return $this->render('login/new.html.twig', [
-    //     ]);
-    // }
+    
     #[Route('/login', name: 'app_user_login')]
     public function login(Request $request, AuthenticationUtils $authenticationUtils,SessionInterface $session): Response
     {
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_my_account_index');
+        }
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
         return $this->render('login/index.html.twig', [
