@@ -80,13 +80,7 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        // etape 1
-        // if ($form->isSubmitted() ) {
-        //     $step=$request->request->get("step");
-        //     $step++;
-        // } else {
-        //     $step = 1;
-        // }
+        
         if ($form->isSubmitted() && $form->isValid()) {
            
             $userRepository->save($user, true);
@@ -96,7 +90,7 @@ class UserController extends AbstractController
         return $this->renderForm('user/edit.html.twig', [
             'user' => $user,
             'form' => $form,
-            // 'step' => $step,
+            
         ]);
     }
     #[Route('/{id}', name: 'app_user_show')]
