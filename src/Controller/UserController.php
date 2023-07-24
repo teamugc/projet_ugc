@@ -25,7 +25,7 @@ class UserController extends AbstractController
         
         $session->set('email', $email);
 
-        return $this->render('login/success.html.twig', [
+        return $this->render('login/index.html.twig', [
             'message' => "Utilisateur $email connecté.",
         ]);
     }
