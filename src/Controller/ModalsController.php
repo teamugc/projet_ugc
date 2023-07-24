@@ -189,9 +189,9 @@ class ModalsController extends AbstractController
                             UserRepository $userRepository,
                             SessionInterface $session): Response
     {
-    
+
         // recuperer l'id en session
-        $userId = $session->get('id'); 
+        $userId = $session->get('id') ? $session->get('id') : $this->getUser()->getId(); 
 
         // faire un find pour retrouver le user
         $user = $userRepository->findUserById($userId);
@@ -224,6 +224,14 @@ class ModalsController extends AbstractController
         ]);
     }
 
+    /**
+     * Formulaire de choix du cinema
+     *
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @param SessionInterface $session
+     * @return Response
+     */
     #[Route('/choose_cinema', name: 'app_modals_choose_cinema')]
     public function choose_cinema(Request $request,
                                 UserRepository $userRepository,
@@ -439,7 +447,7 @@ class ModalsController extends AbstractController
                 $user->addGift($gift);
                 }
             }
-
+            $user->setFirstConnection(false);
             $userRepository->save($user, true);
             // faire ici tous les test et vérifications
 
@@ -447,14 +455,28 @@ class ModalsController extends AbstractController
 
 
             // si tout va bien passer à l'étape suivante
-            
-            return $this->redirectToRoute('app_board', [], Response::HTTP_SEE_OTHER);
+
+            // si tout va bien passer à l'étape suivante
+            return $this->final($request, $userRepository, $session);
         }
+
         return $this->render('modals/modal_fidelity.html.twig', [
             'message' => $message,
             'formName' => 'form_fidelity',
             'step' => '/modals/fidelity',
             'previousStep' => '/modals/choose_categories',
+        ]);
+    }
+
+
+    #[Route('/final', name: 'app_modals_finale')]
+    public function final(Request $request,
+                            UserRepository $userRepository,
+                            SessionInterface $session
+                            ): Response
+    {
+
+        return $this->render('modals/final.html.twig', [
         ]);
     }
 }

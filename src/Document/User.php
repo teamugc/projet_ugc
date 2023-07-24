@@ -87,6 +87,9 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     #[MongoDB\Field(type: 'collection')]
     protected array $locations = [];
 
+    #[MongoDB\Field(type: 'bool')]
+    protected bool $firstConnection = true;    
+
     public function getId(): string
     {
         return $this->id;
@@ -333,7 +336,15 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    
+    public function isFirstConnection(): bool{
+        return $this->firstConnection;
+    }
+
+    public function setFirstConnection(bool $firstConnection): User {
+        $this->firstConnection = $firstConnection;
+        return $this;
+    }
+
      /**
      * A visual identifier that represents this user.
      *
