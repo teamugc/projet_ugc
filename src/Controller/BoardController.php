@@ -50,7 +50,7 @@ class BoardController extends AbstractController
         ]);
     }
     #[Route('/film', name: 'app_board_film')]
-    public function filmsByPreferredGenres(DocumentManager $documentManager, MovieRepository $movieRepository): Response
+    public function filmsByPreferredGenres(MovieRepository $movieRepository): Response
     {
         // Récupérer l'utilisateur actuellement authentifié
         $user = $this->getUser();
@@ -58,15 +58,14 @@ class BoardController extends AbstractController
         // Vérifier que l'utilisateur a des préférences
         if ($user && !empty($user->getGenres())) {
             $preferredGenres = $user->getGenres();
-// dd($user->getGenres());
-// dd($movieRepository);
+
         // Rechercher les films correspondant aux genres préférés de l'utilisateur
-        // $movieRepository = $documentManager->getRepository(Movie::class);
         $recommendedMovies = $movieRepository->findByGenres($preferredGenres);
-            
-            return $this->render('board/film.html.twig', [
-                'recommendedMovies' => $recommendedMovies,
-            ]);
+        // dd($recommendedMovies);
+        
+        return $this->render('board/film.html.twig', [
+            'recommendedMovies' => $recommendedMovies,
+        ]);
         } else {
             // Si l'utilisateur n'a pas de préférences de genre,lui proposer des films populaires.
             // return $this->render('film/no_preferences.html.twig');

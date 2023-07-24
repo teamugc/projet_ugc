@@ -111,6 +111,11 @@ class Movie {
         $this->tmdbPoster = $tmdbPoster;
     }
 
+    public function getTmdbGenre()
+    {
+        return $this->tmdbGenre;
+    }
+
     public function setTmdbGenre($tmdbGenre)
     {
         $this->tmdbGenre = $tmdbGenre;

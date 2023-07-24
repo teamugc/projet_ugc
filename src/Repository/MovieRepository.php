@@ -17,7 +17,7 @@ class MovieRepository extends ServiceDocumentRepository
     public function findByGenres(array $genres):array
     {
         return $this->createQueryBuilder()
-            ->field('genres')->in($genres)
+            ->field('tmdbGenre')->in($genres)
             ->getQuery()
             ->execute()->toArray();
     }

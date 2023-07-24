@@ -36,9 +36,7 @@
 											class="card">
 											{# <div class="tag">Aventure</div> #}
 											<div class="tag">
-												{% if movie.tmbdgenre is not empty %}
-													<div class="tag">{{ movie.tmdbgenre}}</div>
-												{% endif %}
+													{{movie.tmdbGenre}}
 											</div>
 
 											<a href="">
@@ -64,10 +62,10 @@
 
 										</div>
 									</article>
-                                    {% endfor %}
+                                    
 									<article class="card-border film">
 										<div class="card">
-											<div class="tag">Aventure</div>
+											<div class="tag">{{movie.tmdbGenre}}</div>
 
 											<a href="">
 												<img class="affiche" src="/assets/images/indiana-jones.jpg" alt="Indiana Jones">
@@ -143,6 +141,7 @@
 
 										</div>
 									</article>
+                                    {% endfor %}
 								</div>
 
 								<img class="d-none d-lg-inline arrow-film" src="/assets/icones/bouton-slider.svg" alt="bouton slider">
