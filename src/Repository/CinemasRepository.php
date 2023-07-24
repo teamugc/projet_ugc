@@ -30,31 +30,17 @@ class CinemasRepository extends ServiceDocumentRepository
     {
 
         $qb = $this->createQueryBuilder(Cinemas::class)
-            ->field('name')->equals(new \MongoDB\BSON\Regex($searchData, 'i'));
+        ->field('$or')
+        ->equals([
+            ['name' => new \MongoDB\BSON\Regex($searchData, 'i')],
+            ['zipcode' => new \MongoDB\BSON\Regex($searchData, 'i')],
+            ['city' => new \MongoDB\BSON\Regex($searchData, 'i')],
+        ]);
 
-        if ($limit)
-            $qb->limit($limit);
+    if ($limit) {
+        $qb->limit($limit);
+    }
 
-        $datasName = $qb->getQuery()->execute()->toArray();
-
-        $qbZipCode = $this->createQueryBuilder(Cinemas::class)
-            ->field('zipcode')->equals(new \MongoDB\BSON\Regex($searchData, 'i'));
-
-        $datasZipCode = $qbZipCode->getQuery()->execute()->toArray();
-
-        if ($limit)
-            $qb->limit($limit);
-
-        $qbCity = $this->createQueryBuilder(Cinemas::class)
-            ->field('city')->equals(new \MongoDB\BSON\Regex($searchData, 'i'));
-
-        if ($limit)
-            $qbCity->limit($limit);
-
-        $datasCity = $qbCity->getQuery()->execute()->toArray();
-
-        $datas = array_merge($datasName, $datasZipCode, $datasCity);
-
-        return $datas;
+    return $qb->getQuery()->execute()->toArray();
     }
 }
