@@ -38,9 +38,9 @@ class ModalsController extends AbstractController
         $user = new User();
         
         $message = '';
-        $lastname = '';
-        $firstname = '';
-        $dateOfBirth = '';
+        $lastname = 'rex';
+        $firstname = 'arty';
+        $dateOfBirth = '12/07/1985';
         $email = '';
         $phone = '';
         $address = '';
