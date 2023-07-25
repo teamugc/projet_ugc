@@ -3,14 +3,14 @@
 	<input type="hidden" name="step" id="step" value="{{step}}">
 	<input type="hidden" name="previous-step" id="previous-step" value="{{previousStep}}">
 
-	<div class="modal-body">
+<div class="modal-body">
         {% if message %}
-        <div class="alert alert-danger" role="alert">
+    <div class="alert alert-danger" role="alert">
             {{message|raw}}
         </div>
          {% endif %}    
 
- 	<div class="d-flex justify-content-between picto-haut">
+ 		<div class="d-flex justify-content-between picto-haut">
             <div >
                 <a href="modale-message.html"><img src="assets/icones/fleche-gauche.svg" alt="Icône Retour"></a>
             </div>
@@ -98,20 +98,11 @@
                 </a>
             </div>
             <div class="col-md-2 suivant">
-                <a class="secondaire bouton" href="modale-emplacement.html">
-                    <span>Suivant</span>
-
-                    <img src="/assets/icones/arrow-s.svg" alt="Flèche droite bleue">
-                </a>
+				<button type="submit" id="submit" class="secondaire bouton">
+				<span>Suivant</span> <img src="./assets/icones/arrow-s.svg" alt="Flèche droite bleue">
+				</button> 
             </div>
 
         </div>
-
-	
-
-
-</div>
-<div class="modal-footer">
-	<button type="submit" id="submit">Valider</button>
 </div>
 </form>
