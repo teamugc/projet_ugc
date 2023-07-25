@@ -54,7 +54,6 @@ class ModalsController extends AbstractController
             $success = true;
             
             // faire ici tous les tests et vérifications
-
             $user->setGender($request->get('gender'));
             
             $lastname = $request->get('lastname');
@@ -76,7 +75,6 @@ class ModalsController extends AbstractController
             $user->setDateOfBirth(new DateTime($request->get('dateOfBirth')));
  
             // vérifier que l'email est valide
-            // $email = $_POST['email'];
             $email = $request->request->get('email');
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $success = false;
@@ -149,6 +147,9 @@ class ModalsController extends AbstractController
       
             // si tout va bien passer à l'étape suivante
             if ($success) {
+                // return $this->choose_actors($request, 
+                //                       $userRepository, 
+                //                       $session);
                 return $this->accueil($request, 
                                       $userRepository, 
                                       $session);
@@ -420,16 +421,22 @@ class ModalsController extends AbstractController
             if ($forname == 'form_choose_actors') {
             
             // set que si ce n'est pas vide
-            $actor = $request->get('actor');
-            if (!empty($actor)) {
-                $user->setActor($actor);
-            }
+            $actors = $request->get('actors');
+            // if (!empty($actor)) {
+            //     $user->setActor($actor);
+            // } 
+            if (is_array($actors)) {
+                foreach( $actors as $actor){
+                    $user->addActor($actor);
+                }}
+            
 
             // set que si ce n'est pas vide
-            $director = $request->get('director');
-            if (!empty($director)) {
-                $user->setDirector($director);
-            }
+            $directors = $request->get('directors');
+            if (is_array($directors)) {
+                foreach( $directors as $director){
+                    $user->addDirector($director);
+                }}
         
             // set que si ce n'est pas vide
             $language = $request->get('language');

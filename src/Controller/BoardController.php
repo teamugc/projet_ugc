@@ -49,7 +49,6 @@ class BoardController extends AbstractController
         return $this->render('board/fidelite.html.twig', [
         ]);
     }
-
     #[Route('/film', name: 'app_board_film')]
     public function filmsByPreferredGenres(MovieRepository $movieRepository): Response
     {
@@ -86,3 +85,4 @@ class BoardController extends AbstractController
         }
     }
 }
+

@@ -30,10 +30,12 @@ class AccountController extends AbstractController
 
         return $this->render('account/index.html.twig', [
             'controller_name' => 'ProfilController',
+            
             'firsttime' => $this->getUser()->isFirstConnection(),
             'firstname' => $firstname,
         ]);
     }
+
 
     #[Route('/edit', name: 'app_my_account_edit')]
     public function edit( Request $request, UserRepository $userRepository, DocumentManager $dm): Response

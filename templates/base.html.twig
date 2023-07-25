@@ -30,7 +30,11 @@
 				<div
 					class="d-flex nav-haute">
 					<!--Conteneur Flex-->
+					{% if app.user %}
+					<a href="{{path('app_board_home')}}">
+					{% else %}
 					<a href="{{path('app_index')}}">
+					{% endif %}
 						<img id="logo" src="/assets/images/logo-ugc.svg" alt="Logo UGC">
 					</a>
 					<!--item-->
