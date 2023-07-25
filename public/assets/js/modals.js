@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 return response.text();
             })
             .then(function(html) {
-                document.querySelector('#modal .modal-content').innerHTML = html;
+                document.querySelector('#modal .modal-body').innerHTML = html;
                 addEventOnButton();
             });
 

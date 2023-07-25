@@ -7,13 +7,13 @@
 
 
 /* CSS MODALE COMMUNES */
-body {
-    background: var(--radial-gradient-bas-de-page, radial-gradient(78.01% 36.06% at 50.00% 100.00%, #00558E 0%, #010A3D 99.56%));
+/* body {
+    background:  radial-gradient(78.01% 36.06% at 50.00% 100.00%, #00558E 0%, #010A3D 99.56%);
     background-repeat: no-repeat;
     background-size: cover;
-    /* Ajuste la taille du fond pour couvrir toute la page */
+    
     background-attachment: fixed;
-    /* Fixe le fond lors du défilement de la page */
+    
    
     font-family: 'uniform-regular';
     font-size:1.25rem; 
@@ -21,38 +21,38 @@ body {
 }
 
 .modalBody{
-    background: var(--radial-gradient-bas-de-page, radial-gradient(78.01% 36.06% at 50.00% 100.00%, #00558E 0%, #010A3D 99.56%));
+    background: radial-gradient(78.01% 36.06% at 50.00% 100.00%, #00558E 0%, #010A3D 99.56%);
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     font-family: 'uniform-regular';
     font-size: 1.25rem;
-    text-transform: none;
+    text-transform: none; 
+}
+*/
+
+.modal .modal-content {
+    background: radial-gradient(78.01% 36.06% at 50.00% 100.00%, #00558E 0%, #010A3D 99.56%);
 }
 
-.espace-top{
+.modal  .espace-top{
     margin-top: 10px;
 }
 
-.bandeau-blanc h1{
+.modal  .bandeau-blanc h1{
     padding-top: 0;
 }
 
 
-.taille{
-    width:1071px;
-    height:855px;
-}
-
-.text-regular {
+.modal  .text-regular {
     font-weight: bold;
 }
 
-.mot-gras{
+.modal  .mot-gras{
     font-weight:500;
 }
 
-.bandeau-blanc {
+.modal  .bandeau-blanc {
     margin-top: 10px;
     margin-bottom: 20px;
     background: #FFFCFC;
@@ -60,26 +60,26 @@ body {
     padding-top: 10px;
 }
 
-.progress-bar {
+.modal  .progress-bar {
     border-radius: 0px 50px 50px 0px;
     background: var(--radial-gradient-progression, radial-gradient(92.31% 92.31% at 50.00% 20.51%, #40B3D1 0%, #00558E 100%));
 
 }
 
-.progress {
+.modal  .progress {
     background: #010A3D;
     margin-left: -11px;
 
 }
 
-.icone-titre {
+.modal  .icone-titre {
     margin: 20px 0;
     display: flex;
     align-items: center;
 
 }
 
-a.bouton-retour {
+.modal a.bouton-retour {
     color: white;
     text-decoration: underline;
     display: flex;
@@ -90,28 +90,28 @@ a.bouton-retour {
     padding: 10px 0;
     width: auto;
 }
-.picto-haut{
+.modal  .picto-haut{
     align-items: center;
 }
 
-.bouton-retour img {
+.modal  .bouton-retour img {
     margin-right: 10px;
     margin-bottom: 2px;
 
 }
 
 
-.modale .bouton{
+.modal .bouton{
     margin-left: 12px;
 
 }
 
-.modale .bouton img {
+.modal .bouton img {
     margin-left: 10px;
 
 }
 
-.bouton-modale {
+.modal  .bouton-modale {
     display: flex;
     align-items: center;
     padding: 6px 30px;
@@ -126,16 +126,16 @@ a.bouton-retour {
     /* trouver le moyen de centrer verticalement */
 }
 
-.bouton-modale span {
+.modal  .bouton-modale span {
     padding-top: 5px;
     margin-right: 10px;
 }
 
-.suivant .bouton span {
+.modal  .suivant .bouton span {
 padding-top:5px;
 }
 
-.bouton-selectionne{
+.modal  .bouton-selectionne{
     display: flex;
     flex-direction: row;
     padding: 6px 0;
@@ -151,20 +151,20 @@ padding-top:5px;
     
 }
 
-.bouton-selectionne:hover{
+.modal  .bouton-selectionne:hover{
     opacity: 80%;
 }
 
-.bouton-selectionne img {
+.modal  .bouton-selectionne img {
     margin-right: 10px;
 
 }
 
-.bouton-selectionne span{
+.modal  .bouton-selectionne span{
     padding-top: 5px;
 } 
 
-.suppression-tag-modale {
+.modal  .suppression-tag-modale {
     background: transparent;
     color: #fffcfc;
     border: 1px solid #40B3D1;
@@ -188,11 +188,11 @@ padding-top:5px;
 
 /* CSS INFOS PERSOS*/
 
-.moncompte {
+.modal  .moncompte {
     margin-right: 11px;
 }
 
-.input-infos-persos {
+.modal  .input-infos-persos {
     border-radius: 10px;
     border: 1px solid var(--bleu-lumire, #40B3D1);
     margin-bottom: 10px;
@@ -200,32 +200,35 @@ padding-top:5px;
 
 }
 
+.modal .form-control {
+    color : white;
+}
 
-.input-infos-persos::placeholder {
+.modal  .input-infos-persos::placeholder {
     color: #40B3D1;
     
 }
 
 
-.partie-droite {
+.modal  .partie-droite {
     margin-top: 29px;
 
 }
 
 
 
-.compte {
+.modal  .compte {
     padding-top: 5px;
 }
 
 
-.espace-fin {
+.modal  .espace-fin {
     padding-top: 30px;
     
 
 }
 
-.espace-fin-genre{
+.modal  .espace-fin-genre{
     padding-top: 60px;
 
 
@@ -235,27 +238,27 @@ padding-top:5px;
 /* CSS PRÉFÉRENCES FILM*/
 
 
-.espace {
+.modal  .espace {
     margin-top: 30px;
 
 }
-.espace-tag {
+.modal  .espace-tag {
     margin-top: 5px;
 
 }
 
-.langue-form-check {
+.modal  .langue-form-check {
     margin-top: 15px;
 
 }
 
-.form-check-input {
+.modal  .form-check-input {
     margin-right: 15px;
 
 }
 
 
-.input-recherche-acteur {
+.modal  .input-recherche-acteur {
     border: 1px solid #40B3D1;
     background-color: transparent;
     border-radius: 10px;
@@ -271,23 +274,23 @@ padding-top:5px;
 
 }
 
-.input-recherche-acteur:focus{
+.modal  .input-recherche-acteur:focus{
     background-color: #fffcfc;
     color: #010A3D;
 }
 
-.input-recherche-acteur::placeholder {
+.modal  .input-recherche-acteur::placeholder {
     color: #40B3D1;
 }
 
 
 
-.form-check-input {
+.modal  .form-check-input {
     background-color: transparent;
     border-color: #FFFCFC
 }
 
-.form-check-input:checked {
+.modal  .form-check-input:checked {
     background-color: transparent;
     border-color: #FFFCFC;
 
@@ -297,7 +300,7 @@ padding-top:5px;
 
 /* CSS PRÉFÉRENCES FILM GENRE*/
 
-.genre-tableau {
+.modal  .genre-tableau {
     background-color: transparent;
     color: #FFFCFC;
     border: 1px solid #40B3D1;
@@ -306,71 +309,71 @@ padding-top:5px;
 }
 
 
-.table{
+.modal  .table{
     flex-basis: 50%;
   }
 
 
-#genre option[value="action"] {
+.modal #genre option[value="action"] {
     background-image: url("../icones/plus-s.svg");
     background-repeat: no-repeat;
     background-position: right center;
 }
 
-#genre option[value="horreur"] {
+.modal #genre option[value="horreur"] {
     background-image: url("../icones/plus-s.svg");
     background-repeat: no-repeat;
     background-position: right center;
 }
 
-#genre option[value="thriller"] {
+.modal #genre option[value="thriller"] {
     background-image: url("../icones/plus-s.svg");
     background-repeat: no-repeat;
     background-position: right center;
 }
 
-#genre option[value="fantastique"] {
+.modal #genre option[value="fantastique"] {
     background-image: url("../icones/plus-s.svg");
     background-repeat: no-repeat;
     background-position: right center;
 }
 
-#genre option[value="science-fiction"] {
+.modal #genre option[value="science-fiction"] {
     background-image: url("../icones/plus-s.svg");
     background-repeat: no-repeat;
     background-position: right center;
 }
 
-#genre option[value="comedie"] {
+.modal #genre option[value="comedie"] {
     background-image: url("../icones/plus-s.svg");
     background-repeat: no-repeat;
     background-position: right center;
 }
 
-#genre option[value="dramatique"] {
+.modal #genre option[value="dramatique"] {
     background-image: url("../icones/plus-s.svg");
     background-repeat: no-repeat;
     background-position: right center;
 }
 
 
-option {
+.modal option {
     margin: 20px;
 
 }
 
-#genre {
+.modal #genre {
     width: 100%;
     padding-right: 100px;
 }
 
 
 
-.genre-tableau::-webkit-scrollbar {
+.modal  .genre-tableau::-webkit-scrollbar {
     width: 10px;
 }
 
-.genre-tableau::-webkit-scrollbar-thumb {
+.modal  .genre-tableau::-webkit-scrollbar-thumb {
     background-color: #00558E;
     border-radius: 5px;
 }
@@ -378,37 +381,37 @@ option {
 
 /* CSS MODALE MESSAGE */
 
-.text-regular{
+.modal  .text-regular{
     font-family: 'uniform-regular';
     font-size: 1.56rem;
 }
-.mot-bold{
+.modal  .mot-bold{
     font-family: "uniform-black";
 }
 
 
-.espace-message{
+.modal  .espace-message{
     padding-top: 20px;
 
 }
 
 
-.cine {
+.modal  .cine {
     margin-right: 20px;
 
 }
 
-.bobine {
+.modal  .bobine {
     margin-right: 20px;
 
 }
 
-.abonnement {
+.modal  .abonnement {
     margin-right: 19px;
 
 }
 
-.cadeau {
+.modal  .cadeau {
     margin-right: 27px;
 
 }
@@ -420,7 +423,7 @@ option {
 
 /* CSS FIDELITE */
 
-.separateur {
+.modal  .separateur {
     border-top: #A31F58 solid 2px;
     margin: 40px 0 40px;
 
@@ -429,7 +432,7 @@ option {
 
 /* CSS CINEMAS PREFERES */
 
-.inputvillecp-modale {
+.modal  .inputvillecp-modale {
     border: 1px solid #40B3D1;
     background-color: transparent;
     border-radius: 10px;
@@ -442,17 +445,17 @@ option {
     padding: 8px 130px 8px 30px;
 
 }
-.inputvillecp-modale:focus{
+.modal  .inputvillecp-modale:focus{
     background-color: #fffcfc;
     color: #010A3D;
 }
 
-.inputvillecp-modale::placeholder {
+.modal  .inputvillecp-modale::placeholder {
     color: #40B3D1;
 
 }
 
-img.arrow-cine-modale {
+.modal img.arrow-cine-modale {
     position: absolute;
     top: 474px;
     left: 74%;
@@ -461,12 +464,12 @@ img.arrow-cine-modale {
 }
 
 
-.espace-fin-prefere{
+.modal  .espace-fin-prefere{
     padding-top: 50px;
 
 
 }
 
-.mentions a{
+.modal  .mentions a{
     color: #fffcfc;
 }

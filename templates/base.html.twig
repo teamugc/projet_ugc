@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="/assets/css/identification.css">
 		<link rel="stylesheet" href="/assets/css/mes-cinemas.css">
 		<link rel="stylesheet" href="/assets/css/mes-films.css">
-		<link rel="stylesheet" href="/assets/css/modale.css">
+		<link rel="stylesheet" href="/assets/css/modal.css">
 		<link rel="stylesheet" href="/assets/css/mon-profil.css">
 		<link rel="stylesheet" href="/assets/css/widget.css">
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
@@ -104,10 +104,12 @@
 	{% block body %}{% endblock %}
 
 	<!-- Modal -->
-	<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+	<div class="modal modal-xl fade" id="modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				HELLO
+				<div class="modal-body">
+					HELLO
+				</div>
 			</div>
 		</div>
 	</div>

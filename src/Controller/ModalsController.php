@@ -38,6 +38,15 @@ class ModalsController extends AbstractController
         $user = new User();
         
         $message = '';
+        $lastname = '';
+        $firstname = '';
+        $dateOfBirth = '';
+        $email = '';
+        $phone = '';
+        $address = '';
+        $postalCode = '';
+        $city = '';
+        $country ='';
 
         // traitement du formulaire
         $forname = $request->get('form-name');
@@ -49,6 +58,7 @@ class ModalsController extends AbstractController
             $user->setGender($request->get('gender'));
             
             $lastname = $request->get('lastname');
+            
                 if(empty($lastname) || !is_string($lastname)) {
                 $success = false;
                 $message .= 'Veuillez entrer votre nom.<br>';
@@ -132,10 +142,7 @@ class ModalsController extends AbstractController
                 return $this->accueil($request, 
                                       $userRepository, 
                                       $session);
-            } else {
-                $session->set('message', $message);
-                return $this->redirectToRoute('app_show_errors');
-            }
+            } 
         }
     
         // affichage du formulaire
@@ -144,6 +151,16 @@ class ModalsController extends AbstractController
             'formName' => 'form_new_connection',
             'step' => '/modals/new_connection',
             'previousStep' => '',
+            'lastname' => $lastname,
+            'firstname' => $firstname,
+            'dateOfBirth' => $dateOfBirth,
+            'email' => $email,
+            'phone' => $phone,
+            'address' => $address,
+            'postalCode' => $postalCode,
+            'city' => $city,
+            'country' => $country
+
         ]);
     }
 
