@@ -59,10 +59,11 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     protected ?int $fidelityPoints = 0;
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $actor = [];
+    protected array $actors = [];
+    
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $director = [];
+    protected array $directors = [];
 
     #[MongoDB\Field(type: 'collection')]
     protected array $genres = [];
@@ -243,16 +244,16 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 
     public function getActor(): array
     {
-        return $this->actor;
+        return $this->actors;
     }
 
-    public function setActor(array $actor): User
+    public function setActor(array $actors): User
     {
-        $this->actor = $actor;
+        $this->actors = $actors;
         return $this;
     }
 
-    public function addActor(array $actor): User
+    public function addActor(string $actor): User
     {
         if (!in_array($actor, $this->actors))
             $this->actors[] = $actor;
@@ -262,12 +263,20 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 
     public function getDirector(): array
     {
-        return $this->director;
+        return $this->directors;
     }
 
     public function setDirector(array $director): User
     {
-        $this->director = $director;
+        $this->directors = $director;
+        return $this;
+    }
+
+    public function addDirector(string $director): User
+    {
+        if (!in_array($director, $this->directors))
+            $this->directors[] = $director;
+
         return $this;
     }
 

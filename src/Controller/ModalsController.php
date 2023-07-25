@@ -386,16 +386,22 @@ class ModalsController extends AbstractController
             if ($forname == 'form_choose_actors') {
             
             // set que si ce n'est pas vide
-            $actor = $request->get('actor');
-            if (!empty($actor)) {
-                $user->setActor($actor);
-            }
+            $actors = $request->get('actors');
+            // if (!empty($actor)) {
+            //     $user->setActor($actor);
+            // } 
+            if (is_array($actors)) {
+                foreach( $actors as $actor){
+                    $user->addActor($actor);
+                }}
+            
 
             // set que si ce n'est pas vide
-            $director = $request->get('director');
-            if (!empty($director)) {
-                $user->setDirector($director);
-            }
+            $directors = $request->get('directors');
+            if (is_array($directors)) {
+                foreach( $directors as $director){
+                    $user->addDirector($director);
+                }}
         
             // set que si ce n'est pas vide
             $language = $request->get('language');
