@@ -41,7 +41,9 @@ class UserType extends AbstractType
             ],
             
             'attr' => [
-                'class' => 'form-control'
+                'class' => 'form-check-input',
+                'name' => 'inlineRadioOptions',
+                
             ],
             'expanded' => true
         ])
