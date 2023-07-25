@@ -252,6 +252,14 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function addActor(array $actor): User
+    {
+        if (!in_array($actor, $this->actors))
+            $this->actors[] = $actor;
+
+        return $this;
+    }
+
     public function getDirector(): array
     {
         return $this->director;
