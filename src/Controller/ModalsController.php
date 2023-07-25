@@ -45,7 +45,6 @@ class ModalsController extends AbstractController
             $success = true;
             
             // faire ici tous les tests et vérifications
-
             $user->setGender($request->get('gender'));
             
             $lastname = $request->get('lastname');
@@ -65,7 +64,6 @@ class ModalsController extends AbstractController
             $user->setDateOfBirth(new DateTime($request->get('dateOfBirth')));
  
             // vérifier que l'email est valide
-            // $email = $_POST['email'];
             $email = $request->request->get('email');
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $success = false;

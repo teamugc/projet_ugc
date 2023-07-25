@@ -12,17 +12,17 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
-    // #[Route('/login', name: 'app_login')]
-    // public function new(): Response
-    // {
- 
-    //     return $this->render('login/new.html.twig', [
-    //     ]);
-    // }
     #[Route('/login', name: 'app_user_login')]
     public function login(Request $request, AuthenticationUtils $authenticationUtils,SessionInterface $session): Response
     {
+        // verifie si l'utilsateur est déjà connecté et si oui il est redirigé vers la page d'index du compte
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_my_account_index');
+        }
+        // récupère une éventuelle erreur de connexion stockée dans la session lors d'une tentative de connexion précédent
         $error = $authenticationUtils->getLastAuthenticationError();
+        // récupère le dernier nom d'utilisateur  saisi par l'utilisateur lors d'une connexion précédente. 
+        // Cela permet de pré-remplir le champ du nom d'utilisateur pour une nouvelle tentative de connexion.
         $lastUsername = $authenticationUtils->getLastUsername();
         return $this->render('login/success.html.twig', [
             'last_username' => $lastUsername,

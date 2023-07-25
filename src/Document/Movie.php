@@ -96,9 +96,19 @@ class Movie {
         return $this->date_fr;
     }
 
+    public function getTmdbVoteAvg()
+    {
+        return $this->tmdbVoteAvg;
+    }
+
     public function setTmdbVoteAvg($tmdbVoteAvg)
     {
         $this->tmdbVoteAvg = $tmdbVoteAvg;
+    }
+
+    public function getTmdbOverview()
+    {
+        return $this->tmdbOverview;
     }
 
     public function setTmdbOverview($tmdbOverview)
@@ -106,9 +116,19 @@ class Movie {
         $this->tmdbOverview = $tmdbOverview;
     }
 
+    public function getTmdbPoster()
+    {
+        return $this->tmdbPoster;
+    }
+
     public function setTmdbPoster($tmdbPoster)
     {
         $this->tmdbPoster = $tmdbPoster;
+    }
+
+    public function getTmdbGenre()
+    {
+        return $this->tmdbGenre;
     }
 
     public function setTmdbGenre($tmdbGenre)

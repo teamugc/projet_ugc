@@ -132,8 +132,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
             //console.log(JSON.parse(json));
         }
     }
-
-
+    
     /**
      * Initialisation de l'autocompletion sur le choix d'acteur
      */
