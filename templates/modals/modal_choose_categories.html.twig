@@ -38,15 +38,15 @@
             <div class="row">
                 <div class="col-md-8 d-flex">
                     <div class="table">
-                        <select id=genre name="genre" multiple size="8" class="genre-tableau">
-                            <option value="action">Action</option>
-                            <option value="horreur">Horreur</option>
-                            <option value="thriller">Thriller</option>
-                            <option value="fantastique">Fantastique</option>
-                            <option value="science-fiction">Science-Fiction</option>
+                        <select id="genres" name="genres []" multiple size="8" class="genre-tableau">
+                            <option value="Action">Action</option>
+                            <option value="Horreur">Horreur</option>
+                            <option value="Thriller">Thriller</option>
+                            <option value="Fantastique">Fantastique</option>
+                            <option value="Science-fiction">Science-Fiction</option>
                         </select>
                     </div>
-                    <div class="table">
+                    <div class="table">                  
                         <select id=genre name="genre" multiple size="8" class="genre-tableau">
                             <option value="dramatique">Dramatique</option>
                             <option value="dramatique">Comédie</option>
@@ -64,17 +64,13 @@
                     </a>
                 </div>
                 <div class="col-md-2 suivant">
-                    <a class="secondaire bouton" href="modale-preferences-film.html">
-                        <span>Suivant</span>
-    
-                        <img src="./assets/icones/arrow-s.svg" alt="Flèche droite bleue">
-                    </a>
+                    <button type="submit" id="submit" class="secondaire bouton">
+				    <span>Suivant</span><img src="./assets/icones/arrow-s.svg" alt="Flèche droite bleue">
+				    </button> 
                 </div>
 
             </div>
         </form>
-
-        <p>Saisissez vos genres de films :</p>
 
         <label for="genres">Action</label>
         <input type="checkbox" name ="genres[]" id ="genres" value="Action"></br>
@@ -127,8 +123,5 @@
         <label for="genres">Western</label>
         <input type="checkbox" name ="genres[]" id ="genres" value="Western"></br>
 
-    </div>
-    <div class="modal-footer">
-        <button type="submit" id="submit">Valider</button>
     </div>
 </form>
