@@ -21,10 +21,12 @@
                             </div>
                             <div class="row">
                                 <div class="col-12 col-md-6 text-center">
-                                    <div class="encadre-profil">
-                                        <img class="encadre-icone" src="/assets/icones/roue-s.svg" alt="Roue">
-                                        <h2 class="icone rubrique">Laurent</h2>
-                                    </div>
+                                   <a href="{{ path('app_my_account_edit') }}">
+                                        <div class="encadre-profil">
+                                            <img class="encadre-icone" src="/assets/icones/roue-s.svg" alt="Roue">
+                                            <h2 class="icone rubrique">{{user.firstname}}</h2>
+                                        </div>
+                                    </a>
                                 </div>
                                 <div class="col-12 col-md-6 text-center">
                                     <div class="encadre-profil">
