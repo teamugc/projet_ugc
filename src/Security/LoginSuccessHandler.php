@@ -17,9 +17,18 @@ class LoginSuccessHandler implements AuthenticationSuccessHandlerInterface
         $this->httpUtils = $httpUtils;
     }
 
+     /**
+     * Gère la redirection après une authentification réussie.
+     *
+     * @param Request        $request La requête HTTP.
+     * @param TokenInterface $token   Le jeton d'authentification.
+     *
+     * @return Response
+     */
+
     public function onAuthenticationSuccess(Request $request, TokenInterface $token): Response
     {
-        // Redirection vers la route souhaitée après une connexion réussie
+        // Après une authentification réussie, redirige l'utilisateur vers la route souhaitée.
         return $this->httpUtils->createRedirectResponse($request, 'app_user_show');
     }
 }

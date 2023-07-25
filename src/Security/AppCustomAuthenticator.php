@@ -31,7 +31,7 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
         $email = $request->request->get('email', '');
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
-
+        // Créer un objet Passport contenant les informations d'authentification de l'utilisateur
         return new Passport(
             new UserBadge($email),
             new PasswordCredentials($request->request->get('password', '')),
@@ -44,17 +44,18 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        // Récupérer l'URL cible si elle est présente dans la session
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+            // Rediriger l'utilisateur vers l'URL cible
             return new RedirectResponse($targetPath);
         }
 
-
-
-        // For example:
+        // Si aucune URL cible n'est présente dans la session, rediriger l'utilisateur vers la route 'app_my_account_show'
         return new RedirectResponse($this->urlGenerator->generate('app_my_account_show'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
+    // Méthode pour récupérer l'URL de la page de connexion en cas d'échec d'authentification
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);

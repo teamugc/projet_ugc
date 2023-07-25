@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Controller;
 
 use App\Document\Cinemas;
@@ -11,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
 
 class CinemasController extends AbstractController
 {
@@ -25,15 +23,17 @@ class CinemasController extends AbstractController
     #[Route('/cinemas/{search}', name: 'app_cinemas')]
     public function index(Request $request, string $search): Response
     {
+        // Récupère le terme de recherche de l'URL
         $search = trim(strtolower($request->get('search')));
 
-        // traiter les données pour les préparer pour la réponse JSON
+        // Prépare le tableau pour stocker les données des cinémas pour la réponse JSON
         $response = [];
 
-        // Récupérer les cinémas à partir du repository
-        // $cinemas = $this->cinemasRepository->findAll();
+        // Récupère les cinémas à partir du repository en fonction du terme de recherche
+        // et d'une limite de 3 résultats
         $cinemas = $this->cinemasRepository->findByCriterias($search, 3);
 
+        // Formatte les données des cinémas pour la réponse JSON
         foreach ($cinemas as $cinema) {
             $response[] = [
                 'id'        => $cinema->getId(),
@@ -45,7 +45,7 @@ class CinemasController extends AbstractController
             ];
         }
 
+        // Renvoie une réponse JSON avec les données des cinémas
         return new JsonResponse($response);
     }
-  
 }
