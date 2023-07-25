@@ -129,12 +129,15 @@ class ModalsController extends AbstractController
       
             // si tout va bien passer à l'étape suivante
             if ($success) {
+                // return $this->choose_actors($request, 
+                //                       $userRepository, 
+                //                       $session);
                 return $this->accueil($request, 
                                       $userRepository, 
-                                      $session);
+                                      $session);                                      
             } else {
-                $session->set('message', $message);
-                return $this->redirectToRoute('app_show_errors');
+                //$session->set('message', $message);
+                //return $this->redirectToRoute('app_show_errors');
             }
         }
     

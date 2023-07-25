@@ -1,72 +1,72 @@
 <style>
-    /* Appliquer la couleur noire au texte dans la modale */
-    body, h2, label, input {
-        color: black;
-    }
+	/* Appliquer la couleur noire au texte dans la modale */
+	body,
+	h2,
+	label,
+	input {
+		color: black;
+	}
 </style>
 
 <form action="" method="POST" id="modal-form">
-    <input type="hidden" name="form-name" id="form-name" value="{{formName}}">
-    <input type="hidden" name="step" id="step" value="{{step}}">
-    <input type="hidden" name="previous-step" id="previous-step" value="{{previousStep}}">
+	<input type="hidden" name="form-name" id="form-name" value="{{formName}}">
+	<input type="hidden" name="step" id="step" value="{{step}}">
+	<input type="hidden" name="previous-step" id="previous-step" value="{{previousStep}}">
 
-    <div class="modal-header">
-        <h2 class="modal-title fs-5" id="ModalLabel">Mes informations personnelles</h2>
-        {# <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> #}
-    </div>
-    <div class="modal-body">
-        {% if message %}
-        <div class="alert alert-danger" role="alert">
-            {{message|raw}}
-        </div>
+	<div class="modal-header">
+		<h2 class="modal-title fs-5" id="ModalLabel">Mes informations personnelles</h2>
+		{# <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> #}
+	</div>
+	<div class="modal-body">
+		{% if message %}
+			<div class="alert alert-danger" role="alert">
+				{{message|raw}}
+			</div>
+		{% endif %}
 
-         {% else %}     
+		<p>Saisissez vos informations :</p>
 
-        <p>Saisissez vos informations :</p>
-        
-        <label for="gender-h">Monsieur</label>
-        <input type="radio" name ="gender" id ="gender-h" value ="gender-h" checked></br>
+		<label for="gender-h">Monsieur</label>
+		<input type="radio" name="gender" id="gender-h" value="gender-h" checked></br>
 
-        <label for="gender-f">Madame</label>
-        <input type="radio" name ="gender" id ="gender-f" value ="gender-f"></br>
+		<label for="gender-f">Madame</label>
+		<input type="radio" name="gender" id="gender-f" value="gender-f"></br>
 
-        <label for="lastname">Nom</label>
-        <input type="text" name ="lastname" id ="lastname" value="xxxx"></br>
+		<label for="lastname">Nom</label>
+		<input type="text" name="lastname" id="lastname" value="xxxx"></br>
 
-        <label for="firstname">Prénom</label>
-        <input type="text" name = "firstname" id ="firstname" value="J.S."></br>
+		<label for="firstname">Prénom</label>
+		<input type="text" name="firstname" id="firstname" value="J.S."></br>
 
-        <label for="dateOfBirth">Date de naissance</label>
-        <input type="date" name="dateOfBirth" id = "dateOfBirth"></br>
+		<label for="dateOfBirth">Date de naissance</label>
+		<input type="date" name="dateOfBirth" id="dateOfBirth"></br>
 
-        <label for="password">Mot de passe</label>
-        <input type="password" name ="password" id = "password" value="X"></br>
+		<label for="password">Mot de passe</label>
+		<input type="password" name="password" id="password" value="XXXXXX"></br>
+		
+		<label for="checkPassword">Confirmer le mot de passe</label>
+		<input type="password" name="checkPassword" id="checkPassword" value="XXXXXX"></br>
+		
+		<label for="email">Adresse email</label>
+		<input type="email" name="email" id="email" value="test@gmail.com"></br>
+		
+		<label for="phone">Téléphone mobile</label>
+		<input type="tel" name="phone" id="phone"></br>
+		
+		<label for="address">Adresse</label>
+		<input type="text" name="address" id="address"></br>
+		
+		<label for="postalCode">Code postal</label>
+		<input type="text" name="postalCode" id="postalCode" value="75000"></br>
+		
+		<label for="city">Ville</label>
+		<input type="text" name="city" id="city"></br>
+		
+		<label for="country">Pays</label>
+		<input type="text" name="country" id="country"></br>
 
-        <label for="checkPassword">Confirmer le mot de passe</label>
-        <input type="password" name = "checkPassword" id = "checkPassword" value="X"></br>
-
-        <label for="email">Adresse email</label>
-        <input type="email" name = "email" id = "email" value="test@gmail.com"></br>
-
-        <label for="phone">Téléphone mobile</label>
-        <input type="tel" name="phone" id ="phone"></br>
-
-        <label for="address">Adresse</label>
-        <input type="text" name="address" id = "address"></br>
-
-        <label for="postalCode">Code postal</label>
-        <input type="text" name="postalCode" id = "postalCode" value="75000"></br>
-
-        <label for="city">Ville</label>
-        <input type="text" name="city" id = "city"></br>
-
-        <label for="country">Pays</label>
-        <input type="text" name="country" id="country"></br>
-
-        {% endif %}
-    </div>
-    
-    <div class="modal-footer">
-        <button type="submit" id="submit">Valider</button>
-    </div>
+	</div>
+	<div class="modal-footer">
+		<button type="submit" id="submit">Valider</button>
+	</div>
 </form>
