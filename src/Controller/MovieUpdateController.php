@@ -4,7 +4,6 @@
 namespace App\Controller;
 
 use App\Document\Movie;
-use App\Document\MovieUpdate;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +20,7 @@ class MovieUpdateController extends AbstractController
     const TMDB_API_KEY = '79471b721cbdf1609bd7fae4469f0560';
 
     /**
-     * Undocumented function
+     * Fonction permettant de chercher les titre et date de sortie des films UGC sur allociné
      *
      * @param DocumentManager $dm
      * @return Response
@@ -92,7 +91,7 @@ class MovieUpdateController extends AbstractController
     }
 
     /**
-     * Undocumented function
+     * Fonction de suppression qui appelle des fonction de suppression précise
      *
      * @param DocumentManager $dm
      * @return void
@@ -110,7 +109,7 @@ class MovieUpdateController extends AbstractController
     }
 
     /**
-     * Undocumented function
+     * Fonction permettant de supprimer les films en base de données
      *
      * @param DocumentManager $dm
      * @return void
@@ -124,7 +123,7 @@ class MovieUpdateController extends AbstractController
     }
 
     /**
-     * Undocumented function
+     * Fonction qui récupère l'année de sortie de chaque film et fait une requête à l'api tmdb pour récupérer les informations dont on a besoin
      *
      * @param DocumentManager $dm
      * @return Response
@@ -190,7 +189,7 @@ class MovieUpdateController extends AbstractController
     }    
 
     /**
-     * Traitement du formulairee
+     * Traitement du formulaire pour sauvegarder les données des films correspondants
      *
      * @param DocumentManager $dm
      * @return Response
@@ -198,8 +197,6 @@ class MovieUpdateController extends AbstractController
     #[Route('/save_matches', name: 'app_movies_save_matches')]
     public function saveMatches(DocumentManager $dm, Request $request): Response {
 
-        // RÉCUPÉRER LES DATAS DU FORMULAIRE
-        
         // Récupération du nom du formulaire
         $request->request->get('form-name');
 
@@ -209,27 +206,24 @@ class MovieUpdateController extends AbstractController
         // je sépare les combinaisons d'id de tous les films
         $matchesArray = explode('&matches=', $url);
 
-        // on utilise array_shift pour supprimer le premier élément car il contient un bout d'url dont on a pas besoin
+        // array_shift pour supprimer le premier élément car il contient un bout d'url dont on a pas besoin
         array_shift($matchesArray);
 
-        // dd($matchesArray);
-        // BOUCLE SUR TOUTES LES CHECKBOX COCHÉES (POUR CHAQUE)
+        // Boucle sur chaque film
         foreach ($matchesArray as $match){
             $ids = explode('_', $match);
             $id_mongo = $ids[1];
             $id_TMDB = $ids[2];
-            // dump($ids);
 
-            // CHARGE LE DOCUMENT MONGO 'MOVIE' EN UTILISANT L'ID_MONGO 
+            // charge le document mongo par id
             $moviesMongoDB = $dm->getRepository(Movie::class)->find($id_mongo);
-            // dump($moviesMongoDB);
-            
-            // LANCE UNE NOUVELLE DEMANDE A L'API TMDB, EN UTILISANT L'ID_TMDB, POUR OBENIR A NOUVEAU TOUTES LES DATAS DE LA FICHE TMDB
+                
+            // lance une nouvelle demande a l'api tmdb, en utilisant l'id_tmdb, pour obenir a nouveau toutes les datas de la fiche tmdb
             $TMDBApiUrl = 'https://api.themoviedb.org/3/movie/' . $id_TMDB . '?api_key=' . self::TMDB_API_KEY . '&language=fr-FR';
             $response = file_get_contents($TMDBApiUrl);
             $data = json_decode($response, true);
-            // dump($data);
 
+            // gestion des données du film TMDB pour récupérer celles dont nous avons besoin
             $TMDBCandidate = [
                 'id' => $data['id'],
                 'title' => $data['title'],
@@ -240,16 +234,12 @@ class MovieUpdateController extends AbstractController
                 'release_date' => $data['release_date'],
                 'genre'         => $data['genres'][0]['name'],
             ];
-            // dd($TMDBCandidate);
+
             // problème sur le vote average qui est parfois à 0 (films français), dans ce cas de figure je leur attribue la valeur 6 en dur, cela est plus visuel
             if ($TMDBCandidate['vote_average'] == 0)
             $TMDBCandidate['vote_average'] = 6;
 
-            // Renommer ma catégorie 'musyère' par 'thriller' (marche pas pr le moment)
-            // if ($TMDBCandidate['genre']['genres'][0]['name'] == 'Mystère')
-            // $TMDBCandidate['genre']['genres'][0]['name'] = 'Thriller';
-            // dd($TMDBCandidate['genre']['genres'][0]['name']);
-
+            // enregistre les données
             $moviesMongoDB->setTmdbOverview($TMDBCandidate['overview']);
             $moviesMongoDB->setTmdbPoster($TMDBCandidate['poster_path']);
             $moviesMongoDB->setTmdbVoteAvg($TMDBCandidate['vote_average']);
