@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
      * Ajoute un evenement click sur le bouton à l'intérieur d'un formulaire
      */
     function addEventOnButton(){
-        document.querySelector('#modal-form button').addEventListener('click', (e) => {
+        document.querySelector('#modal-form button#submit').addEventListener('click', (e) => {
                 // annule le comportement normal du lien
                 e.preventDefault();
 
