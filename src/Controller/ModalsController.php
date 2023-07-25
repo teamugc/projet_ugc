@@ -71,7 +71,8 @@ class ModalsController extends AbstractController
                     $message .= 'Veuillez entrer votre prénom.<br>';
                 }  
             $user->setFirstName($request->get('firstname'));
-            
+
+            $dateOfBirth = $request->get('dateOfBirth');            
             $user->setDateOfBirth(new DateTime($request->get('dateOfBirth')));
  
             // vérifier que l'email est valide
@@ -114,8 +115,13 @@ class ModalsController extends AbstractController
                 );
         
             $user->setEmail($request->get('email'));
+
+            $phone  = $request->get('phone');
             $user->setPhone($request->get('phone'));
+
+            $address =$request->get('address');
             $user->setAddress($request->get('address'));
+
             $postalCode = $request->get('postalCode');
             // Protection contre un code postal vide (pour le moment, aux vues des besoin de notre site, nous n'avons pas besoin de le rendre obligatoire)
             if (!empty($postalCode)) {
@@ -125,7 +131,11 @@ class ModalsController extends AbstractController
                 // Si le champ postalCode est vide, l'affecter à null sinon ça plante
                 $user->setPostalCode(null);
             }
+
+            $city = $request->get('city');
             $user->setCity($request->get('city'));
+
+            $country = $request->get('country');
             $user->setCountry($request->get('country'));
               
             // si succès, enregistrement en bdd

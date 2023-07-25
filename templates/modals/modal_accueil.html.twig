@@ -8,7 +8,7 @@
     <div class="alert alert-danger" role="alert">
         {{message|raw}}
     </div>
- {% else %}
+  {% endif %}  
         <div class="d-flex picto-haut justify-content-end">
                 <div class="croix">
                     <a href="#"><img src="assets/icones/cross.svg" alt="Croix blanche"></a>
@@ -72,16 +72,15 @@
                             
                         </div>
                         <div class="col-md-4">
-                            <a class="cta bouton-selectionne"> 
-                                <img src="assets/icones/select.svg" alt="select">
-                                <button type="submit" id="submit"><span>Je suis intéressé.e</span></button>
-                            </a>
+                            <button type="submit" id="submit" class="cta bouton-selectionne">
+                            <span>Je suis intéressé.e</span><img src="assets/icones/select.svg" alt="select">
+                            </button>
+                            
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
- {% endif %}  
  </div>
 </form>
