@@ -63,7 +63,7 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $director = [];
+    protected array $directors = [];
 
     #[MongoDB\Field(type: 'collection')]
     protected array $genres = [];
@@ -263,12 +263,20 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 
     public function getDirector(): array
     {
-        return $this->director;
+        return $this->directors;
     }
 
     public function setDirector(array $director): User
     {
-        $this->director = $director;
+        $this->directors = $director;
+        return $this;
+    }
+
+    public function addDirector(string $director): User
+    {
+        if (!in_array($director, $this->directors))
+            $this->directors[] = $director;
+
         return $this;
     }
 

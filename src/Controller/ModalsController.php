@@ -399,10 +399,11 @@ class ModalsController extends AbstractController
             
 
             // set que si ce n'est pas vide
-            $director = $request->get('director');
-            if (!empty($director)) {
-                $user->setDirector($director);
-            }
+            $directors = $request->get('directors');
+            if (is_array($directors)) {
+                foreach( $directors as $director){
+                    $user->addDirector($director);
+                }}
         
             // set que si ce n'est pas vide
             $language = $request->get('language');
