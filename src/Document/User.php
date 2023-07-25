@@ -59,7 +59,8 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     protected ?int $fidelityPoints = 0;
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $actor = [];
+    protected array $actors = [];
+    
 
     #[MongoDB\Field(type: 'collection')]
     protected array $director = [];
@@ -243,16 +244,16 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 
     public function getActor(): array
     {
-        return $this->actor;
+        return $this->actors;
     }
 
-    public function setActor(array $actor): User
+    public function setActor(array $actors): User
     {
-        $this->actor = $actor;
+        $this->actors = $actors;
         return $this;
     }
 
-    public function addActor(array $actor): User
+    public function addActor(string $actor): User
     {
         if (!in_array($actor, $this->actors))
             $this->actors[] = $actor;
