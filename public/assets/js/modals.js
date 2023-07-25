@@ -1,31 +1,67 @@
 document.addEventListener('DOMContentLoaded', (e) => {
 
+    const url = window.location.href
+    const route = url.substring(url.length - 11);
 
     /**
-     * 
+     * Active la gestion du click sur la page nouvelle connection
      */
-    document.getElementById('btn-new-connection').addEventListener('click', (e) => {
-        // annule le comportement normal du lien
-        e.preventDefault();
+    if(document.getElementById('btn-new-connection') != undefined){
 
-        // lance l'url cible dans la modale
-        fetch('/modals/new_connection')
+        document.getElementById('btn-new-connection').addEventListener('click', (e) => {
+            // annule le comportement normal du lien
+            e.preventDefault();
+
+            // lance l'url cible dans la modale
+            fetch('/modals/new_connection')
+            .then(function(response) {
+                return response.text();
+            })
+            .then(function(html) {
+                document.querySelector('#modal .modal-body').innerHTML = html;
+                addEventOnButton();
+            });
+
+            // affiche la modal
+            let modal = new bootstrap.Modal('#modal', []);
+            modal.show();
+        });
+
+    } 
+
+    /**
+     * Lance la modal accueil sur la page mon-compte
+     */
+    if(route == 'mon-compte/'){
+
+        // demande si c'est la première connection
+        fetch('/user/firstTime')
         .then(function(response) {
             return response.text();
         })
-        .then(function(html) {
-            document.querySelector('#modal .modal-content').innerHTML = html;
-            addEventOnButton();
+        .then(function(json) {
+            json = JSON.parse(json);
+            if (json == true) {
+                // lance l'url cible dans la modale
+                fetch('/modals/accueil')
+                .then(function(response) {
+                    return response.text();
+                })
+                .then(function(html) {
+                    document.querySelector('#modal .modal-content').innerHTML = html;
+                    addEventOnButton();
 
+                });
+                let modal = new bootstrap.Modal('#modal', []);
+                modal.show();
+            }
         });
 
-        // affiche la modal
-        let modal = new bootstrap.Modal('#modal', []);
-        modal.show();
-    });
-    
+       
+    }
+
     /**
-     * 
+     * Ajoute un evenement click sur le bouton à l'intérieur d'un formulaire
      */
     function addEventOnButton(){
         document.querySelector('#modal-form button').addEventListener('click', (e) => {
@@ -108,15 +144,14 @@ document.addEventListener('DOMContentLoaded', (e) => {
                     // crée un autre élément
                     let image = document.createElement('div');
                     image.innerHTML = `<img src="${suggestion['image']}"></img>`;
-
-                     // crée un autre élément
-                     let box = document.createElement('checkbox');
-                     box.innerHTML = `<input type="checkbox" name ="locations[]" id ="locations" value="${suggestion['name']}">`
-
+   
+                    // crée un autre élément
+                    let box = document.createElement('checkbox');
+                    box.innerHTML = `<input type="checkbox" name ="locations[]" id ="locations" value="${suggestion['name']}">`;
+   
                     // crée la div générale pour cette suggestion
                     let el = document.createElement('div');
                     el.classList.add('suggestionClass');
-                    
 
                     // ajoute les éléments dans l'ordre
                     el.appendChild(box);

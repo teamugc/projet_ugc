@@ -30,17 +30,17 @@ class CinemasRepository extends ServiceDocumentRepository
     {
 
         $qb = $this->createQueryBuilder(Cinemas::class)
-        ->field('$or')
-        ->equals([
-            ['name' => new \MongoDB\BSON\Regex($searchData, 'i')],
-            ['zipcode' => new \MongoDB\BSON\Regex($searchData, 'i')],
-            ['city' => new \MongoDB\BSON\Regex($searchData, 'i')],
-        ]);
-
-    if ($limit) {
-        $qb->limit($limit);
-    }
-
-    return $qb->getQuery()->execute()->toArray();
+            ->field('$or')
+            ->equals([
+                ['name' => new \MongoDB\BSON\Regex($searchData, 'i')],
+                ['zipcode' => new \MongoDB\BSON\Regex($searchData, 'i')],
+                ['city' => new \MongoDB\BSON\Regex($searchData, 'i')],
+            ]);
+    
+        if ($limit) {
+            $qb->limit($limit);
+        }
+    
+        return $qb->getQuery()->execute()->toArray();
     }
 }

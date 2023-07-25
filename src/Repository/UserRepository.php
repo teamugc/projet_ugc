@@ -8,7 +8,6 @@ use Doctrine\Bundle\MongoDBBundle\Repository\ServiceDocumentRepository;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Document;
 use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
-use Symfony\Bridge\Doctrine\ManagerRegistry as DoctrineManagerRegistry;
 
 class UserRepository extends ServiceDocumentRepository  
 {
@@ -40,7 +39,6 @@ class UserRepository extends ServiceDocumentRepository
     {
         return $this->findOneBy(['id' => $id]);
     }
-
 
 }
 

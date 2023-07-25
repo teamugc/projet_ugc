@@ -6,11 +6,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use DateTime;
 use App\Validator\PostalCodeValidator;
 use App\Validator\PostalCode;
+
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique as MongoDBUnique;
+
 
 
 
@@ -69,7 +71,7 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     protected array $genres = [];
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $location;
+    protected array $location=[];
 
     #[MongoDB\Field(type: 'collection')]
     protected array $seats = [];
@@ -85,6 +87,9 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 
     #[MongoDB\Field(type: 'collection')]
     protected array $locations = [];
+
+    #[MongoDB\Field(type: 'bool')]
+    protected bool $firstConnection = true;    
 
     public function getId(): string
     {
@@ -168,7 +173,7 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAddress(): ?string
+    public function getAddress(): User
     {
         return $this->address;
     }
@@ -214,7 +219,7 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 
     public function getLocation(): array
     {
-        return $this->location;
+        return $this->locations;
     }
 
     public function setLocation(array $locations): User
@@ -348,7 +353,15 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    
+    public function isFirstConnection(): bool{
+        return $this->firstConnection;
+    }
+
+    public function setFirstConnection(bool $firstConnection): User {
+        $this->firstConnection = $firstConnection;
+        return $this;
+    }
+
      /**
      * A visual identifier that represents this user.
      *
