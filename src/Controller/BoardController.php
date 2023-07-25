@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Document\Movie;
 use App\Document\User;
+use App\Repository\CinemasRepository;
 use App\Repository\MovieRepository;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,10 +31,20 @@ class BoardController extends AbstractController
     }
 
     #[Route('/cinema', name: 'app_board_cinema')]
-    public function cinema(): Response
+    public function cinema(CinemasRepository $cinemasRepository): Response
     {
+        // Récupérer l'utilisateur actuellement authentifié
+        $user = $this->getUser();
+
+        if ($user && !empty($user->getLocation())) {
+            $preferredCinema = $user->getLocation();
+
+        $recommendedCinemas = $cinemasRepository->findByName($preferredCinema);
+
         return $this->render('board/cinema.html.twig', [
+            'recommendedCinemas' => $recommendedCinemas,
         ]);
+        }
     }
 
     #[Route('/reservation', name: 'app_board_reservation')]
@@ -74,7 +85,7 @@ class BoardController extends AbstractController
             // assigner $imgStar à chaque movie en fonction de son id
             $imgStar[$movie->getId()] = $starsImages;
         }   
-        
+
         return $this->render('board/film.html.twig', [
             'recommendedMovies' => $recommendedMovies,
             'imgStar' => $imgStar

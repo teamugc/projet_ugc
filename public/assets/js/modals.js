@@ -108,10 +108,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
                     el.appendChild(box);
                     el.appendChild(titre);
                     el.appendChild(image);
-                    
-
+                
                     // ajout de la div de la suggestion dans la div des suggestions
-                    
                     document.getElementById('suggestions').appendChild(el);
             });
 

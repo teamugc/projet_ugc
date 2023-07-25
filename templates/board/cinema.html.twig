@@ -13,7 +13,9 @@
                     <article class="col-10 col-md-10 top-article"> <!-- zone principale droite -->
 
                         <h1>Mes Cinémas</h1>
-
+                    {% for cinema in recommendedCinemas %}
+                    {{cinema.locations}}
+                    {% endfor %}
                     </article>
                     <!-- FIN ZONE CENTRALE -->
                 </div>
