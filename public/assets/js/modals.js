@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
         
                     let p = document.createElement('span');
-                    p.innerHTML = '' + suggestion;
+                    p.innerHTML = suggestion;
                     
                     let div = document.createElement('div');
                     div.appendChild(box);

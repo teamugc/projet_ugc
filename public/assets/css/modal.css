@@ -308,66 +308,25 @@ padding-top:5px;
 
 }
 
-
 .modal  .table{
     flex-basis: 50%;
-  }
+}
 
-
-.modal #genres option[value="action"] {
+.modal #genres .option {
     background-image: url("../icones/plus-s.svg");
     background-repeat: no-repeat;
     background-position: right center;
 }
 
-.modal #genres option[value="horreur"] {
-    background-image: url("../icones/plus-s.svg");
-    background-repeat: no-repeat;
-    background-position: right center;
-}
-
-.modal #genres option[value="thriller"] {
-    background-image: url("../icones/plus-s.svg");
-    background-repeat: no-repeat;
-    background-position: right center;
-}
-
-.modal #genres option[value="fantastique"] {
-    background-image: url("../icones/plus-s.svg");
-    background-repeat: no-repeat;
-    background-position: right center;
-}
-
-.modal #genres option[value="science-fiction"] {
-    background-image: url("../icones/plus-s.svg");
-    background-repeat: no-repeat;
-    background-position: right center;
-}
-
-.modal #genres option[value="comedie"] {
-    background-image: url("../icones/plus-s.svg");
-    background-repeat: no-repeat;
-    background-position: right center;
-}
-
-.modal #genres option[value="dramatique"] {
-    background-image: url("../icones/plus-s.svg");
-    background-repeat: no-repeat;
-    background-position: right center;
-}
-
-
-.modal option {
+.modal .option {
     margin: 20px;
 
 }
 
-.modal #genre {
+.modal #genres {
     width: 100%;
     padding-right: 100px;
 }
-
-
 
 .modal  .genre-tableau::-webkit-scrollbar {
     width: 10px;
