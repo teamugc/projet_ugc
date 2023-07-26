@@ -1,36 +1,108 @@
-<style>
-    /* Appliquer la couleur noire au texte dans la modale */
-    body, h2, label, input {
-        color: black;
-    }
-</style>
-
 <form action="" method="POST" id="modal-form">
 	<input type="hidden" name="form-name" id="form-name" value="{{formName}}">
 	<input type="hidden" name="step" id="step" value="{{step}}">
 	<input type="hidden" name="previous-step" id="previous-step" value="{{previousStep}}">
 
-	<div class="modal-header">
-		<h2 class="modal-title fs-5" id="ModalLabel">Mes cinémas préférés</h2>
-		{# <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> #}
-	</div>
-	<div class="modal-body">
-		{% if message %}
-			<div class="alert alert-danger" role="alert">
-				{{message|raw}}
-			</div>
+<div class="modal-body">
+        {% if message %}
+    <div class="alert alert-danger" role="alert">
+            {{message|raw}}
+        </div>
+         {% endif %}    
 
-		{% else %}
+ 		<div class="d-flex justify-content-between picto-haut">
+            <div >
+                <a href="modale-message.html"><img src="assets/icones/fleche-gauche.svg" alt="Icône Retour"></a>
+            </div>
+            <div class="croix">
+                <a href="#"><img src="assets/icones/cross.svg" alt="Croix blanche"></a>
+            </div>
+        </div>
+        <div class="row">
+            
 
-			<label for="modal-choose-location-cinema">Ajoutez votre cinéma favori</label>
-			<input type="text" name="location" id="modal-choose-location-cinema"></br>
+            <div class="bandeau-blanc col-12">
+                <h1 class="text-center">Mes cinémas préférés</h1>
+            </div>
+            <div class="col-12">
+                <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25"
+                    aria-valuemin="0" aria-valuemax="100" style="height: 10px"> <!-- réduction taille -->
+                    <div class="progress-bar" style="width: 20%"></div><!-- réduction barre de progression-->
+                </div>
+            </div>
+            <div class="row">
+                <div class="icone-titre col-12">
+                    <img class="moncompte" src="assets/icones/bobine-s.svg" alt="Compte" style="display: inline-block;">
+                    <span class="compte" href="#">Ajoutez votre cinéma favori : </span>
+                </div>
+            </div>
+            <div class="col-md-6">
+			<label for="modal-choose-location-cinema"></label>
+               <input class="inputvillecp-modale" name="location" id="modal-choose-location-cinema" type="text" placeholder="Saisissez votre CP, ville">
+            </div>
 
-		<p>Votre cinéma préféré est :</p>
-		<div id="suggestions"></div>
-	{% endif %}
+            <div class="bloc-cinemas row">
+				<div id="suggestions"></div>
+                <article class="col-12 col-md-4 col-lg-4">
+                    <button class="coeur">
+                        <img src="assets/icones/favori-full.svg" alt="favori full">
+                    </button>
+
+                    <a href="https://www.ugc.fr/cinema.html?id=43" target="_blank" class="nom-cine">
+                        <img class="cinema" src="assets/images/ugcvelizy.png" alt="photo de cinéma Velizy Villacoublay">
 
 
+                        <h3>Ciné Cité UGC - <span class="ville-cine">Vélizy-Villacoublay</span></h3>
+                    </a>
+                    <button class="suppression">supprimer</button>
+
+                </article>
+                <article class="col-12 col-md-4 col-lg-4"> <!-- items card cinema -->
+                    <button class="coeur">
+                        <img src="assets/icones/favori-empty.svg" alt="favori empty">
+                    </button>
+
+                    <a href="https://www.ugc.fr/cinema.html?id=20" target="_blank" class="nom-cine">
+                        <img class="cinema" src="assets/images/ugc-ladefense.jpg" alt="photo de cinéma Ugc la défense">
+
+
+                        <h3>Ciné Cité UGC - <span class="ville-cine">Paris-La-Défense</span></h3>
+                    </a>
+                    <button class="suppression">supprimer</button>
+
+                </article>
+                <article class="col-12 col-md-4 col-lg-4"> <!-- items card cinema -->
+                    <button class="coeur">
+                        <img src="assets/icones/favori-empty.svg" alt="favori empty">
+                    </button>
+
+                    <a href="https://www.ugc.fr/cinema.html?id=44" target="_blank" class="nom-cine">
+                        <img class="cinema" src="assets/images/ugc-le-chesnay-parly.jpg"
+                            alt="photo de cinéma Ugc Parly 2">
+
+
+                        <h3>Ciné Cité UGC - <span class="ville-cine">Parly 2</span></h3>
+                    </a>
+                    <button class="suppression">supprimer</button>
+
+                </article>
+            </div>
+        </div>
+        <div class="row espace-fin-prefere">
+            <div class="col-md-8">
+            </div>
+            <div class="col-md-2">
+                <a class="bouton-retour" href="modale-message.html">
+                    <img src="./assets/icones/fleche-gauche-xs.svg" alt="Flèche gauche">Retour
+                </a>
+            </div>
+            <div class="col-md-2 suivant">
+				<button type="submit" id="submit" class="secondaire bouton">
+				<img src="./assets/icones/arrow-s.svg" alt="Flèche droite bleue">
+				<span>Suivant</span>
+                </button> 
+            </div>
+
+        </div>
 </div>
-<div class="modal-footer">
-	<button type="submit" id="submit">Valider</button>
-</div></form>
+</form>

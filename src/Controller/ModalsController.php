@@ -38,6 +38,15 @@ class ModalsController extends AbstractController
         $user = new User();
         
         $message = '';
+        $lastname = 'rex';
+        $firstname = 'arty';
+        $dateOfBirth = '12/07/1985';
+        $email = '';
+        $phone = '';
+        $address = '';
+        $postalCode = '';
+        $city = '';
+        $country ='';
 
         // traitement du formulaire
         $forname = $request->get('form-name');
@@ -48,6 +57,7 @@ class ModalsController extends AbstractController
             $user->setGender($request->get('gender'));
             
             $lastname = $request->get('lastname');
+            
                 if(empty($lastname) || !is_string($lastname)) {
                 $success = false;
                 $message .= 'Veuillez entrer votre nom.<br>';
@@ -60,7 +70,8 @@ class ModalsController extends AbstractController
                     $message .= 'Veuillez entrer votre prénom.<br>';
                 }  
             $user->setFirstName($request->get('firstname'));
-            
+
+            $dateOfBirth = $request->get('dateOfBirth');            
             $user->setDateOfBirth(new DateTime($request->get('dateOfBirth')));
  
             // vérifier que l'email est valide
@@ -102,8 +113,13 @@ class ModalsController extends AbstractController
                 );
         
             $user->setEmail($request->get('email'));
+
+            $phone  = $request->get('phone');
             $user->setPhone($request->get('phone'));
+
+            $address =$request->get('address');
             $user->setAddress($request->get('address'));
+
             $postalCode = $request->get('postalCode');
             // Protection contre un code postal vide (pour le moment, aux vues des besoin de notre site, nous n'avons pas besoin de le rendre obligatoire)
             if (!empty($postalCode)) {
@@ -113,7 +129,11 @@ class ModalsController extends AbstractController
                 // Si le champ postalCode est vide, l'affecter à null sinon ça plante
                 $user->setPostalCode(null);
             }
+
+            $city = $request->get('city');
             $user->setCity($request->get('city'));
+
+            $country = $request->get('country');
             $user->setCountry($request->get('country'));
               
             // si succès, enregistrement en bdd
@@ -132,11 +152,8 @@ class ModalsController extends AbstractController
                 //                       $session);
                 return $this->accueil($request, 
                                       $userRepository, 
-                                      $session);                                      
-            } else {
-                //$session->set('message', $message);
-                //return $this->redirectToRoute('app_show_errors');
-            }
+                                      $session);
+            } 
         }
     
         // affichage du formulaire
@@ -145,6 +162,16 @@ class ModalsController extends AbstractController
             'formName' => 'form_new_connection',
             'step' => '/modals/new_connection',
             'previousStep' => '',
+            'lastname' => $lastname,
+            'firstname' => $firstname,
+            'dateOfBirth' => $dateOfBirth,
+            'email' => $email,
+            'phone' => $phone,
+            'address' => $address,
+            'postalCode' => $postalCode,
+            'city' => $city,
+            'country' => $country
+
         ]);
     }
 
@@ -190,9 +217,9 @@ class ModalsController extends AbstractController
                             UserRepository $userRepository,
                             SessionInterface $session): Response
     {
-    
+
         // recuperer l'id en session
-        $userId = $session->get('id'); 
+        $userId = $session->get('id') ? $session->get('id') : $this->getUser()->getId(); 
 
         // faire un find pour retrouver le user
         $user = $userRepository->findUserById($userId);
@@ -225,6 +252,14 @@ class ModalsController extends AbstractController
         ]);
     }
 
+    /**
+     * Formulaire de choix du cinema
+     *
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @param SessionInterface $session
+     * @return Response
+     */
     #[Route('/choose_cinema', name: 'app_modals_choose_cinema')]
     public function choose_cinema(Request $request,
                                 UserRepository $userRepository,
@@ -446,7 +481,7 @@ class ModalsController extends AbstractController
                 $user->addGift($gift);
                 }
             }
-
+            $user->setFirstConnection(false);
             $userRepository->save($user, true);
             // faire ici tous les test et vérifications
 
@@ -454,14 +489,28 @@ class ModalsController extends AbstractController
 
 
             // si tout va bien passer à l'étape suivante
-            
-            return $this->redirectToRoute('app_board', [], Response::HTTP_SEE_OTHER);
+
+            // si tout va bien passer à l'étape suivante
+            return $this->final($request, $userRepository, $session);
         }
+
         return $this->render('modals/modal_fidelity.html.twig', [
             'message' => $message,
             'formName' => 'form_fidelity',
             'step' => '/modals/fidelity',
             'previousStep' => '/modals/choose_categories',
+        ]);
+    }
+
+
+    #[Route('/final', name: 'app_modals_finale')]
+    public function final(Request $request,
+                            UserRepository $userRepository,
+                            SessionInterface $session
+                            ): Response
+    {
+
+        return $this->render('modals/final.html.twig', [
         ]);
     }
 }

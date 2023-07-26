@@ -130,7 +130,6 @@ class Movie {
     {
         return $this->tmdbGenre;
     }
-
     public function setTmdbGenre($tmdbGenre)
     {
         $this->tmdbGenre = $tmdbGenre;

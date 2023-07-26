@@ -16,32 +16,26 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/mon-compte')]
 class AccountController extends AbstractController
 {
-    #[Route('/', name: 'app_my_account_index')]
-    public function index(): Response
+    #[Route('/', name: 'app_my_account_show')]
+    public function index(SessionInterface $session, UserRepository $userRepository): Response
     {
+     
+        // mémorise l'id du user en session
+        $session->set('id', $this->getUser()->getId());
+        $userId = $session->get('id');
+        $user = $userRepository->findUserById($userId);
+        
+        $firstname = null;
+        $firstname = $user->getFirstName();
+
         return $this->render('account/index.html.twig', [
             'controller_name' => 'ProfilController',
-            'user'            =>$this->getUser(),
+            
+            'firsttime' => $this->getUser()->isFirstConnection(),
+            'firstname' => $firstname,
         ]);
     }
 
-    #[Route('/', name: 'app_my_account_show')]
-    public function show(UserRepository $userRepository, SessionInterface $session): Response
-    {
-        //$email = $session->get('email');
-        
-        $user = $this->getUser();
-        // $user = $userRepository->findOneBy(['email' => $email]);
-
-        //redirection si on est pas connecté
-        if (is_null($user)) {
-            return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
-        }
-    
-        return $this->render('account/show.html.twig', [
-            'user' => $user
-        ]);
-    }
 
     #[Route('/edit', name: 'app_my_account_edit')]
     public function edit( Request $request, UserRepository $userRepository, DocumentManager $dm): Response
