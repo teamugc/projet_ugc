@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
                     if (document.getElementById('modal-choose-director-cinema')) {
                         initDirectorAutocompletion();
+                        reinitInputActor();
                     }
                    
                 });
@@ -99,7 +100,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
 
     /**
-     * Initialise l'auto completion
+     * Initialise l'auto completion pour le choix du cinema
      * 
      * @returns 
      */
@@ -190,7 +191,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 datas.forEach(suggestion => {
 
                     let box = document.createElement('checkbox');
-                    box.innerHTML = `<input type="checkbox" name ="actors[]" id ="actors" value="${suggestion}">`
+                    box.innerHTML = `<input type="checkbox" class="checkboxActor form-check-input" id ="actors" value="${suggestion}">`
 
         
                     let p = document.createElement('span');
@@ -201,9 +202,36 @@ document.addEventListener('DOMContentLoaded', (e) => {
                     div.appendChild(p);
         
                     destinationEl.appendChild(div);
+
+                    
                 });
+                scanCheckBoxActor();
             })
         })
+    }
+
+    let tabActor = "";
+    /**
+     * Enregistre en base de données les acteurs sélectionnés
+     */
+    function scanCheckBoxActor(){
+        let checkboxActors = document.querySelectorAll('.checkboxActor');
+        checkboxActors.forEach(element => {
+            element.addEventListener('click', (e) => {
+                if(tabActor != ""){
+                    tabActor += "||";
+                }
+                tabActor += e.currentTarget.value;
+                document.getElementById('actorsTab').value = tabActor;
+
+                //permet l'affichage de l'acteur sélectionné dans une 'card'
+                let content = document.getElementById('actor-tag').innerHTML;
+                content += `<div class="col-12 col-md-3"><button class="suppression-tag-modale">`+e.currentTarget.value+`</button></div>`;
+
+                document.getElementById('actor-tag').innerHTML = content;
+
+            })
+        });
     }
 
     /**
@@ -228,11 +256,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 datas.forEach(suggestion => {
 
                     let box = document.createElement('checkbox');
-                    box.innerHTML = `<input type="checkbox" name ="directors[]" id ="directors" value="${suggestion}">`
-
+                    box.innerHTML = `<input type="checkbox" class="checkboxDirector form-check-input" id ="directors" value="${suggestion}">`
         
                     let p = document.createElement('span');
-                    p.innerHTML = '' + suggestion;
+                    p.innerHTML = suggestion;
                     
                     let div = document.createElement('div');
                     div.appendChild(box);
@@ -240,8 +267,51 @@ document.addEventListener('DOMContentLoaded', (e) => {
         
                     destinationEl.appendChild(div);
                 });
+                scanCheckBoxDirector();
+                
             })
         })
+    }
+
+     let tabDirector = "";
+
+     function reinitInputActor(){
+        let listActor = document.querySelector('#actors-container .suggestions-container');
+        let listDirector = document.querySelector('#directors-container .suggestions-container');
+        document.getElementById('modal-choose-actor-cinema').addEventListener('focus', () => {
+            listActor.innerHTML = '';
+            listDirector.innerHTML = '';
+        })
+        document.getElementById('modal-choose-director-cinema').addEventListener('focus', () => {
+            listActor.innerHTML = '';
+            listDirector.innerHTML = '';
+        })
+        document.querySelectorAll('.radioInput').forEach((element) => {
+            element.addEventListener('change', () => {
+                listActor.innerHTML = '';
+                listDirector.innerHTML = '';
+            })
+        })
+        
+     }
+
+    function scanCheckBoxDirector(){
+        let checkboxDirectors = document.querySelectorAll('.checkboxDirector');
+        checkboxDirectors.forEach(element => {
+            element.addEventListener('click', (e) => {
+                if(tabDirector != ""){
+                    tabDirector += "||";
+                }
+                tabDirector += e.currentTarget.value;
+                document.getElementById('directorTab').value = tabActor;
+
+                let content = document.getElementById('director-tag').innerHTML;
+                content += `<div class="col-12 col-md-3"><button class="suppression-tag-modale">`+e.currentTarget.value+`</button></div>`;
+
+                document.getElementById('director-tag').innerHTML = content;
+
+            })
+        });
     }
 
     // const el = document.getElementById('test-auto');

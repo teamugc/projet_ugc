@@ -38,9 +38,9 @@ class ModalsController extends AbstractController
         $user = new User();
         
         $message = '';
-        $lastname = '';
-        $firstname = '';
-        $dateOfBirth = '';
+        $lastname = 'rex';
+        $firstname = 'arty';
+        $dateOfBirth = '12/07/1985';
         $email = '';
         $phone = '';
         $address = '';
@@ -377,7 +377,7 @@ class ModalsController extends AbstractController
             $success = true;
 
             $genres = $request->get('genres');
-
+            
             // if permettant de ne pas faire planter le programme si l'utilisateur ne sélectionne aucun genre
             if (is_array($genres)) {
             foreach( $genres as $genre){
@@ -422,6 +422,7 @@ class ModalsController extends AbstractController
             
             // set que si ce n'est pas vide
             $actors = $request->get('actors');
+            $actors = explode('||', $actors);
             // if (!empty($actor)) {
             //     $user->setActor($actor);
             // } 
@@ -433,6 +434,7 @@ class ModalsController extends AbstractController
 
             // set que si ce n'est pas vide
             $directors = $request->get('directors');
+            $directors = explode('||', $directors);
             if (is_array($directors)) {
                 foreach( $directors as $director){
                     $user->addDirector($director);
