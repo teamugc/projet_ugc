@@ -37,55 +37,58 @@
                 </div>
             </div>
             <div class="col-md-6">
-			<label for="modal-choose-location-cinema"></label>
-               <input class="inputvillecp-modale" name="location" id="modal-choose-location-cinema" type="text" placeholder="Saisissez votre CP, ville">
+                <label for="modal-choose-location-cinema"></label>
+                <input type="hidden" id="cinemaTab" name="cinema" value ="">
+                <input class="inputvillecp-modale" name="location" id="modal-choose-location-cinema" type="text" placeholder="Saisissez votre CP, ville">
             </div>
 
             <div class="bloc-cinemas row">
 				<div id="suggestions"></div>
-                <article class="col-12 col-md-4 col-lg-4">
-                    <button class="coeur">
-                        <img src="assets/icones/favori-full.svg" alt="favori full">
-                    </button>
+				<div id="cardSuggestion">
+                    <article class="col-12 col-md-4 col-lg-4">
+                        <button class="coeur">
+                            <img src="assets/icones/favori-full.svg" alt="favori full">
+                        </button>
 
-                    <a href="https://www.ugc.fr/cinema.html?id=43" target="_blank" class="nom-cine">
-                        <img class="cinema" src="assets/images/ugcvelizy.png" alt="photo de cinéma Velizy Villacoublay">
-
-
-                        <h3>Ciné Cité UGC - <span class="ville-cine">Vélizy-Villacoublay</span></h3>
-                    </a>
-                    <button class="suppression">supprimer</button>
-
-                </article>
-                <article class="col-12 col-md-4 col-lg-4"> <!-- items card cinema -->
-                    <button class="coeur">
-                        <img src="assets/icones/favori-empty.svg" alt="favori empty">
-                    </button>
-
-                    <a href="https://www.ugc.fr/cinema.html?id=20" target="_blank" class="nom-cine">
-                        <img class="cinema" src="assets/images/ugc-ladefense.jpg" alt="photo de cinéma Ugc la défense">
+                        <a href="https://www.ugc.fr/cinema.html?id=43" target="_blank" class="nom-cine">
+                            <img class="cinema" src="assets/images/ugcvelizy.png" alt="photo de cinéma Velizy Villacoublay">
 
 
-                        <h3>Ciné Cité UGC - <span class="ville-cine">Paris-La-Défense</span></h3>
-                    </a>
-                    <button class="suppression">supprimer</button>
+                            <h3>Ciné Cité UGC - <span class="ville-cine">Vélizy-Villacoublay</span></h3>
+                        </a>
+                        <button class="suppression">supprimer</button>
 
-                </article>
-                <article class="col-12 col-md-4 col-lg-4"> <!-- items card cinema -->
-                    <button class="coeur">
-                        <img src="assets/icones/favori-empty.svg" alt="favori empty">
-                    </button>
+                    </article>
+                    <article class="col-12 col-md-4 col-lg-4" id="cinema-card"> <!-- items card cinema -->
+                        <button class="coeur">
+                            <img src="assets/icones/favori-empty.svg" alt="favori empty">
+                        </button>
 
-                    <a href="https://www.ugc.fr/cinema.html?id=44" target="_blank" class="nom-cine">
-                        <img class="cinema" src="assets/images/ugc-le-chesnay-parly.jpg"
-                            alt="photo de cinéma Ugc Parly 2">
+                        <a href="https://www.ugc.fr/cinema.html?id=20" target="_blank" class="nom-cine">
+                            <img class="cinema" src="assets/images/ugc-ladefense.jpg" alt="photo de cinéma Ugc la défense">
 
 
-                        <h3>Ciné Cité UGC - <span class="ville-cine">Parly 2</span></h3>
-                    </a>
-                    <button class="suppression">supprimer</button>
+                            <h3>Ciné Cité UGC - <span class="ville-cine">Paris-La-Défense</span></h3>
+                        </a>
+                        <button class="suppression">supprimer</button>
 
-                </article>
+                    </article>
+                    <article class="col-12 col-md-4 col-lg-4"> <!-- items card cinema -->
+                        <button class="coeur">
+                            <img src="assets/icones/favori-empty.svg" alt="favori empty">
+                        </button>
+
+                        <a href="https://www.ugc.fr/cinema.html?id=44" target="_blank" class="nom-cine">
+                            <img class="cinema" src="assets/images/ugc-le-chesnay-parly.jpg"
+                                alt="photo de cinéma Ugc Parly 2">
+
+
+                            <h3>Ciné Cité UGC - <span class="ville-cine">Parly 2</span></h3>
+                        </a>
+                        <button class="suppression">supprimer</button>
+
+                    </article>
+                </div>
             </div>
         </div>
         <div class="row espace-fin-prefere">

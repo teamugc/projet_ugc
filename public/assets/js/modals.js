@@ -122,52 +122,90 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 refresh(json);
             });
         });
-
-
-        /**
-         * Recharge la liste des suggestion de l'autocomplétion à partir du json
-         * 
-         * @param {*} suggestions 
-         */
-         function refresh (suggestions) {
-
-            // vide la div des suggestions
-            document.getElementById('suggestions').innerHTML = '';
-
-            // pour chaque suggestions reçues en json
-            suggestions.forEach( suggestion => {
-
-                    // crée le titre
-                    let titre = document.createElement('h5');
-                    titre.innerHTML = suggestion['name'];
-                    titre.classList.add('maClasse');
-
-                    // crée un autre élément
-                    let image = document.createElement('div');
-                    image.innerHTML = `<img src="${suggestion['image']}"></img>`;
-   
-                    // crée un autre élément
-                    let box = document.createElement('checkbox');
-                    box.innerHTML = `<input type="checkbox" name ="locations[]" id ="locations" value="${suggestion['name']}">`;
-   
-                    // crée la div générale pour cette suggestion
-                    let el = document.createElement('div');
-                    el.classList.add('suggestionClass');
-
-                    // ajoute les éléments dans l'ordre
-                    el.appendChild(box);
-                    el.appendChild(titre);
-                    el.appendChild(image);
-                    
-
-                    // ajout de la div de la suggestion dans la div des suggestions
-                    
-                    document.getElementById('suggestions').appendChild(el);
-            });
-
-            //console.log(JSON.parse(json));
-        }
     }
+
+    /**
+     * Recharge la liste des suggestion de l'autocomplétion à partir du json
+     * 
+     * @param {*} suggestions 
+     */
+    function refresh (suggestions) {
+
+        // vide la div des suggestions
+        document.getElementById('suggestions').innerHTML = '';
+
+        // pour chaque suggestions reçues en json
+        suggestions.forEach( suggestion => {
+
+            // crée le titre
+            let titre = document.createElement('h5');
+            titre.innerHTML = suggestion['name'];
+            titre.classList.add('maClasse');
+
+            // crée le nom de la ville
+            let city = document.createElement('p');
+            city.innerHTML = suggestion['city'];
+            city.classList.add('maClasse');
+
+            // crée un autre élément
+            let image = document.createElement('div');
+            image.innerHTML = `<img src="${suggestion['image']}"></img>`;
+
+            // crée un autre élément
+            let box = document.createElement('checkbox');
+            box.innerHTML = `<input type="checkbox" class="checkboxCinema form-check-input" name ="locations[]" id ="locations" value="${suggestion['name']}">`;
+
+            // crée la div générale pour cette suggestion
+            let el = document.createElement('div');
+            el.classList.add('suggestionClass');
+
+            // ajoute les éléments dans l'ordre
+            el.appendChild(box);
+            el.appendChild(titre);
+            el.appendChild(city);
+            el.appendChild(image);
+            
+
+            // ajout de la div de la suggestion dans la div des suggestions
+            
+            document.getElementById('suggestions').appendChild(el);
+        });
+
+        scanCheckBoxCinema();
+    }
+
+    let imgCinema = "";
+    let nameCinema = "";
+    let cityCinema = "";
+
+    let tabCinema = "";
+
+    function scanCheckBoxCinema(){
+        let checkboxCinema = document.querySelectorAll('.checkboxCinema');
+        checkboxCinema.forEach(element => {
+            element.addEventListener('click', (e) => {
+                imgCinema += e.currentTarget.parentNode.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML;
+                nameCinema += e.currentTarget.parentNode.nextElementSibling.innerHTML;
+                cityCinema += e.currentTarget.parentNode.nextElementSibling.nextElementSibling.innerHTML;
+
+                if(tabCinema != ""){
+                    tabCinema += "||";
+                }
+                tabCinema += nameCinema;
+                document.getElementById('cinemaTab').value = tabCinema;
+                
+                let content = `<article class="col-12 col-md-4 col-lg-4">
+                <button class="coeur">
+                <img src="assets/icones/favori-empty.svg" alt="favori empty">
+                </button>
+                `+imgCinema+`
+                <h3>`+nameCinema+` - <span class="ville-cine">`+cityCinema+`</span></h3>
+                </article>`;
+                
+                document.getElementById('cardSuggestion').innerHTML = content;
+            })
+        });
+    };
     
     /**
      * Initialisation de l'autocompletion sur le choix d'acteur
