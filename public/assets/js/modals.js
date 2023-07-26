@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 datas.forEach(suggestion => {
 
                     let box = document.createElement('checkbox');
-                    box.innerHTML = `<input type="checkbox" name ="actors[]" id ="actors" value="${suggestion}">`
+                    box.innerHTML = `<input type="checkbox" class="checkboxActor" id ="actors" value="${suggestion}">`
 
         
                     let p = document.createElement('span');
@@ -201,9 +201,33 @@ document.addEventListener('DOMContentLoaded', (e) => {
                     div.appendChild(p);
         
                     destinationEl.appendChild(div);
+
+                    
                 });
+                scanCheckBoxActor();
             })
         })
+    }
+
+    let tabActor = "";
+
+    function scanCheckBoxActor(){
+        let checkboxActors = document.querySelectorAll('.checkboxActor');
+        checkboxActors.forEach(element => {
+            element.addEventListener('click', (e) => {
+                if(tabActor != ""){
+                    tabActor += "||";
+                }
+                tabActor += e.currentTarget.value;
+                document.getElementById('actorsTab').value = tabActor;
+
+                let content = document.getElementById('actor-tag').innerHTML;
+                content += `<div class="col-12 col-md-3"><button class="suppression-tag-modale">`+e.currentTarget.value+`</button></div>`;
+
+                document.getElementById('actor-tag').innerHTML = content;
+
+            })
+        });
     }
 
     /**

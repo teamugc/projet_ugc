@@ -40,11 +40,12 @@
             <div class="col-12">
 				<div id="actors-container">
 					<label for="modal-choose-actor-cinema"></label>
-					<input type="text" name="actors[]" class="actor-input input-recherche-acteur" id="modal-choose-actor-cinema" placeholder="Saisissez le nom d’un acteur.ice">
+                    <input type="hidden" id="actorsTab" name="actors" value ="">
+					<input type="text" class="actor-input input-recherche-acteur" id="modal-choose-actor-cinema" placeholder="Saisissez le nom d’un acteur.ice">
 					<div class="suggestions-container"></div>
 				</div>
             </div>
-            <div class="row">
+            <div class="row" id="actor-tag">
                 <div class="col-12 col-md-3">
                     <button class="suppression-tag-modale">Clint Eastwood</button>
                 </div>
@@ -139,20 +140,5 @@
             </div>
             <div class="espace-fin"> </div>
         </form>
-
-	
-
-		<div id="actors-container">
-			<label for="modal-choose-actor-cinema">Ajoutez vos acteurs favoris</label>
-			<input type="text" name="actors[]" class="actor-input" id="modal-choose-actor-cinema">
-			<div class="suggestions-container"></div>
-		</div>
-		{# <button type="button" id="add-actor-button">Ajouter un acteur</button> #}
-		<div id="directors-container">
-		<label for="modal-choose-director-cinema">Ajoutez vos réalisateurs favoris</label>
-		<input type="text" name="directors[]" id="modal-choose-director-cinema"></br>
-		<div class="suggestions-container"></div>
-		</div>
-
 </form>
 

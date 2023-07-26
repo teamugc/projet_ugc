@@ -422,6 +422,7 @@ class ModalsController extends AbstractController
             
             // set que si ce n'est pas vide
             $actors = $request->get('actors');
+            $actors = explode('||', $actors);
             // if (!empty($actor)) {
             //     $user->setActor($actor);
             // } 
