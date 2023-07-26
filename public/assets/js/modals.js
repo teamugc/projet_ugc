@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
                     if (document.getElementById('modal-choose-director-cinema')) {
                         initDirectorAutocompletion();
+                        reinitInputActor();
                     }
                    
                 });
@@ -264,11 +265,32 @@ document.addEventListener('DOMContentLoaded', (e) => {
                     destinationEl.appendChild(div);
                 });
                 scanCheckBoxDirector();
+                
             })
         })
     }
 
      let tabDirector = "";
+
+     function reinitInputActor(){
+        let listActor = document.querySelector('#actors-container .suggestions-container');
+        let listDirector = document.querySelector('#directors-container .suggestions-container');
+        document.getElementById('modal-choose-actor-cinema').addEventListener('focus', () => {
+            listActor.innerHTML = '';
+            listDirector.innerHTML = '';
+        })
+        document.getElementById('modal-choose-director-cinema').addEventListener('focus', () => {
+            listActor.innerHTML = '';
+            listDirector.innerHTML = '';
+        })
+        document.querySelectorAll('.radioInput').forEach((element) => {
+            element.addEventListener('change', () => {
+                listActor.innerHTML = '';
+                listDirector.innerHTML = '';
+            })
+        })
+        
+     }
 
     function scanCheckBoxDirector(){
         let checkboxDirectors = document.querySelectorAll('.checkboxDirector');
