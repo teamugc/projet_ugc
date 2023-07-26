@@ -211,7 +211,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
 
     let tabActor = "";
-
+    /**
+     * Enregistre en base de données les acteurs sélectionnés
+     */
     function scanCheckBoxActor(){
         let checkboxActors = document.querySelectorAll('.checkboxActor');
         checkboxActors.forEach(element => {
@@ -222,6 +224,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 tabActor += e.currentTarget.value;
                 document.getElementById('actorsTab').value = tabActor;
 
+                //permet l'affichage de l'acteur sélectionné dans une 'card'
                 let content = document.getElementById('actor-tag').innerHTML;
                 content += `<div class="col-12 col-md-3"><button class="suppression-tag-modale">`+e.currentTarget.value+`</button></div>`;
 
