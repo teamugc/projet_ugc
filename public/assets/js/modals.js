@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 datas.forEach(suggestion => {
 
                     let box = document.createElement('checkbox');
-                    box.innerHTML = `<input type="checkbox" class="checkboxActor" id ="actors" value="${suggestion}">`
+                    box.innerHTML = `<input type="checkbox" class="checkboxActor form-check-input" id ="actors" value="${suggestion}">`
 
         
                     let p = document.createElement('span');
@@ -252,8 +252,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 datas.forEach(suggestion => {
 
                     let box = document.createElement('checkbox');
-                    box.innerHTML = `<input type="checkbox" name ="directors[]" id ="directors" value="${suggestion}">`
-
+                    box.innerHTML = `<input type="checkbox" class="checkboxDirector form-check-input" id ="directors" value="${suggestion}">`
         
                     let p = document.createElement('span');
                     p.innerHTML = suggestion;
@@ -264,8 +263,30 @@ document.addEventListener('DOMContentLoaded', (e) => {
         
                     destinationEl.appendChild(div);
                 });
+                scanCheckBoxDirector();
             })
         })
+    }
+
+     let tabDirector = "";
+
+    function scanCheckBoxDirector(){
+        let checkboxDirectors = document.querySelectorAll('.checkboxDirector');
+        checkboxDirectors.forEach(element => {
+            element.addEventListener('click', (e) => {
+                if(tabDirector != ""){
+                    tabDirector += "||";
+                }
+                tabDirector += e.currentTarget.value;
+                document.getElementById('directorTab').value = tabActor;
+
+                let content = document.getElementById('director-tag').innerHTML;
+                content += `<div class="col-12 col-md-3"><button class="suppression-tag-modale">`+e.currentTarget.value+`</button></div>`;
+
+                document.getElementById('director-tag').innerHTML = content;
+
+            })
+        });
     }
 
     // const el = document.getElementById('test-auto');

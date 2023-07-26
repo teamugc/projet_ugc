@@ -434,6 +434,7 @@ class ModalsController extends AbstractController
 
             // set que si ce n'est pas vide
             $directors = $request->get('directors');
+            $directors = explode('||', $directors);
             if (is_array($directors)) {
                 foreach( $directors as $director){
                     $user->addDirector($director);
