@@ -56,4 +56,25 @@ class AccountController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/admin', name: 'app_my_account_admin')]
+    public function admin(SessionInterface $session, UserRepository $userRepository): Response
+    {
+     
+        // mémorise l'id du user en session
+        $session->set('id', $this->getUser()->getId());
+        $userId = $session->get('id');
+        $user = $userRepository->findUserById($userId);
+        
+        $firstname = null;
+        $firstname = $user->getFirstName();
+
+        return $this->render('account/admin.html.twig', [
+            'controller_name' => 'ProfilController',
+            
+            'firsttime' => $this->getUser()->isFirstConnection(),
+            'firstname' => $firstname,
+        ]);
+    }
+
 }

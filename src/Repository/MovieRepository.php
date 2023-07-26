@@ -22,6 +22,22 @@ class MovieRepository extends ServiceDocumentRepository
             ->execute()->toArray();
     }
 
+    public function findByActors(array $actors):array
+    {
+        return $this->createQueryBuilder()
+            ->field('tmdbGenre')->in($actors)
+            ->getQuery()
+            ->execute()->toArray();
+    }
+
+    public function findByDirectors(array $directors):array
+    {
+        return $this->createQueryBuilder()
+            ->field('tmdbGenre')->in($directors)
+            ->getQuery()
+            ->execute()->toArray();
+    }
+
     // public function calculateStars($stars)
     // {
     //     $roundedStars = round($stars * 2) / 2;

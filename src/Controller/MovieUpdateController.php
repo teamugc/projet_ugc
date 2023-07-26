@@ -101,7 +101,7 @@ class MovieUpdateController extends AbstractController
 
         $this->emptyMovies($dm);
 
-        return $this->render('movie_update/index.html.twig', [
+        return $this->render('movies_admin/supp_film.html.twig', [
             'movieCount'    => 0,
             'controller_name' => 'MovieUpdateController',
             'controller_url'  => 'MovieUpdateController'
@@ -179,7 +179,7 @@ class MovieUpdateController extends AbstractController
                 'TMDB_overview'         => $TMDBCandidate['overview'],
                 'TMDB_vote_avg'         => $TMDBCandidate['vote_average'],
                 'TMDB_release_date'     => $TMDBCandidate['release_date'],
-            ];                     
+            ];
         }
 
         // affiche le template twig

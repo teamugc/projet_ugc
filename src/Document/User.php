@@ -173,7 +173,7 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAddress(): User
+    public function getAddress(): string
     {
         return $this->address;
     }

@@ -56,8 +56,10 @@ class BoardController extends AbstractController
         $user = $this->getUser();
 
         // Vérifier que l'utilisateur a des préférences
-        if ($user && !empty($user->getGenres())) {
-            $preferredGenres = $user->getGenres();
+        // if ($user && !empty($user->getGenres())) {
+        $preferredGenres = $user->getGenres();
+        
+        
 
         // Rechercher les films correspondant aux genres préférés de l'utilisateur
         $recommendedMovies = $movieRepository->findByGenres($preferredGenres);
@@ -79,10 +81,9 @@ class BoardController extends AbstractController
             'recommendedMovies' => $recommendedMovies,
             'imgStar' => $imgStar
         ]);
-        } else {
+        //} else {
             // Si l'utilisateur n'a pas de préférences de genre,lui proposer des films populaires.
             // return $this->render('film/no_preferences.html.twig');
         }
     }
-}
-
+ //}
