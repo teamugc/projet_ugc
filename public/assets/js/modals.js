@@ -196,9 +196,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 
                 let content = `<article class="col-12 col-md-4 col-lg-4">
                 <button class="coeur">
-                <img src="assets/icones/favori-empty.svg" alt="favori empty">
+                <img src="assets/icones/favori-full.svg" alt="favori full">
                 </button>
-                `+imgCinema+`
+                <div class="cinema">`+imgCinema+`</div>
                 <h3>`+nameCinema+` - <span class="ville-cine">`+cityCinema+`</span></h3>
                 </article>`;
                 

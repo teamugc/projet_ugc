@@ -308,36 +308,32 @@ class ModalsController extends AbstractController
      * @return Response
      */
     #[Route('/choose_seats', name: 'app_modals_choose_seats')]
-    public function choose_seats(Request $request,
-                                UserRepository $userRepository,
+    public function choose_seats(Request $request, 
+                                UserRepository $userRepository, 
                                 SessionInterface $session): Response
     {
         $message = '';
-
-         // recuperer l'id en session
-         $userId = $session->get('id'); 
-
-         // faire un find pour retrouver le user
-         $user = $userRepository->findUserById($userId);
-
+        // recuperer l'id en session
+        $userId = $session->get('id'); 
+        // faire un find pour retrouver le user
+        $user = $userRepository->findUserById($userId);
+        
         // traitement du formulaire
-        $forname = $request->get('form-name');
-        if ($forname == 'form_choose_seats') {
-            $success = true;
-            // faire ici tous les test et vérifications
-
+        $formName = $request->get('form-name');
+        if ($formName === 'form_choose_seats') {
+            
             // faire également les enregistrement en bdd
             $seats = $request->get('seats');
 
             if (is_array($seats)) {
-            foreach( $seats as $seat){
-                $user->addSeat($seat);
+                foreach ($seats as $seat) {
+                    $user->addSeat($seat);
                 }
             }
 
             $userRepository->save($user, true);
 
-            // si tout va bien passer à l'étape suivante
+            // Si tout va bien, passer à l'étape suivante
             return $this->choose_categories($request, $userRepository, $session);
         }
 
@@ -346,10 +342,10 @@ class ModalsController extends AbstractController
             'formName' => 'form_choose_seats',
             'step' => '/modals/choose_seats',
             'previousStep' => '/modals/choose_cinema',
-            
         ]);
     }
-
+    
+         
     /**
      * Formulaire de choix des catégories de films préférées
      *
