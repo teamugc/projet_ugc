@@ -63,7 +63,6 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     #[MongoDB\Field(type: 'collection')]
     protected array $actors = [];
     
-
     #[MongoDB\Field(type: 'collection')]
     protected array $directors = [];
 
