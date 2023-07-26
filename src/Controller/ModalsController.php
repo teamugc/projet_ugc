@@ -41,12 +41,14 @@ class ModalsController extends AbstractController
         $lastname = 'rex';
         $firstname = 'arty';
         $dateOfBirth = '12/07/1985';
-        $email = '';
+        $email = 'test@gmail.com';
         $phone = '';
         $address = '';
         $postalCode = '';
         $city = '';
-        $country ='';
+        $country ='france';
+        
+       
 
         // traitement du formulaire
         $forname = $request->get('form-name');
@@ -299,6 +301,8 @@ class ModalsController extends AbstractController
         ]);
     }
 
+    /////////////////////////////////////////////////////////////////////////
+
     /**
      * Formulaire de choix d'emplacement dans le cinema
      *
@@ -307,48 +311,41 @@ class ModalsController extends AbstractController
      * @param SessionInterface $session
      * @return Response
      */
+  
+    
     #[Route('/choose_seats', name: 'app_modals_choose_seats')]
-    public function choose_seats(Request $request,
-                                UserRepository $userRepository,
-                                SessionInterface $session): Response
+    public function choose_seats(Request $request, UserRepository $userRepository, SessionInterface $session): Response
     {
         $message = '';
-
-         // recuperer l'id en session
-         $userId = $session->get('id'); 
-
-         // faire un find pour retrouver le user
-         $user = $userRepository->findUserById($userId);
-
-        // traitement du formulaire
-        $forname = $request->get('form-name');
-        if ($forname == 'form_choose_seats') {
-            $success = true;
-            // faire ici tous les test et vérifications
-
-            // faire également les enregistrement en bdd
+        $userId = $session->get('id'); 
+        $user = $userRepository->findUserById($userId);
+    
+        $formName = $request->get('form-name');
+        if ($formName === 'form_choose_seats') {
+            // Traiter le formulaire ici
             $seats = $request->get('seats');
-
+            
             if (is_array($seats)) {
-            foreach( $seats as $seat){
-                $user->addSeat($seat);
+                foreach ($seats as $seat) {
+                    $user->addSeat($seat);
                 }
             }
 
+            
             $userRepository->save($user, true);
-
-            // si tout va bien passer à l'étape suivante
+    
+            // Si tout va bien, passer à l'étape suivante
             return $this->choose_categories($request, $userRepository, $session);
         }
-
+    
         return $this->render('modals/modal_choose_seats.html.twig', [
             'message' => $message,
             'formName' => 'form_choose_seats',
             'step' => '/modals/choose_seats',
             'previousStep' => '/modals/choose_cinema',
-            
         ]);
     }
+    
 
     /**
      * Formulaire de choix des catégories de films préférées

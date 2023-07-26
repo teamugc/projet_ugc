@@ -1,7 +1,13 @@
 <form action="" method="POST" id="modal-form">
+ {# <form action="{{ path('app_modals_choose_seats') }}" method="POST" id="modal-form"> #}
     <input type="hidden" name="form-name" id="form-name" value="{{formName}}">
     <input type="hidden" name="step" id="step" value="{{step}}">
     <input type="hidden" name="previous-step" id="previous-step" value="{{previousStep}}">
+
+   
+    
+
+
 
     <div class="modal-body">
         {% if message %}
@@ -35,9 +41,29 @@
                         <span class="compte" href="#">Choisissez votre zone d’emplacement préférée&nbsp;: </span>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <img src="assets/icones/emplacement-vide.svg" alt="salles places">
+
+                        {# <img src="assets/icones/emplacement-vide.svg" alt="salles places"> #}
+
+                          <table>
+                                {% for row in 1..10 %} {# Boucle pour chaque rangée #}
+                                    <tr>
+                                        {% for seat in 1..18 %} {# Boucle pour chaque siège dans la rangée #}
+                                            <td>
+                                                <label>
+                                                    <input type="checkbox" name="seats[]" value="{{ row ~ '-' ~ seat }}">
+                                                    {{ row ~ '-' ~ seat }}
+                                                </label>
+                                            </td>
+                                            {# <img src = '/public/assets/images/places-ecran_back-center.svg'> #}
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            </table>
+
                     </div>
                 </div>
+
+                
                 <div class="row">
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
@@ -58,39 +84,15 @@
                        <span>Suivant</span><img src="./assets/icones/arrow-s.svg" alt="Flèche droite bleue">
                        </button>   
                     </div>
-
+ 
                 </div>
             </div>
             <div class="espace-fin"> </div>
         </div>
 
 
-    <label for="seats">BG</label>
-    <input type="checkbox" name ="seats[]" id ="seats" value="BG">
 
-    <label for="seats">BC</label>
-    <input type="checkbox" name ="seats[]" id ="seats" value="BC">
-
-    <label for="seats">BD</label>
-    <input type="checkbox" name ="seats[]" id ="seats" value="BD"></br>
-
-    <label for="seats">MG</label>
-    <input type="checkbox" name ="seats[]" id ="seats" value="MG">
-
-    <label for="seats">MC</label>
-    <input type="checkbox" name ="seats[]" id ="seats" value="MC">
-
-    <label for="seats">MD</label>
-    <input type="checkbox" name ="seats[]" id ="seats" value="MD"></br>
-
-    <label for="seats">HG</label>
-    <input type="checkbox" name ="seats[]" id ="seats" value="HG">
-
-    <label for="seats">HC</label>
-    <input type="checkbox" name ="seats[]" id ="seats" value="HC">
-
-    <label for="seats">HD</label>
-    <input type="checkbox" name ="seats[]" id ="seats" value="HD"></br>
+  
 
 </div>
 </form>

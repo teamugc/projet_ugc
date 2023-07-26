@@ -303,7 +303,7 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
+////////
     public function getSeats(): array
     {
         return $this->seats;
@@ -322,7 +322,10 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    // User.php
 
+
+////////////////
     public function getLanguage(): string
     {
         return $this->language;
