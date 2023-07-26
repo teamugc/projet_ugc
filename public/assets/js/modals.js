@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
 
     /**
-     * Initialise l'auto completion
+     * Initialise l'auto completion pour le choix du cinema
      * 
      * @returns 
      */

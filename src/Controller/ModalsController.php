@@ -377,7 +377,7 @@ class ModalsController extends AbstractController
             $success = true;
 
             $genres = $request->get('genres');
-
+            
             // if permettant de ne pas faire planter le programme si l'utilisateur ne sélectionne aucun genre
             if (is_array($genres)) {
             foreach( $genres as $genre){
