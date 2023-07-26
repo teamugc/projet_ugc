@@ -35,6 +35,12 @@ class Movie {
     #[MongoDB\Field(type: 'string')]
     protected string $tmdbGenre;
 
+    #[MongoDB\Field(type: 'string')]
+    protected string $tmdbDirector;
+
+    #[MongoDB\Field(type: 'collection')]
+    protected array $tmdbActor = [];
+
     public function __construct(array $datas)
     {
         $this->name     = isset($datas['name'])     ? $datas['name'] : '' ;
@@ -130,8 +136,29 @@ class Movie {
     {
         return $this->tmdbGenre;
     }
+
     public function setTmdbGenre($tmdbGenre)
     {
         $this->tmdbGenre = $tmdbGenre;
+    }
+
+    public function getTmdbDirector()
+    {
+        return $this->tmdbDirector;
+    }
+
+    public function setTmdbDirector($tmdbDirector)
+    {
+        $this->tmdbDirector = $tmdbDirector;
+    }
+
+    public function getTmdbActor()
+    {
+        return $this->tmdbActor;
+    }
+
+    public function setTmdbActor($tmdbActor)
+    {
+        $this->tmdbActor = $tmdbActor;
     }
 }
