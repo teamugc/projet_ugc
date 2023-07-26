@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
             // crée un autre élément
             let image = document.createElement('div');
-            image.innerHTML = `<img src="${suggestion['image']}"></img>`;
+            image.innerHTML = `<img class="cinema" src="${suggestion['image']}"></img>`;
 
             // crée un autre élément
             let box = document.createElement('checkbox');
@@ -194,13 +194,15 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 tabCinema += nameCinema;
                 document.getElementById('cinemaTab').value = tabCinema;
                 
-                let content = `<article class="col-12 col-md-4 col-lg-4">
+                let content = `
+                <article class="col-12 col-md-4 col-lg-4">
                 <button class="coeur">
                 <img src="assets/icones/favori-full.svg" alt="favori full">
                 </button>
-                <div class="cinema">`+imgCinema+`</div>
+                <img class="cinema" src=`+imgCinema+`></img>
                 <h3>`+nameCinema+` - <span class="ville-cine">`+cityCinema+`</span></h3>
-                </article>`;
+                </article>
+                `;
                 
                 document.getElementById('cardSuggestion').innerHTML = content;
             })
