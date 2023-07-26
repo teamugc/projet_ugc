@@ -24,7 +24,7 @@
                             <span class="d-none d-lg-inline">Mon profil</span>
                         </a>
                         {% if 'ROLE_ADMIN' in app.user.roles %}
-                        <a class="menu-gauche" href="{{path('app_user_index')}}">
+                        <a class="menu-gauche" href="{{path('app_my_account_show')}}">
                             <img class="icone-menu-gauche" src="../assets/icones/roue-xs.svg" alt="Icone paramètres">
                             <span class="d-none d-lg-inline">Admin</span>
                         </a>
