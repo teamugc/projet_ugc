@@ -314,43 +314,43 @@ padding-top:5px;
   }
 
 
-.modal #genre option[value="action"] {
+.modal #genres option[value="action"] {
     background-image: url("../icones/plus-s.svg");
     background-repeat: no-repeat;
     background-position: right center;
 }
 
-.modal #genre option[value="horreur"] {
+.modal #genres option[value="horreur"] {
     background-image: url("../icones/plus-s.svg");
     background-repeat: no-repeat;
     background-position: right center;
 }
 
-.modal #genre option[value="thriller"] {
+.modal #genres option[value="thriller"] {
     background-image: url("../icones/plus-s.svg");
     background-repeat: no-repeat;
     background-position: right center;
 }
 
-.modal #genre option[value="fantastique"] {
+.modal #genres option[value="fantastique"] {
     background-image: url("../icones/plus-s.svg");
     background-repeat: no-repeat;
     background-position: right center;
 }
 
-.modal #genre option[value="science-fiction"] {
+.modal #genres option[value="science-fiction"] {
     background-image: url("../icones/plus-s.svg");
     background-repeat: no-repeat;
     background-position: right center;
 }
 
-.modal #genre option[value="comedie"] {
+.modal #genres option[value="comedie"] {
     background-image: url("../icones/plus-s.svg");
     background-repeat: no-repeat;
     background-position: right center;
 }
 
-.modal #genre option[value="dramatique"] {
+.modal #genres option[value="dramatique"] {
     background-image: url("../icones/plus-s.svg");
     background-repeat: no-repeat;
     background-position: right center;
