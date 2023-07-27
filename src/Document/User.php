@@ -243,12 +243,12 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getActor(): array
+    public function getActors(): array
     {
         return $this->actors;
     }
 
-    public function setActor(array $actors): User
+    public function setActors(array $actors): User
     {
         $this->actors = $actors;
         return $this;
@@ -262,12 +262,12 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getDirector(): array
+    public function getDirectors(): array
     {
         return $this->directors;
     }
 
-    public function setDirector(array $director): User
+    public function setDirectors(array $director): User
     {
         $this->directors = $director;
         return $this;

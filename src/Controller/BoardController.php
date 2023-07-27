@@ -96,26 +96,57 @@ class BoardController extends AbstractController
         
         
 
+            $preferredActors = $user->getActors();
+
+            $preferredDirectors = $user->getDirectors();
+
         // Rechercher les films correspondant aux genres préférés de l'utilisateur
-        $recommendedMovies = $movieRepository->findByGenres($preferredGenres);
+        $recommendedMoviesByGenres = $movieRepository->findByGenres($preferredGenres);
+
+        // Rechercher les films correspondant aux acteurs préférés de l'utilisateur
+        $recommendedMoviesByActors = $movieRepository->findByActors($preferredActors);
+
+        // Rechercher les films correspondant aux acteurs préférés de l'utilisateur
+        $recommendedMoviesByDirectors = $movieRepository->findByDirectors($preferredDirectors);
 
         // Initialiser $imgStar en tant que tableau vide
         $imgStar = [];
 
         // Accéder à la note de chaque film dans le tableau $recommendedMovies
-        foreach ($recommendedMovies as $movie) {
+        foreach ($recommendedMoviesByGenres as $movie) {
             // On va chercher la note du film dans la base de
             $stars = $movie->getTmdbVoteAvg();
             // Utiliser la fonction calculateStars pour obtenir le tableau d'images d'étoiles
             $starsImages  = $movieRepository->calculateStars($stars);
             // assigner $imgStar à chaque movie en fonction de son id
             $imgStar[$movie->getId()] = $starsImages;
-        }   
-        
-        return $this->render('board/film.html.twig', [
-            'recommendedMovies' => $recommendedMovies,
-            'imgStar' => $imgStar,
+        }
 
+        // Accéder à la note de chaque film dans le tableau $recommendedMovies
+        foreach ($recommendedMoviesByActors as $movie) {
+            // On va chercher la note du film dans la base de
+            $stars = $movie->getTmdbVoteAvg();
+            // Utiliser la fonction calculateStars pour obtenir le tableau d'images d'étoiles
+            $starsImages  = $movieRepository->calculateStars($stars);
+            // assigner $imgStar à chaque movie en fonction de son id
+            $imgStar[$movie->getId()] = $starsImages;
+        }
+        
+        // Accéder à la note de chaque film dans le tableau $recommendedMovies
+        foreach ($recommendedMoviesByDirectors as $movie) {
+            // On va chercher la note du film dans la base de
+            $stars = $movie->getTmdbVoteAvg();
+            // Utiliser la fonction calculateStars pour obtenir le tableau d'images d'étoiles
+            $starsImages  = $movieRepository->calculateStars($stars);
+            // assigner $imgStar à chaque movie en fonction de son id
+            $imgStar[$movie->getId()] = $starsImages;
+        }
+
+        return $this->render('board/film.html.twig', [
+            'recommendedMoviesByGenres' => $recommendedMoviesByGenres,
+            'recommendedMoviesByActors' => $recommendedMoviesByActors,
+            'recommendedMoviesByDirectors' => $recommendedMoviesByDirectors,
+            'imgStar' => $imgStar
         ]);
         //} else {
             // Si l'utilisateur n'a pas de préférences de genre,lui proposer des films populaires.

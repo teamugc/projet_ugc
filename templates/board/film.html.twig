@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block body %}
+
 	<main>
 		<section id="zone-centrale">
 			<div class="container">
@@ -26,8 +27,7 @@
 								{# films by genres #}
 
 								<div class="d-flex-slider">
-                                {% for movie in recommendedMovies %}
-                                
+                                {% for movie in recommendedMoviesByGenres %}
 									<!-- slider film -->
 									<article class="card-border film">
 										<div
@@ -44,22 +44,24 @@
                     						{% endfor %}
 											</div>
 
-											<h3>{{movie.name | slice(0, 18) }}</h3>
-                                            {# Afin de pouvoir afficher un synopsis qui rentre dans la card #}
-                                            {# transformer la string en tableau de mots #}
-                                            {% set words = movie.tmdbOverview | split(' ') %}
-                                            {# créer une limite de mots pour que cela rentre dans la card #}
-                                            {% set limitedWords = words | slice(0, 14) %}
-                                            {# initialiser le dernier mot (car si c'est une virgule par ex cela rend : ',...') #}
-                                            {% set lastWord = limitedWords | last %}
-                                            {# Si le dernier mot du synopsis coupé est un caractère comme décris en dessous #}
-                                            {% if lastWord matches '/[,.;!?]$/' %}
-                                            {# Supprimer  #}
-                                                {% set lastWordWithoutPunctuation = lastWord | slice(0, -1) %}
-                                                {% set limitedWords = limitedWords | slice(0, -1) | merge([lastWordWithoutPunctuation]) %}
-                                            {% endif %}
-                                            {# recréer le synopsis et rajouter '...' à la fin #}
-                                            <p>{{ limitedWords | join(' ') ~ '...' }}</p>
+											<h3>{{movie.name | slice(0, 20) }}</h3>
+																	{#  #}
+											{# Afin de pouvoir afficher un synopsis qui rentre dans la card #}
+																	{#  #}
+											{# transformer la string en tableau de mots #}
+											{% set words = movie.tmdbOverview | split(' ') %}
+											{# créer une limite de mots pour que cela rentre dans la card #}
+											{% set limitedWords = words | slice(0, 16) %}
+											{# initialiser le dernier mot (car si c'est une virgule par ex cela rend : ',...') #}
+											{% set lastWord = limitedWords | last %}
+											{# Si le dernier mot du synopsis coupé est un caractère comme décris en dessous #}
+											{% if lastWord matches '/[,.;!?]$/' %}
+											{# Supprimer  #}
+												{% set lastWordWithoutPunctuation = lastWord | slice(0, -1) %}
+												{% set limitedWords = limitedWords | slice(0, -1) | merge([lastWordWithoutPunctuation]) %}
+											{% endif %}
+											{# recréer le synopsis et rajouter '...' à la fin #}
+											<p>{{ limitedWords | join(' ') ~ '...' }}</p>
 
 											<a href="#" class="bouton cta">
 												<img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
@@ -77,6 +79,8 @@
 
 							{# fin film by genres #}
 
+							{# début film by actors #}
+
 							<div
 								class="bloc-liste">
 								<!-- seconde liste de films par acteurs -->
@@ -86,112 +90,52 @@
 								</div>
 								<div
 									class="d-flex-slider">
+									 {% for movie in recommendedMoviesByActors %}
 									<!-- slider film -->
 									<article class="card-border film">
-										<div class="card">
-											<div class="tag">Joachim Phoenix</div>
-
-											<a href="#">
-												<img class="affiche" src="/assets/images/joker.jpg" alt="Jocker">
+										<div
+											class="card">
+											{# <div class="tag">Aventure</div> #}
+											<div class="tag">{{movie.tmdbGenre}}</div>
+											<a href="">
+												<img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}">
 											</a>
-											<div class="avis">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-demi.svg" alt="étoile">
+
+											<div class="avis"> 
+											{% for img in imgStar[movie.id] %}
+                        						<img class="star" src="{{ img }}" alt="star">
+                    						{% endfor %}
 											</div>
-											<h3>Joker</h3>
-											<p>Figure emblématique de l’ennemi juré de Batman. Il brosse le portrait
-												                                                d’Arthur Fleck, un homme sans concession...
-											</p>
+
+											<h3>{{movie.name | slice(0, 20) }}</h3>
+																	{#  #}
+											{# Afin de pouvoir afficher un synopsis qui rentre dans la card #}
+																	{#  #}
+											{# transformer la string en tableau de mots #}
+											{% set words = movie.tmdbOverview | split(' ') %}
+											{# créer une limite de mots pour que cela rentre dans la card #}
+											{% set limitedWords = words | slice(0, 16) %}
+											{# initialiser le dernier mot (car si c'est une virgule par ex cela rend : ',...') #}
+											{% set lastWord = limitedWords | last %}
+											{# Si le dernier mot du synopsis coupé est un caractère comme décris en dessous #}
+											{% if lastWord matches '/[,.;!?]$/' %}
+											{# Supprimer  #}
+												{% set lastWordWithoutPunctuation = lastWord | slice(0, -1) %}
+												{% set limitedWords = limitedWords | slice(0, -1) | merge([lastWordWithoutPunctuation]) %}
+											{% endif %}
+											{# recréer le synopsis et rajouter '...' à la fin #}
+											<p>{{ limitedWords | join(' ') ~ '...' }}</p>
 
 											<a href="#" class="bouton cta">
 												<img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
 												<span>Réserver</span>
 											</a>
-
 										</div>
 									</article>
-									<article class="card-border film">
-										<div class="card">
-											<div class="tag">Harrison Ford</div>
-
-											<a href="#">
-												<img class="affiche" src="/assets/images/indiana-jones.jpg" alt="Indiana Jones">
-											</a>
-											<div class="avis">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
-											</div>
-											<h3>Indiana Jones</h3>
-											<p>Plus de dix ans à enseigner au Hunter College de New York,
-												                                                Jones, professeur d'archéologie, est sur le point de...
-											</p>
-
-											<a href="#" class="bouton cta">
-												<img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
-												<span>Réserver</span>
-											</a>
-
-										</div>
-									</article>
-									<article class="card-border film">
-										<div class="card">
-											<div class="tag">Brad Pitt</div>
-
-											<a href="#">
-												<img class="affiche" src="/assets/images/babylon.jpg" alt="Babylon">
-											</a>
-											<div class="avis">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
-											</div>
-											<h3>Babylon</h3>
-											<p>Los Angeles des années 1920. Récit d’une ambition démesurée et d’excès
-												                                                les plus fous...
-											</p>
-
-											<a href="#" class="bouton cta">
-												<img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
-												<span>Réserver</span>
-											</a>
-
-										</div>
-									</article>
-									<article class="card-border film">
-										<div class="card">
-											<div class="tag">Pénéloppe Cruz</div>
-
-											<a href="#">
-												<img class="affiche" src="/assets/images/a-contre-temps.jpg" alt="A contre temps">
-											</a>
-											<div class="avis">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
-											</div>
-											<h3>A contre temps</h3>
-											<p>Avocat aux fortes convictions sociales, Rafa a jusqu’à minuit pour
-												                                                retrouver la mère d’une fillette...
-											</p>
-
-											<a href="#" class="bouton cta">
-												<img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
-												<span>Réserver</span>
-											</a>
-
-										</div>
-									</article>
+									{% endfor %}
 								</div>
+
+								{# Fin film by actors #}
 
 								<img class="d-none d-lg-inline arrow-film" src="/assets/icones/bouton-slider.svg" alt="bouton slider">
 
@@ -206,112 +150,49 @@
 								</div>
 								<div
 									class="d-flex-slider">
+									{% for movie in recommendedMoviesByDirectors %}
 									<!-- slider film -->
 									<article class="card-border film">
-										<div class="card">
-											<div class="tag">Tarantino</div>
-
-											<a href="#">
-												<img class="affiche" src="/assets/images/inglourious-bastard.jpg" alt="Inglorious bastard">
+										<div
+											class="card">
+											{# <div class="tag">Aventure</div> #}
+											<div class="tag">{{movie.tmdbGenre}}</div>
+											<a href="">
+												<img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}">
 											</a>
-											<div class="avis">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-demi.svg" alt="étoile">
+
+											<div class="avis"> 
+											{% for img in imgStar[movie.id] %}
+                        						<img class="star" src="{{ img }}" alt="star">
+                    						{% endfor %}
 											</div>
-											<h3>Inglorious Bastard</h3>
-											<p>Dans la France occupée de 1940, Shosanna Dreyfus assiste à l'exécution de
-												                                                sa famille tombée entre les mains du colonel nazi...
-											</p>
+
+											<h3>{{movie.name | slice(0, 20) }}</h3>
+																	{#  #}
+											{# Afin de pouvoir afficher un synopsis qui rentre dans la card #}
+																	{#  #}
+											{# transformer la string en tableau de mots #}
+											{% set words = movie.tmdbOverview | split(' ') %}
+											{# créer une limite de mots pour que cela rentre dans la card #}
+											{% set limitedWords = words | slice(0, 16) %}
+											{# initialiser le dernier mot (car si c'est une virgule par ex cela rend : ',...') #}
+											{% set lastWord = limitedWords | last %}
+											{# Si le dernier mot du synopsis coupé est un caractère comme décris en dessous #}
+											{% if lastWord matches '/[,.;!?]$/' %}
+											{# Supprimer  #}
+												{% set lastWordWithoutPunctuation = lastWord | slice(0, -1) %}
+												{% set limitedWords = limitedWords | slice(0, -1) | merge([lastWordWithoutPunctuation]) %}
+											{% endif %}
+											{# recréer le synopsis et rajouter '...' à la fin #}
+											<p>{{ limitedWords | join(' ') ~ '...' }}</p>
 
 											<a href="#" class="bouton cta">
 												<img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
 												<span>Réserver</span>
 											</a>
-
 										</div>
 									</article>
-									<article class="card-border film">
-										<div class="card">
-											<div class="tag">Steven Spielberg</div>
-
-											<a href="#">
-												<img class="affiche" src="/assets/images/the-fabelmans.jpg" alt="Fabelsmans">
-											</a>
-											<div class="avis">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-demi.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
-											</div>
-											<h3>Fabelsmans</h3>
-											<p>Passionné de cinéma, Sammy Fabelman passe son temps à filmer sa famille.
-												                                                S’il est encouragé dans cette voie...
-											</p>
-
-											<a href="#" class="bouton cta">
-												<img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
-												<span>Réserver</span>
-											</a>
-
-										</div>
-									</article>
-									<article class="card-border film">
-										<div class="card">
-											<div class="tag">Ridley Scott</div>
-
-											<a href="#">
-												<img class="affiche" src="/assets/images/mort-sur-le-nil.jpg" alt="Mort sur le nil">
-											</a>
-											<div class="avis">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
-											</div>
-											<h3>Mort sur le Nil</h3>
-											<p>Lors d’une luxueuse croisière sur le Nil, ce qui devait être une lune de
-												                                                miel idyllique se conclut par la mort brutale...
-											</p>
-
-											<a href="#" class="bouton cta">
-												<img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
-												<span>Réserver</span>
-											</a>
-
-										</div>
-									</article>
-									<article class="card-border film">
-										<div class="card">
-											<div class="tag">Nicolas Bedos</div>
-
-											<a href="#">
-												<img class="affiche" src="/assets/images/mascarade.jpg" alt="Mascarade">
-											</a>
-											<div class="avis">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
-												<img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
-											</div>
-											<h3>Mascarade</h3>
-											<p>Lorsqu’un jeune gigolo tombe sous le charme d’une sublime arnaqueuse,
-												                                                c’est le début d’un plan machiavélique sur la Côte...
-											</p>
-
-											<a href="#" class="bouton cta">
-												<img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
-												<span>Réserver</span>
-
-											</a>
-
-										</div>
-									</article>
+									{% endfor %}
 								</div>
 
 								<img class="d-none d-lg-inline arrow-film" src="/assets/icones/bouton-slider.svg" alt="bouton slider">
