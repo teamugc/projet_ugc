@@ -43,4 +43,11 @@ class CinemasRepository extends ServiceDocumentRepository
     
         return $qb->getQuery()->execute()->toArray();
     }
+
+    // recherche un cinema par son nom
+    public function findCinemaByName(string $name): ?Cinemas
+    {
+        return $this->findOneBy(['name' => $name]);
+    }
+    
 }

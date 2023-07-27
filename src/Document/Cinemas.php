@@ -11,7 +11,7 @@ class Cinemas {
     protected string $id;
 
     #[MongoDB\Field(type: 'string')]
-    protected string $name ='';
+    protected ?string $name ='';
 
     #[MongoDB\Field(type: 'string')]
     protected ?string $address ='';
@@ -35,7 +35,7 @@ class Cinemas {
         return $this->name;
     }
 
-    public function setLastName(string $name): Cinemas
+    public function setName(string $name): Cinemas
     {
         $this->name = $name;
         return $this;

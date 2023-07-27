@@ -17,8 +17,10 @@
                     <div id="widget"> <!--container flex columns-->
                         <div class="d-flex infos">
                             <div> <!-- item 1 -->
-                                <p class="prenom bleu">Bonjour Laurent,</p>
-                                <h1>Vos prochaines séances - <span class="normal">UGC Vélizy Villacoublay</span></h1>
+                                <p class="prenom bleu">Bonjour {{app.user.firstname}},</p>
+                                {% for location in app.user.location %}
+                                <h1>Vos prochaines séances - <span class="normal">{{location}}</span></h1>
+                                {% endfor %}
                             </div>
                             <div class="zone-points d-flex"> <!-- items 2 -->
                                 <div class="picto-points">
