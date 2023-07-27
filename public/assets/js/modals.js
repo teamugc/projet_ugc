@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 // récupère la destination du fetch
                 const destination = document.getElementById('step').value;
                 const formData = new FormData(document.getElementById("modal-form"))
+                console.log(formData);
                 fetch(destination, {
                     body: formData,
                     method: "post"
@@ -318,7 +319,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
         
                     destinationEl.appendChild(div);
                 });
-                scanCheckBoxDirector();
+                 scanCheckBoxDirector();
                 
             })
         })
@@ -352,9 +353,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
             element.addEventListener('click', (e) => {
                 if(tabDirector != ""){
                     tabDirector += "||";
+                    
                 }
                 tabDirector += e.currentTarget.value;
-                document.getElementById('directorTab').value = tabActor;
+                document.getElementById('directorTab').value = tabDirector;
 
                 let content = document.getElementById('director-tag').innerHTML;
                 content += `<div class="col-12 col-md-3"><button class="suppression-tag-modale">`+e.currentTarget.value+`</button></div>`;

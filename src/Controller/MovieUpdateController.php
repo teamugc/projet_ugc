@@ -61,6 +61,7 @@ class MovieUpdateController extends AbstractController
                     $moviesList[$nom] = [
                         'name' => $nom,
                         'url' => $url
+                        // to do : film par salle
                     ];
                 }
             }

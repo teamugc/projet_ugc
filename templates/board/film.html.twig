@@ -25,56 +25,59 @@
 								</div>
 
 								{# films by genres #}
-
+								
 								<div class="d-flex-slider">
-                                {% for movie in recommendedMoviesByGenres %}
-									<!-- slider film -->
-									<article class="card-border film">
-										<div
-											class="card">
-											{# <div class="tag">Aventure</div> #}
-											<div class="tag">{{movie.tmdbGenre}}</div>
-											<a href="">
-												<img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}">
-											</a>
+									<div class="slider-control slider-control-left"></div>
+									<div class="slider-control slider-control-right"></div>
+									{% for movie in recommendedMoviesByGenres %}
+										<!-- slider film -->
+										<article class="card-border film">
+											<div
+												class="card">
+												{# <div class="tag">Aventure</div> #}
+												<div class="tag">{{movie.tmdbGenre}}</div>
+												<a href="">
+													<img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}">
+												</a>
 
-											<div class="avis"> 
-											{% for img in imgStar[movie.id] %}
-                        						<img class="star" src="{{ img }}" alt="star">
-                    						{% endfor %}
+												<div class="avis"> 
+												{% for img in imgStar[movie.id] %}
+													<img class="star" src="{{ img }}" alt="star">
+												{% endfor %}
+												</div>
+
+												<h3>{{movie.name | slice(0, 20) }}</h3>
+																		{#  #}
+												{# Afin de pouvoir afficher un synopsis qui rentre dans la card #}
+																		{#  #}
+												{# transformer la string en tableau de mots #}
+												{% set words = movie.tmdbOverview | split(' ') %}
+												{# créer une limite de mots pour que cela rentre dans la card #}
+												{% set limitedWords = words | slice(0, 16) %}
+												{# initialiser le dernier mot (car si c'est une virgule par ex cela rend : ',...') #}
+												{% set lastWord = limitedWords | last %}
+												{# Si le dernier mot du synopsis coupé est un caractère comme décris en dessous #}
+												{% if lastWord matches '/[,.;!?]$/' %}
+												{# Supprimer  #}
+													{% set lastWordWithoutPunctuation = lastWord | slice(0, -1) %}
+													{% set limitedWords = limitedWords | slice(0, -1) | merge([lastWordWithoutPunctuation]) %}
+												{% endif %}
+												{# recréer le synopsis et rajouter '...' à la fin #}
+												<p>{{ limitedWords | join(' ') ~ '...' }}</p>
+
+												<a href="#" class="bouton cta">
+													<img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
+													<span>Réserver</span>
+												</a>
 											</div>
-
-											<h3>{{movie.name | slice(0, 20) }}</h3>
-																	{#  #}
-											{# Afin de pouvoir afficher un synopsis qui rentre dans la card #}
-																	{#  #}
-											{# transformer la string en tableau de mots #}
-											{% set words = movie.tmdbOverview | split(' ') %}
-											{# créer une limite de mots pour que cela rentre dans la card #}
-											{% set limitedWords = words | slice(0, 16) %}
-											{# initialiser le dernier mot (car si c'est une virgule par ex cela rend : ',...') #}
-											{% set lastWord = limitedWords | last %}
-											{# Si le dernier mot du synopsis coupé est un caractère comme décris en dessous #}
-											{% if lastWord matches '/[,.;!?]$/' %}
-											{# Supprimer  #}
-												{% set lastWordWithoutPunctuation = lastWord | slice(0, -1) %}
-												{% set limitedWords = limitedWords | slice(0, -1) | merge([lastWordWithoutPunctuation]) %}
-											{% endif %}
-											{# recréer le synopsis et rajouter '...' à la fin #}
-											<p>{{ limitedWords | join(' ') ~ '...' }}</p>
-
-											<a href="#" class="bouton cta">
-												<img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
-												<span>Réserver</span>
-											</a>
-										</div>
-									</article>
+										</article>
 									{% endfor %}
-									{% if not recommendedMovies %}
+
+									{% if not recommendedMoviesByGenres %}
 									<h2>Veuillez renseigner vos préférences <a href="{{path('app_my_account_show')}}">Ici</a></h2>
 									{% endif %}
 								</div>
-								<img class="d-none d-lg-inline arrow-film" src="/assets/icones/bouton-slider.svg" alt="bouton slider">
+
 							</div>
 
 							{# fin film by genres #}
@@ -90,14 +93,22 @@
 								</div>
 								<div
 									class="d-flex-slider">
+									<div class="slider-control slider-control-left"></div>
+									<div class="slider-control slider-control-right"></div>									
 									 {% for movie in recommendedMoviesByActors %}
 									<!-- slider film -->
 									<article class="card-border film">
 										<div
-											class="card">
-											{# <div class="tag">Aventure</div> #}
-											<div class="tag">{{movie.tmdbGenre}}</div>
-											<a href="">
+                                            class="card">
+                                            {# <div class="tag">Aventure</div> #}
+                                            {% for actor in movie.tmdbActor %}
+                                                {% for actors in app.user.actors %}
+                                                    {% if actor == actors %}
+                                                <div class="tag">{{actor}}</div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endfor %}
+                                            <a href="">
 												<img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}">
 											</a>
 
@@ -156,7 +167,7 @@
 										<div
 											class="card">
 											{# <div class="tag">Aventure</div> #}
-											<div class="tag">{{movie.tmdbGenre}}</div>
+											<div class="tag">{{movie.tmdbDirector}}</div>
 											<a href="">
 												<img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}">
 											</a>
