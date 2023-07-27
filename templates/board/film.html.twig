@@ -44,8 +44,22 @@
                     						{% endfor %}
 											</div>
 
-											<h3>{{movie.name}}</h3>
-											<p>{{movie.tmdbOverview}}</p>
+											<h3>{{movie.name | slice(0, 18) }}</h3>
+                                            {# Afin de pouvoir afficher un synopsis qui rentre dans la card #}
+                                            {# transformer la string en tableau de mots #}
+                                            {% set words = movie.tmdbOverview | split(' ') %}
+                                            {# créer une limite de mots pour que cela rentre dans la card #}
+                                            {% set limitedWords = words | slice(0, 14) %}
+                                            {# initialiser le dernier mot (car si c'est une virgule par ex cela rend : ',...') #}
+                                            {% set lastWord = limitedWords | last %}
+                                            {# Si le dernier mot du synopsis coupé est un caractère comme décris en dessous #}
+                                            {% if lastWord matches '/[,.;!?]$/' %}
+                                            {# Supprimer  #}
+                                                {% set lastWordWithoutPunctuation = lastWord | slice(0, -1) %}
+                                                {% set limitedWords = limitedWords | slice(0, -1) | merge([lastWordWithoutPunctuation]) %}
+                                            {% endif %}
+                                            {# recréer le synopsis et rajouter '...' à la fin #}
+                                            <p>{{ limitedWords | join(' ') ~ '...' }}</p>
 
 											<a href="#" class="bouton cta">
 												<img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">

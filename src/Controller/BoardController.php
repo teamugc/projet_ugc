@@ -19,14 +19,11 @@ class BoardController extends AbstractController
     #[Route('/', name: 'app_board')]
     public function index(SessionInterface $session, UserRepository $userRepository): Response
     {
-        $userId = $session->get('id');
-        $user = $userRepository->findUserById($userId);
-        $firstname = null;
-        $firstname = $user->getFirstName();
+
 
         return $this->render('board/index.html.twig', [
             'controller_name' => 'BoardController',
-            'firstname' => $firstname,
+
             
         ]);
     }
@@ -34,52 +31,40 @@ class BoardController extends AbstractController
     #[Route('/home', name: 'app_board_home')]
     public function home(SessionInterface $session, UserRepository $userRepository): Response
     {
-        $userId = $session->get('id');
-        $user = $userRepository->findUserById($userId);
-        $firstname = null;
-        $firstname = $user->getFirstName();
+
 
         return $this->render('board/home.html.twig', [
-            'firstname' => $firstname,
+
         ]);
     }
 
     #[Route('/cinema', name: 'app_board_cinema')]
     public function cinema(SessionInterface $session, UserRepository $userRepository): Response
     {
-        $userId = $session->get('id');
-        $user = $userRepository->findUserById($userId);
-        $firstname = null;
-        $firstname = $user->getFirstName();
 
+        
         return $this->render('board/cinema.html.twig', [
-            'firstname' => $firstname,
+
         ]);
     }
 
     #[Route('/reservation', name: 'app_board_reservation')]
     public function reservation(SessionInterface $session, UserRepository $userRepository): Response
     {
-        $userId = $session->get('id');
-        $user = $userRepository->findUserById($userId);
-        $firstname = null;
-        $firstname = $user->getFirstName();
+
 
         return $this->render('board/reservation.html.twig', [
-            'firstname' => $firstname,
+
         ]);
     }
 
     #[Route('/fidelite', name: 'app_board_fidelite')]
     public function fidelite(SessionInterface $session, UserRepository $userRepository): Response
     {
-        $userId = $session->get('id');
-        $user = $userRepository->findUserById($userId);
-        $firstname = null;
-        $firstname = $user->getFirstName();
+
 
         return $this->render('board/fidelite.html.twig', [
-            'firstname' => $firstname,
+
         ]);
     }
     #[Route('/film', name: 'app_board_film')]
@@ -87,10 +72,8 @@ class BoardController extends AbstractController
     {
         // Récupérer l'utilisateur actuellement authentifié
         $user = $this->getUser();
-        $userId = $session->get('id');
-        $user = $userRepository->findUserById($userId);
-        $firstname = null;
-        $firstname = $user->getFirstName();
+
+
 
         // Vérifier que l'utilisateur a des préférences
         // if ($user && !empty($user->getGenres())) {
@@ -117,7 +100,7 @@ class BoardController extends AbstractController
         return $this->render('board/film.html.twig', [
             'recommendedMovies' => $recommendedMovies,
             'imgStar' => $imgStar,
-            'firstname' => $firstname,
+
         ]);
         //} else {
             // Si l'utilisateur n'a pas de préférences de genre,lui proposer des films populaires.

@@ -38,11 +38,12 @@ class AccountController extends AbstractController
 
 
     #[Route('/edit', name: 'app_my_account_edit')]
-    public function edit( Request $request, UserRepository $userRepository, DocumentManager $dm): Response
+    public function edit( SessionInterface $session, Request $request, UserRepository $userRepository, DocumentManager $dm): Response
     {
       
-        
         $user = $this->getUser();
+        $userId = $session->get('id');
+        $user = $userRepository->findUserById($userId);
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,14 +67,8 @@ class AccountController extends AbstractController
         $userId = $session->get('id');
         $user = $userRepository->findUserById($userId);
         
-        $firstname = null;
-        $firstname = $user->getFirstName();
-
         return $this->render('account/admin.html.twig', [
-            'controller_name' => 'ProfilController',
-            
-            'firsttime' => $this->getUser()->isFirstConnection(),
-            'firstname' => $firstname,
+            'controller_name' => 'ProfilController'
         ]);
     }
 

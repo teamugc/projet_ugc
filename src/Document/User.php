@@ -70,9 +70,6 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     protected array $genres = [];
 
     #[MongoDB\Field(type: 'collection')]
-    protected array $location=[];
-
-    #[MongoDB\Field(type: 'collection')]
     protected array $seats = [];
 
     #[MongoDB\Field(type: 'string')]

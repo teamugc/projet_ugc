@@ -4,10 +4,12 @@
 namespace App\Controller;
 
 use App\Document\Movie;
+use App\Repository\UserRepository;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 const REGEX_CATCH_MOVIES_TITLES = '/<a[^>]*?class\s*=\s*["\']meta-title-link["\'][^>]*?href\s*=\s*["\']([^"\']*)["\'][^>]*?>([^<]*)<\/a>/i';
@@ -26,8 +28,14 @@ class MovieUpdateController extends AbstractController
      * @return Response
      */
     #[Route('/update', name: 'app_movies_update')]
-    public function index(DocumentManager $dm): Response
+    public function index(SessionInterface $session, UserRepository $userRepository, DocumentManager $dm): Response
     {
+
+        $user = $this->getUser();
+        $userId = $session->get('id');
+        $user = $userRepository->findUserById($userId);
+        $firstname = null;
+        $firstname = $user->getFirstName();
 
         $this->emptyMovies($dm);
         
@@ -86,7 +94,8 @@ class MovieUpdateController extends AbstractController
         return $this->render('movies_admin/index.html.twig', [
             'movieCount'    => $compteur,
             'controller_name' => 'MovieUpdateController',
-            'controller_url'  => 'MovieUpdateController'
+            'controller_url'  => 'MovieUpdateController',
+            'firstname' => $firstname
         ]);
     }
 
@@ -115,6 +124,9 @@ class MovieUpdateController extends AbstractController
      * @return void
      */
     private function emptyMovies(DocumentManager $dm){
+
+        
+
         $movies = $dm->getRepository(Movie::class)->findAll();
         foreach ($movies as $movie){
             $dm->remove($movie);
@@ -129,7 +141,7 @@ class MovieUpdateController extends AbstractController
      * @return Response
      */
     #[Route('/match_tmdb', name: 'app_movies_match_tmdb')]
-    public function matchTMDB(DocumentManager $dm): Response {
+    public function matchTMDB(SessionInterface $session, UserRepository $userRepository, DocumentManager $dm): Response {
 
         $movies = [];
 
@@ -184,7 +196,7 @@ class MovieUpdateController extends AbstractController
 
         // affiche le template twig
         return $this->render('movies_admin/match_tmdb.html.twig', [
-            'movies' => $movies
+            'movies' => $movies,
         ]);
     }    
 

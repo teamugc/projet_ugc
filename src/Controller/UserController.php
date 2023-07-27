@@ -33,13 +33,18 @@ class UserController extends AbstractController
     }
 
     #[Route('/list', name: 'app_user_list')]
-    public function index(UserRepository $userRepository): Response
+    public function index( SessionInterface $session, UserRepository $userRepository): Response
     {
- 
+        $user = $this->getUser();
+        $userId = $session->get('id');
+        $user = $userRepository->findUserById($userId);
+        $firstname = null;
+        $firstname = $user->getFirstName();
         $users = $userRepository->findAll();
         return $this->render('user/usersList.html.twig', [
             'controller_name' => 'UserController',
-            'users' => $users
+            'users' => $users,
+            'firstname' => $firstname
         ]);
     }
 
@@ -74,7 +79,6 @@ class UserController extends AbstractController
         return $this->renderForm('user/new.html.twig', [
             'users' => $user,
             'form' => $form,
-            // 'step' => $step,
         ]);
     }
 
