@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
             // crée un autre élément
             let image = document.createElement('div');
-            image.innerHTML = `<img class="cinema" src="${suggestion['image']}"></img>`;
+            image.innerHTML = `<img src="${suggestion['image']}"></img></br>`;
 
             // crée un autre élément
             let box = document.createElement('checkbox');
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
             document.getElementById('suggestions').appendChild(el);
         });
 
-        scanCheckBoxCinema();
+       // scanCheckBoxCinema();
     }
 
     let imgCinema = "";
@@ -194,15 +194,14 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 tabCinema += nameCinema;
                 document.getElementById('cinemaTab').value = tabCinema;
                 
-                let content = `
-                <article class="col-12 col-md-4 col-lg-4">
-                <button class="coeur">
-                <img src="assets/icones/favori-full.svg" alt="favori full">
-                </button>
-                <img class="cinema" src=`+imgCinema+`></img>
-                <h3>`+nameCinema+` - <span class="ville-cine">`+cityCinema+`</span></h3>
-                </article>
-                `;
+                // let content = `
+                // <article class="col-6 col-md-4 col-lg-4">
+                // <button class="coeur">
+                // <img src="assets/icones/favori-full.svg" alt="favori full">
+                // </button>
+                // <h3><img src=`+imgCinema+`</img></br>`+nameCinema+` - <span class="ville-cine">`+cityCinema+`</span></h3>
+                // </article>
+                // `;
                 
                 document.getElementById('cardSuggestion').innerHTML = content;
             })
