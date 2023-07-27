@@ -111,6 +111,7 @@ class ModalsController extends AbstractController
                     $password
                 )
                 );
+            // $user->setRoles(['ROLE_ADMIN']);
         
             $user->setEmail($request->get('email'));
 

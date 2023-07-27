@@ -22,26 +22,22 @@ class MovieRepository extends ServiceDocumentRepository
             ->execute()->toArray();
     }
 
-    // public function calculateStars($stars)
-    // {
-    //     $roundedStars = round($stars * 2) / 2;
-    //     $imgStarEmpty = '/assets/icones/etoile-vide.svg';
-    //     $imgStarHalf = '/assets/icones/etoile-demi.svg';
-    //     $imgStarFull = '/assets/icones/etoile-pleine.svg';
+    public function findByActors(array $actors):array
+    {
+        return $this->createQueryBuilder()
+            ->field('tmdbActor')->in($actors)
+            ->getQuery()
+            ->execute()->toArray();
+    }
 
-    //     $imgStar = [];
-        
-    //     for ($i = 1; $i <= 5; $i++) {
-    //         if ($i <= $roundedStars) {
-    //             $imgStar[] = $imgStarFull;
-    //         } elseif ($i - 0.5 == $roundedStars) {
-    //             $imgStar[] = $imgStarHalf;
-    //         } else {
-    //             $imgStar[] = $imgStarEmpty;
-    //         }
-    //     }
-    //     return $imgStar;
-    // }
+    public function findByDirectors(array $directors):array
+    {
+        return $this->createQueryBuilder()
+            ->field('tmdbDirector')->in($directors)
+            ->getQuery()
+            ->execute()->toArray();
+    }
+
     public function calculateStars($stars)
     {
         // initialiser un tableau vide
