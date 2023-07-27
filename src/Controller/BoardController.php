@@ -48,12 +48,18 @@ class BoardController extends AbstractController
     }
 
     #[Route('/cinema', name: 'app_board_cinema')]
-    public function cinema(SessionInterface $session, UserRepository $userRepository): Response
+    public function cinema(SessionInterface $session, UserRepository $userRepository, CinemasRepository $cinemasRepository): Response
     {
+         // Récupérer l'utilisateur actuellement authentifié
+         $user = $this->getUser();
+         
+         $preferredLocation = $user->getLocation();
 
+         // Rechercher les cinémas correspondant aux cinémas préférés de l'utilisateur
+        $selectedLocation = $cinemasRepository->findByLocations($preferredLocation);
         
         return $this->render('board/cinema.html.twig', [
-
+            'selectedLocation' => $selectedLocation
         ]);
     }
 

@@ -45,9 +45,18 @@ class CinemasRepository extends ServiceDocumentRepository
     }
 
     // recherche un cinema par son nom
-    public function findCinemaByName(string $name): ?Cinemas
-    {
-        return $this->findOneBy(['name' => $name]);
-    }
+    // public function findByName(string $name): ?Cinemas
+    // {
+    //     return $this->findOneBy(['name' => $name]);
+    // }
     
+
+
+    public function findByLocations(array $locations): array
+    {
+        return $this->createQueryBuilder()
+            ->field('name')->in($locations)
+            ->getQuery()
+            ->execute()->toArray();
+    }
 }

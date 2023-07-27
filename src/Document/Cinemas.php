@@ -30,7 +30,7 @@ class Cinemas {
         return $this->id;
     }
 
-    public function getname(): string
+    public function getName(): string
     {
         return $this->name;
     }
