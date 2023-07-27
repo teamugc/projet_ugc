@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Document\Movie;
 use App\Document\User;
+use App\Repository\CinemasRepository;
 use App\Repository\MovieRepository;
 use App\Repository\UserRepository;
 use Doctrine\ODM\MongoDB\DocumentManager;
@@ -32,12 +33,18 @@ class BoardController extends AbstractController
     }
 
     #[Route('/home', name: 'app_board_home')]
-    public function home(SessionInterface $session, UserRepository $userRepository): Response
+    public function home(SessionInterface $session, 
+                        UserRepository $userRepository,
+                        CinemasRepository $cinemasRepository): Response
     {
         $userId = $session->get('id');
         $user = $userRepository->findUserById($userId);
         $firstname = null;
         $firstname = $user->getFirstName();
+
+        $cinemaName = $session->get('name');
+        $cinema = $cinemasRepository->findCinemaByName($cinemaName);
+        
 
         return $this->render('board/home.html.twig', [
             'firstname' => $firstname,

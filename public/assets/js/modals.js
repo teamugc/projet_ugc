@@ -64,7 +64,11 @@ document.addEventListener('DOMContentLoaded', (e) => {
      * Ajoute un evenement click sur le bouton à l'intérieur d'un formulaire
      */
     function addEventOnButton(){
-        document.querySelector('#modal-form button#submit').addEventListener('click', (e) => {
+        const button = document.querySelector('#modal-form button#submit');
+
+        if(!button) return;
+
+        button.addEventListener('click', (e) => {
                 // annule le comportement normal du lien
                 e.preventDefault();
 
@@ -79,9 +83,11 @@ document.addEventListener('DOMContentLoaded', (e) => {
                     return response.text();
                 })
                 .then(function(html) {
+
+                    // charge le nouveau html dans la modal
                     document.querySelector('#modal .modal-content').innerHTML = html;
                     
-                    addEventOnButton();
+                    // vérifie si il faut active un js spécial en fonction de la modale sur laquelle on se trouve
                     if (document.getElementById('modal-choose-location-cinema')) {
                         initCinemaAutocompletion();
                     }
@@ -95,6 +101,12 @@ document.addEventListener('DOMContentLoaded', (e) => {
                         reinitInputActor();
                     }
                    
+                    if (document.getElementById('modal-final')) {
+                        initFinalModal();
+                    }                   
+                    
+                    // initialise le bouton submit (si il y'en a un)
+                    addEventOnButton();
                 });
         });
     }
@@ -378,6 +390,26 @@ document.addEventListener('DOMContentLoaded', (e) => {
     //     });
     // }
     // FIN DOMContentLoaded
+
+    function initFinalModal () {
+       
+        let chiffre = 5;
+        // Affiche dans le navigateur les nombres à partir de 5
+        let idInterval = setInterval (function() {
+            //console.log('time ! ' + chiffre);
+            chiffre--;
+            document.getElementById('valueSecond').innerHTML = chiffre;
+            
+            if (chiffre == 0) {
+                clearInterval(idInterval);
+                document.location.replace('/login');
+            }
+        }, 1000);
+    
+        
+        //setTimeout(clearInterval, 1000, idInterval);
+    
+    }
 });
 
 

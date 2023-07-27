@@ -147,9 +147,6 @@ class ModalsController extends AbstractController
       
             // si tout va bien passer à l'étape suivante
             if ($success) {
-                // return $this->choose_actors($request, 
-                //                       $userRepository, 
-                //                       $session);
                 return $this->accueil($request, 
                                       $userRepository, 
                                       $session);
