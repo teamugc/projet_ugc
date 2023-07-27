@@ -33,7 +33,9 @@
 										<div
 											class="card">
 											{# <div class="tag">Aventure</div> #}
+											
 											<div class="tag">{{movie.tmdbGenre}}</div>
+											
 											<a href="">
 												<img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}">
 											</a>
@@ -93,7 +95,13 @@
 										<div
 											class="card">
 											{# <div class="tag">Aventure</div> #}
-											<div class="tag">{{movie.tmdbGenre}}</div>
+											{% for actor in movie.tmdbActor %}
+												{% for actors in app.user.actors %}
+													{% if actor == actors %}
+												<div class="tag">{{actor}}</div>
+													{% endif %}
+												{% endfor %}
+											{% endfor %}
 											<a href="">
 												<img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}">
 											</a>
@@ -153,7 +161,7 @@
 										<div
 											class="card">
 											{# <div class="tag">Aventure</div> #}
-											<div class="tag">{{movie.tmdbGenre}}</div>
+											<div class="tag">{{movie.tmdbDirector}}</div>
 											<a href="">
 												<img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}">
 											</a>
