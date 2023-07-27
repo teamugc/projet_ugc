@@ -354,7 +354,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                     tabDirector += "||";
                 }
                 tabDirector += e.currentTarget.value;
-                document.getElementById('directorTab').value = tabActor;
+                document.getElementById('directorTab').value = tabDirector;
 
                 let content = document.getElementById('director-tag').innerHTML;
                 content += `<div class="col-12 col-md-3"><button class="suppression-tag-modale">`+e.currentTarget.value+`</button></div>`;
