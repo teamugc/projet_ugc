@@ -23,9 +23,7 @@
             <h1 class="text-center">Mes informations personnelles</h1>
         </div>
         <div class="col-12">
-            <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 10px">
-                <div class="progress-bar" style="width: 10%"></div>
-            </div>
+            
         </div>
         <div class="row">
             <div class="icone-titre col-12">
@@ -35,7 +33,7 @@
         </div>
         <div class="col-md-6">
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="madame" value="madame">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="madame" value="madame" checked>
                 <label class="form-check-label" for="inlineRadio1">Madame</label>
             </div>
             <div class="form-check form-check-inline">
@@ -99,7 +97,7 @@
             </div>
             
             <div class="suivant">
-                <a class="secondaire bouton-modale" href="modale-cinemas-preferes.html">
+                <a class="secondaire bouton-modale" href="{{path('app_my_account_show')}}">
                     <span>Suivant</span>
 
                     <img src="/assets/icones/arrow-s.svg" alt="Flèche droite bleue">
