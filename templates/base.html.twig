@@ -43,8 +43,8 @@
 						<!--item-->
 						<!--Conteneur Flex--><a class="recherche" href="#"> Recherche</a>
 						<!--item-->
-						{% if app.user %}
-							<a class="compte" href="{{ path('app_my_account_show') }}">{{ firstname }}</a>
+						{% if app.user  %}
+							<a class="compte" href="{{ path('app_my_account_show') }}">{{firstname}}</a>
 							<!--item-->
 						{% else %}
 							<a class="compte" href="{{ path('app_login') }}">Mon Compte</a>
