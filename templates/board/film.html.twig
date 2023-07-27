@@ -27,6 +27,7 @@
 
 								<div class="d-flex-slider">
                                 {% for movie in recommendedMovies %}
+                                
 									<!-- slider film -->
 									<article class="card-border film">
 										<div
@@ -53,6 +54,9 @@
 										</div>
 									</article>
 									{% endfor %}
+									{% if not recommendedMovies %}
+									<h2>Veuillez renseigner vos préférences <a href="{{path('app_my_account_show')}}">Ici</a></h2>
+									{% endif %}
 								</div>
 								<img class="d-none d-lg-inline arrow-film" src="/assets/icones/bouton-slider.svg" alt="bouton slider">
 							</div>

@@ -9,12 +9,13 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>{{ movieCount }} films ont été enregistrés dans Mongo</h1>
+        <h1>{{ movieCount }} films ont été enregistrés dans Mongo</h1>
     <div class="col-md-2 suivant">
-				<button class="secondaire bouton">
-                <a href="{{path('app_movies_match_tmdb')}}">
-				<span>Suivant</span> <img src="/assets/icones/arrow-s.svg" alt="Flèche droite bleue">
-                </a>
-				</button> 
-            </div>
+		<button class="secondaire bouton">
+            <a href="{{path('app_my_account_admin')}}">
+				<span>Retour</span> <img src="/assets/icones/arrow-s.svg" alt="Flèche droite bleue">
+            </a>
+		</button> 
+    </div>
+            
 {% endblock %}

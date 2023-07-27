@@ -101,7 +101,7 @@ class MovieUpdateController extends AbstractController
 
         $this->emptyMovies($dm);
 
-        return $this->render('movie_update/index.html.twig', [
+        return $this->render('movies_admin/supp_film.html.twig', [
             'movieCount'    => 0,
             'controller_name' => 'MovieUpdateController',
             'controller_url'  => 'MovieUpdateController'
@@ -179,7 +179,7 @@ class MovieUpdateController extends AbstractController
                 'TMDB_overview'         => $TMDBCandidate['overview'],
                 'TMDB_vote_avg'         => $TMDBCandidate['vote_average'],
                 'TMDB_release_date'     => $TMDBCandidate['release_date'],
-            ];                     
+            ];
         }
 
         // affiche le template twig
@@ -225,14 +225,43 @@ class MovieUpdateController extends AbstractController
 
             // gestion des données du film TMDB pour récupérer celles dont nous avons besoin
             $TMDBCandidate = [
-                'id' => $data['id'],
-                'title' => $data['title'],
+                'id'             => $data['id'],
+                'title'          => $data['title'],
                 'original_title' => $data['original_title'],
-                'poster_path' => 'https://image.tmdb.org/t/p/w500' . $data['poster_path'],
-                'overview' => $data['overview'],
-                'vote_average' => $data['vote_average'],
-                'release_date' => $data['release_date'],
-                'genre'         => $data['genres'][0]['name'],
+                'poster_path'    => 'https://image.tmdb.org/t/p/w500' . $data['poster_path'],
+                'overview'       => $data['overview'],
+                'vote_average'   => $data['vote_average'],
+                'release_date'   => $data['release_date'],
+                'genre'          => $data['genres'][0]['name'],
+            ];
+
+            $castTMDB = 'https://api.themoviedb.org/3/movie/' . $id_TMDB . '/credits?api_key=' . self::TMDB_API_KEY . '&language=fr-FR';
+            $response = file_get_contents($castTMDB);
+            $data = json_decode($response, true);
+
+            // Foreach qui va chercher le réalisateur de chaque film
+            foreach ($data['crew'] as $crewMember) {
+                if ($crewMember['job'] == "Director") {
+                    $director = $crewMember['name'];
+                    break; // Sortir de la boucle dès que le réalisateur est trouvé
+                }
+            }
+
+            $actors = [];
+            // Foreach qui va chercher les 10 plus gros acteurs de chaque film
+            $i = 0;
+            foreach ($data['cast'] as $castMember) {
+                if($i < 10){
+                    if ($castMember['known_for_department'] == "Acting") {
+                        $actors[] = $castMember['name'];
+                        $i++;
+                    }
+                }
+            }
+
+            $TMDBCandidateCast = [
+                'director' => $director,
+                'actors'   => $actors,
             ];
 
             // problème sur le vote average qui est parfois à 0 (films français), dans ce cas de figure je leur attribue la valeur 6 en dur, cela est plus visuel
@@ -244,6 +273,8 @@ class MovieUpdateController extends AbstractController
             $moviesMongoDB->setTmdbPoster($TMDBCandidate['poster_path']);
             $moviesMongoDB->setTmdbVoteAvg($TMDBCandidate['vote_average']);
             $moviesMongoDB->setTmdbGenre($TMDBCandidate['genre']);
+            $moviesMongoDB->setTmdbDirector($TMDBCandidateCast['director']);
+            $moviesMongoDB->setTmdbActor($TMDBCandidateCast['actors']);
             $dm->persist($moviesMongoDB);
             $dm->flush();
         }

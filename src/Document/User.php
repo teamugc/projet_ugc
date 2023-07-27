@@ -63,7 +63,6 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
     #[MongoDB\Field(type: 'collection')]
     protected array $actors = [];
     
-
     #[MongoDB\Field(type: 'collection')]
     protected array $directors = [];
 
@@ -173,7 +172,7 @@ class User implements UserInterface , PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAddress(): User
+    public function getAddress(): string
     {
         return $this->address;
     }
