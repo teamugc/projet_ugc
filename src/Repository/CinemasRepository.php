@@ -49,4 +49,5 @@ class CinemasRepository extends ServiceDocumentRepository
     {
         return $this->findOneBy(['name' => $name]);
     }
+    
 }

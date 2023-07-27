@@ -18,7 +18,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class BoardController extends AbstractController
 {
     #[Route('/', name: 'app_board')]
-    public function index(SessionInterface $session, UserRepository $userRepository): Response
+    public function index(SessionInterface $session,
+                         UserRepository $userRepository,
+                         CinemasRepository $cinemasRepository): Response
     {
         $userId = $session->get('id');
         $user = $userRepository->findUserById($userId);
@@ -37,17 +39,22 @@ class BoardController extends AbstractController
                         UserRepository $userRepository,
                         CinemasRepository $cinemasRepository): Response
     {
+        $name = null;
+        $firstname = null;
+
         $userId = $session->get('id');
         $user = $userRepository->findUserById($userId);
-        $firstname = null;
         $firstname = $user->getFirstName();
 
-        $cinemaName = $session->get('name');
-        $cinema = $cinemasRepository->findCinemaByName($cinemaName);
-        
+        // $cinemaName = $session->get('name');
+        // $cinema = $cinemasRepository->findCinemaByName($cinemaName);
+        // if ($cinema) {
+        //     $name = $cinema->getname();
+        // }
 
         return $this->render('board/home.html.twig', [
             'firstname' => $firstname,
+            'name' => $name,
         ]);
     }
 
