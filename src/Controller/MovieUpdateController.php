@@ -31,11 +31,8 @@ class MovieUpdateController extends AbstractController
     public function index(SessionInterface $session, UserRepository $userRepository, DocumentManager $dm): Response
     {
 
-        $user = $this->getUser();
-        $userId = $session->get('id');
-        $user = $userRepository->findUserById($userId);
-        $firstname = null;
-        $firstname = $user->getFirstName();
+
+
 
         $this->emptyMovies($dm);
         
@@ -96,7 +93,6 @@ class MovieUpdateController extends AbstractController
             'movieCount'    => $compteur,
             'controller_name' => 'MovieUpdateController',
             'controller_url'  => 'MovieUpdateController',
-            'firstname' => $firstname
         ]);
     }
 

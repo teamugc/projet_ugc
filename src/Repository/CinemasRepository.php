@@ -55,8 +55,8 @@ class CinemasRepository extends ServiceDocumentRepository
     public function findByLocations(array $locations): array
     {
         return $this->createQueryBuilder()
-            ->field('name')->in($locations)
-            ->getQuery()
-            ->execute()->toArray();
+        ->field('name')->in($locations)
+        ->getQuery()
+        ->execute()->toArray();
     }
 }

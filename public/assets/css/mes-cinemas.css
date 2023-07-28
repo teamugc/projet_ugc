@@ -29,7 +29,7 @@
 }
 
 .cinema {
-    width: 100% !important;
+    width: 250px !important;
 }
 
 hr {
@@ -42,6 +42,8 @@ hr {
 }
 
 .bloc-cinemas {
+    justify-content: space-between;
+
     margin-top: 50px;
 
     font-family: 'uniform-regular';
@@ -71,6 +73,7 @@ span.ville-cine {
 }
 
 .bloc-cinemas img.cinema {
+    height: 250px;
     border-radius: 10px;
 
 }
@@ -84,7 +87,7 @@ span.ville-cine {
 .bloc-cinemas .coeur {
     position: absolute;
     top: 0px;
-    right: 20px;
+    right: 0em;
     width: 50px;
     height: auto;
     background-color: transparent;

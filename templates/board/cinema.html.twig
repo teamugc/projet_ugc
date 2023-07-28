@@ -19,26 +19,20 @@
                                     <h2 class="rubrique">Mes cinémas</h2>
                                 </div>
 
-                                {% for location in selectedLocation %}
                                 
-                                 <div class="bloc-cinemas row"> <!-- zone avec toutes les cards cinéma préférés -->
+                                <div class="bloc-cinemas row"> <!-- zone avec toutes les cards cinéma préférés -->
+                                {% for location in selectedLocation %}
                                     <article class="mb-5 mb-lg-0 col-12 col-md-6 col-lg-3"> <!-- items card cinema -->
                                         <button class="coeur">
                                             <img src="/assets/icones/favori-full.svg" alt="favori full">
                                         </button>
-
-                                        <a href="https://www.ugc.fr/cinema.html?id=43" target="_blank" class="nom-cine">
-                                            <img class="cinema" src="/assets/images/ugcvelizy.png" alt="photo de cinéma Velizy Villacoublay">
-                                         
-
-                                            <h3>{{location.name}}</span></h3>
-                                        </a>
-
+                                            <img class="cinema" src="{{location.image}}" alt="photo de cinéma {{location.name}}">
+                                            <h3>{{location.name}} - <span class="ville-cine">{{location.city}}</span></h3>
+                                    </article>
+                                {% endfor %}
                                 </div>
 
-                                {% endfor %}
 
-                            </div>
                             <hr>
                             <div class="bloc-liste"> <!-- première liste de films par genre -->
                                 <div class="d-flex-titre">
