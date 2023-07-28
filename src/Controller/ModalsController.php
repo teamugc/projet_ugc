@@ -321,7 +321,7 @@ class ModalsController extends AbstractController
             
             // faire également les enregistrement en bdd
             $seats = $request->get('seats');
-
+           
             if (is_array($seats)) {
                 foreach ($seats as $seat) {
                     $user->addSeat($seat);
@@ -340,8 +340,7 @@ class ModalsController extends AbstractController
             'step' => '/modals/choose_seats',
             'previousStep' => '/modals/choose_cinema',
         ]);
-    }
-    
+    }  
          
     /**
      * Formulaire de choix des catégories de films préférées

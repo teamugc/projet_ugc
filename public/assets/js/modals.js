@@ -391,6 +391,11 @@ document.addEventListener('DOMContentLoaded', (e) => {
     // }
     // FIN DOMContentLoaded
 
+    
+
+    /**
+     * déclenche le compte à rebours pour la redirection vers la page de connexion
+     */
     function initFinalModal () {
        
         let chiffre = 5;

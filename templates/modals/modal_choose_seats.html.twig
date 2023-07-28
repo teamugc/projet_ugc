@@ -44,6 +44,20 @@
                         <button class="suppression-tag-modale">Emplacement salle</button>
                     </div>
                     <div class="col-md-4"></div>
+                     <table>
+                        {% for row in 1..10 %} {# Boucle pour chaque rangée #}
+                            <tr>
+                                {% for seat in 1..18 %} {# Boucle pour chaque siège dans la rangée #}
+                                    <td class ="td-size">
+                                        <label>
+                                            <input class="inputSeats" type="checkbox" id="checkboxSeat-{{row}}-{{seat}}" name="seats[]" value="{{ row ~ '-' ~ seat }}">
+                                            <label for="checkboxSeat-{{row}}-{{seat}}"></label>
+                                        </label>
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </table>
                 </div>
                 <div class="row espace-fin">
                     <div class="col-6">
@@ -63,34 +77,5 @@
             </div>
             <div class="espace-fin"> </div>
         </div>
-
-
-    <label for="seats">BG</label>
-    <input type="checkbox" name ="seats[]" id ="seats" value="BG">
-
-    <label for="seats">BC</label>
-    <input type="checkbox" name ="seats[]" id ="seats" value="BC">
-
-    <label for="seats">BD</label>
-    <input type="checkbox" name ="seats[]" id ="seats" value="BD"></br>
-
-    <label for="seats">MG</label>
-    <input type="checkbox" name ="seats[]" id ="seats" value="MG">
-
-    <label for="seats">MC</label>
-    <input type="checkbox" name ="seats[]" id ="seats" value="MC">
-
-    <label for="seats">MD</label>
-    <input type="checkbox" name ="seats[]" id ="seats" value="MD"></br>
-
-    <label for="seats">HG</label>
-    <input type="checkbox" name ="seats[]" id ="seats" value="HG">
-
-    <label for="seats">HC</label>
-    <input type="checkbox" name ="seats[]" id ="seats" value="HC">
-
-    <label for="seats">HD</label>
-    <input type="checkbox" name ="seats[]" id ="seats" value="HD"></br>
-
-</div>
+    </div>
 </form>

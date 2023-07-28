@@ -381,6 +381,30 @@ padding-top:5px;
 
 /* CSS EMPLACEMENT */
 
+.modal .td-size {
+    width: 30px;
+    height: 30px;
+}
+
+.modal .inputSeats {
+    position: absolute;
+    opacity: 0;
+}
+
+.modal input[type='checkbox'].inputSeats + label {
+    background-image: url("../icones/fauteuil-seul-vide.svg");
+    background-size: cover;
+    width: 23px;
+    height: 23px;
+}
+
+.modal input[type='checkbox'].inputSeats:checked + label {
+    background-image: url("../icones/fauteuil-seul-select.svg");
+}
+
+.modal .seat-number {
+    display: none;
+}
 
 /* CSS FIDELITE */
 
