@@ -72,4 +72,94 @@ class AccountController extends AbstractController
         ]);
     }
 
+
+    #[Route('/edit_category', name: 'app_my_account_edit_category')]
+    public function editCategory(Request $request,SessionInterface $session, UserRepository $userRepository): Response
+    {
+
+         // recuperer l'id en session
+         $userId = $session->get('id');
+
+         // faire un find pour retrouver le user
+         $user = $userRepository->findUserById($userId);
+        
+        $genres = $user->setGenres([]);
+        // traitement du formulaire
+        $forname = $request->get('form-name');
+        if ($forname == 'form_choose_categories') {
+            $success = true;
+            
+            $genres = $request->get('genres');
+            
+            // if permettant de ne pas faire planter le programme si l'utilisateur ne sélectionne aucun genre
+            if (is_array($genres)) {
+                foreach( $genres as $genre){
+                    $user->addGenre($genre);
+                }
+            }
+            $userRepository->save($user, true);
+
+
+            // si tout va bien passer à l'étape suivante
+            return $this->redirectToRoute('app_my_account_edit_actor', [], Response::HTTP_SEE_OTHER);
+            }
+            return $this->render('account/edit_category.html.twig', [
+                'formName' => 'form_choose_categories',
+            ]);
+    }
+
+
+    #[Route('/edit_actor', name: 'app_my_account_edit_actor')]
+    public function editActor(Request $request,SessionInterface $session, UserRepository $userRepository): Response
+    {
+         // recuperer l'id en session
+         $userId = $session->get('id'); 
+
+         // faire un find pour retrouver le user
+         $user = $userRepository->findUserById($userId);
+        
+        $actors = $user->setActors([]);
+
+        $directors = $user->setDirectors([]);
+
+
+         // traitement du formulaire
+         $forname = $request->get('form-name');
+         if ($forname == 'form_choose_actors') {
+         
+         // set que si ce n'est pas vide
+         $actors = $request->get('actors');
+         $actors = explode('||', $actors);
+         // if (!empty($actor)) {
+         //     $user->setActor($actor);
+         // } 
+         if (is_array($actors)) {
+             foreach( $actors as $actor){
+                 $user->addActor($actor);
+             }}
+         
+
+         // set que si ce n'est pas vide
+         $directors = $request->get('directors');
+         $directors = explode('||', $directors);
+         if (is_array($directors)) {
+             foreach( $directors as $director){
+                 $user->addDirector($director);
+             }}
+     
+         // set que si ce n'est pas vide
+         $language = $request->get('language');
+         if (!empty($language)) {
+             $user->setLanguage($language);
+         }
+
+     $userRepository->save($user, true);
+
+     // si tout va bien passer à l'étape suivante
+     return $this->redirectToRoute('app_my_account_show', [], Response::HTTP_SEE_OTHER);
+    }
+    return $this->render('account/edit_actor.html.twig', [
+        'formName' => 'form_choose_actors',
+    ]);
+    }
 }
