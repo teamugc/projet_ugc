@@ -28,7 +28,7 @@ class AccountController extends AbstractController
         $firstname = null;
         $firstname = $user->getFirstName();
 
-        return $this->render('account/index.html.twig', [
+        return $this->render('board/home.html.twig', [
             'controller_name' => 'ProfilController',
             
             'firsttime' => $this->getUser()->isFirstConnection(),
