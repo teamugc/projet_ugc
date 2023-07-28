@@ -381,8 +381,13 @@ padding-top:5px;
 
 /* CSS EMPLACEMENT */
 
-.modal .td-size:nth-child(4) {
+
+.modal .td-size:nth-child(4), .td-size:nth-child(14) {
     padding-right: 30px;
+}
+
+.modal .space-after {
+    border-bottom: 20px solid transparent;
 }
 
 .modal .inputSeats {
