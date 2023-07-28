@@ -381,8 +381,8 @@ padding-top:5px;
 
 /* CSS EMPLACEMENT */
 
-.modal .td-size {
-    width: 30px;
+.modal .td-size:nth-child(4) {
+    padding-right: 30px;
 }
 
 .modal .inputSeats {
