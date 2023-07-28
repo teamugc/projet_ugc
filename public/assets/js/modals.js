@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
             // crée un autre élément
             let image = document.createElement('div');
-            image.innerHTML = `<img src="${suggestion['image']}"></img></br>`;
+            image.innerHTML = `<img class="cinema" src="${suggestion['image']}"></img></br>`;
 
             // crée un autre élément
             let box = document.createElement('checkbox');
