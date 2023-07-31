@@ -144,6 +144,11 @@ header .nav-picto a.compte {
     background-image: url(../icones/compte.svg);
 }
 
+header .nav-picto a.compte-connect {
+    background-image: url(../icones/compte-bleu.svg);
+    color:#40B3D1;
+}
+
 header .nav-picto a.compte:hover{
     background-image: url(../icones/compte-bleu.svg);
     color:#40B3D1;
@@ -328,6 +333,70 @@ a.power:hover {
     height: auto;
 }
 
+/* CSS page de connexion*/
+
+.moncompte {
+    margin-right: 11px;
+}
+
+.input-infos-persos {
+    border-radius: 10px;
+    border: 1px solid var(--bleu-lumire, #40B3D1);
+    margin-bottom: 10px;
+    background-color: transparent;
+}
+
+.form-control {
+    color : white;
+}
+
+.input-infos-persos::placeholder {
+    color: #40B3D1;
+}
+
+.form-check-input {
+    background-color: transparent;
+    border-color: #FFFCFC;
+    margin-right : 15px;
+}
+
+a.bouton-retour {
+    color: white;
+    text-decoration: underline;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 0.94rem;
+    text-transform: uppercase;
+    padding: 10px 0;
+    width: auto;
+}
+
+.partie-droite {
+    margin-top: 29px;
+
+}
+
+.compte {
+    padding-top: 5px;
+}
+
+.espace {
+    margin-top: 30px;
+}
+
+.espace-fin {
+    padding-top: 30px;
+    
+
+}
+
+.espace-fin-genre{
+    padding-top: 60px;
+
+
+}
+/* fin CSS page de connexion*/
 
 /* CSS SECTION CENTRALE */
 

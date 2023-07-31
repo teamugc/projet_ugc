@@ -14,9 +14,6 @@
         <div >
                 <a href="modale-message.html"><img src="assets/icones/fleche-gauche.svg" alt="Icône Retour"></a>
         </div>
-        <div class="croix">
-            <a href="#"><img src="assets/icones/cross.svg" alt="Croix blanche"></a>
-        </div>
         
         <div class="row">
             
@@ -34,23 +31,24 @@
                             style="display: inline-block;">
                         <span class="compte" href="#">Choisissez votre zone d’emplacement préférée&nbsp;: </span>
                     </div>
-                    <div class="d-flex justify-content-center">
-                <div class="row">
-                     <table>
-                        {% for row in 1..10 %} {# Boucle pour chaque rangée #}
-                            <tr>
-                                {% for seat in 1..18 %} {# Boucle pour chaque siège dans la rangée #}
-                                    <td class ="td-size">
-                                        <label>
-                                            <input class="inputSeats" type="checkbox" id="checkboxSeat-{{row}}-{{seat}}" name="seats[]" value="{{ row ~ '-' ~ seat }}">
-                                            <label for="checkboxSeat-{{row}}-{{seat}}"></label>
-                                        </label>
-                                    </td>
+                    <div class="d-flex justify-content-center ecran">
+                        
+                        <table class = "cadre">
+                            <div class="row">
+                                {% for row in 1..10 %} {# Boucle pour chaque rangée #}
+                                    <tr class ="tr-size {% if row == 3 or row == 7 %}space-after{% endif %}">
+                                        {% for seat in 1..18 %} {# Boucle pour chaque siège dans la rangée #}
+                                            <td class ="td-size">
+                                                <label>
+                                                    <input class="inputSeats" type="checkbox" id="checkboxSeat-{{row}}-{{seat}}" name="seats[]" value="{{ row ~ '-' ~ seat }}">
+                                                    <label for="checkboxSeat-{{row}}-{{seat}}"></label>
+                                                </label>
+                                            </td>
+                                        {% endfor %}
+                                    </tr>
                                 {% endfor %}
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
+                            </div>
+                        </table>
                       
                     </div>
                 </div>
