@@ -139,7 +139,6 @@ header .nav-picto a.recherche:hover{
     color:#40B3D1;
 }
 
-
 header .nav-picto a.compte {
     background-image: url(../icones/compte.svg);
 }
@@ -173,10 +172,10 @@ header .nav-picto a.pro:hover {
 }
 
 header .nav-picto a.lemag {
+    background-image: url(../icones/lemag.svg);
     display: inline-block;
     padding-top: 20px;
 }
-
 
 header .nav-haute a.actif{
     background-image: url(../icones/compte-bleu.svg);
