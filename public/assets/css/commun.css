@@ -41,7 +41,7 @@ h2.rubrique {
     font-size: 1.4rem;
     text-transform: uppercase;
     padding-top: 7px;
-    color: #fffcfc;
+    
 }
 
 h2,
@@ -596,4 +596,5 @@ a:hover.footer {
 
 .modif {
     text-decoration: none;
+    color: #fffcfc;
 }
