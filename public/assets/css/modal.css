@@ -380,6 +380,13 @@ padding-top:5px;
 
 /* CSS EMPLACEMENT */
 
+.modal .ecran {
+    background: top no-repeat url("../images/ecran.svg");
+}
+
+.modal .cadre {
+    margin-top: 70px;
+}
 
 .modal .td-size:nth-child(4), .td-size:nth-child(14) {
     padding-right: 30px;
