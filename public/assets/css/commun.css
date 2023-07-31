@@ -26,6 +26,8 @@
 }
 
 
+
+
 body {
     font-family: 'uniform-regular';
     background-color: #010A3D;
@@ -590,4 +592,9 @@ a:hover.footer {
     }
 
 
+}
+
+.modif {
+    text-decoration: none;
+    
 }
