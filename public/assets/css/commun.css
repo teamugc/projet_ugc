@@ -144,6 +144,11 @@ header .nav-picto a.compte {
     background-image: url(../icones/compte.svg);
 }
 
+header .nav-picto a.compte-connect {
+    background-image: url(../icones/compte-bleu.svg);
+    color:#40B3D1;
+}
+
 header .nav-picto a.compte:hover{
     background-image: url(../icones/compte-bleu.svg);
     color:#40B3D1;
