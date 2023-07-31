@@ -41,6 +41,9 @@ h2.rubrique {
     font-size: 1.4rem;
     text-transform: uppercase;
     padding-top: 7px;
+}
+
+h2.text-profil {
     color: #fffcfc;
 }
 
@@ -596,5 +599,4 @@ a:hover.footer {
 
 .modif {
     text-decoration: none;
-    
 }
