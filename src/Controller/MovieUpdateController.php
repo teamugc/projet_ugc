@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 const REGEX_CATCH_MOVIES_TITLES = '/<a[^>]*?class\s*=\s*["\']meta-title-link["\'][^>]*?href\s*=\s*["\']([^"\']*)["\'][^>]*?>([^<]*)<\/a>/i';
 const REGEX_CATCH_MOVIE_YEAR = '/<span itemprop="datePublished" content="([0-9]{4}-[0-9]{2}-[0-9]{2})">/i';
-
+const REGEX_CATCH_CINEMA_NAME = '/<div class="theater-cover-title">([^<]+)<\/div>/i';
 
 #[Route('/movies')]
 class MovieUpdateController extends AbstractController
@@ -30,9 +30,6 @@ class MovieUpdateController extends AbstractController
     #[Route('/update', name: 'app_movies_update')]
     public function index(SessionInterface $session, UserRepository $userRepository, DocumentManager $dm): Response
     {
-
-
-
 
         $this->emptyMovies($dm);
         
@@ -55,11 +52,28 @@ class MovieUpdateController extends AbstractController
                     $nom = $matches[2][$i];
                     $url = $matches[1][$i];
                     $nom = html_entity_decode($nom);
-                    $moviesList[$nom] = [
-                        'name' => $nom,
-                        'url' => $url
-                        // to do : film par salle
-                    ];
+
+                    $cinemaNames = [];
+                    preg_match_all(REGEX_CATCH_CINEMA_NAME, $html, $cinemaMatches);
+                   
+                    foreach ($cinemaMatches[1] as $cinemaName) {
+                        // décodage de cin'hoche qui était cassé
+                        $cinemaName = htmlspecialchars_decode($cinemaName, ENT_QUOTES);
+                        $cinemaNames[] = $cinemaName;
+                    }
+
+                       // Vérifier si le film existe déjà dans $moviesList
+                    if (array_key_exists($nom, $moviesList)) {
+                        // Si oui, ajouter les cinémas associés
+                        $moviesList[$nom]['cinemas'] = array_merge($moviesList[$nom]['cinemas'], $cinemaNames);
+                    } else {
+                        // Sinon, créer une nouvelle entrée pour le film
+                        $moviesList[$nom] = [
+                            'name' => $nom,
+                            'url' => $url,
+                            'cinemas'=> $cinemaNames,
+                        ];
+                    }
                 }
             }
         }
@@ -86,8 +100,8 @@ class MovieUpdateController extends AbstractController
             $dm->persist($mv);
             $compteur++;
         }
-
         $dm->flush();
+        dump($moviesList);
 
         return $this->render('movies_admin/index.html.twig', [
             'movieCount'    => $compteur,
