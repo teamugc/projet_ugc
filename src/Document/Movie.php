@@ -23,8 +23,11 @@ class Movie {
     #[MongoDB\Field(type: 'string')]
     protected string $date_fr;
 
+    #[MongoDB\Field(type: 'collection')]
+    protected array $cinemas;
+
     #[MongoDB\Field(type: 'float')]
-    protected float $tmdbVoteAvg;
+    protected float $tmdbVoteAvg = 0;
 
     #[MongoDB\Field(type: 'string')]
     protected string $tmdbOverview;
@@ -47,6 +50,7 @@ class Movie {
         $this->url      = isset($datas['url'])      ? $datas['url'] : '' ;
         $this->date     = isset($datas['date'])     ? $datas['date'] : '' ;
         $this->date_fr  = isset($datas['date_fr'])  ? $datas['date_fr'] : '' ;
+        $this->cinemas  = isset($datas['cinemas'])  ? $datas['cinemas'] : [];
     }
 
     public function getId(): string
@@ -93,6 +97,18 @@ class Movie {
     public function setDateFr(string $date_fr): Movie
     {
         $this->date_fr = $date_fr;
+
+        return $this;
+    }
+
+    public function getCinemas()
+    {
+        return $this->cinemas;
+    }
+
+    public function setCinemas(array $cinemas): Movie
+    {
+        $this->cinemas = $cinemas;
 
         return $this;
     }

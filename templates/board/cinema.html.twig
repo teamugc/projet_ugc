@@ -35,29 +35,54 @@
 
 
                             <hr>
-                            <div class="bloc-liste"> <!-- première liste de films par genre -->
+                            <div class="bloc-liste"> <!-- liste de films par cinémas -->
                                 <div class="d-flex-titre">
                                     <img class="icone-titre-rubrique" src="/assets/icones/bobine-m.svg" alt="Icone bobine film">
                                     <h2 class="icone rubrique ">Les séances dans mon cinéma</h2>
                                 </div>
-                                <div class="d-flex-slider"> <!-- slider film -->
-                                    <article class="card-border film">
-											<div class="card">
-																								<div class="tag">Animation</div>
+                                {# films by cinemas #}
+								
+								<div class="d-flex-slider">
+									<div class="slider-control slider-control-left"></div>
+									<div class="slider-control slider-control-right"></div>
+									{% for movie in recommendedMoviesByCinema | slice(0, 4)%}
+										<!-- slider film -->
+										<article class="card-border film">
+											<div
+												class="card">
+												{# <div class="tag">Aventure</div> #}
+                                                
+												<div class="tag">{{movie.tmdbGenre}}</div>
+                                                
 												<a href="">
-													<img class="affiche" src="https://image.tmdb.org/t/p/w500/rdPlVH2t6wmGYbe2Ii7P2pyi5hm.jpg" alt="The First Slam Dunk">
+                                                {# style pour régler le problème de l'affiche d'en eaux très troubles qui nous vient de l'api et qui est plus petite que les autres #}
+													<img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}" style="width: 206px; height: 309px;">
 												</a>
 
 												<div class="avis"> 
-																									<img class="star" src="/assets/icones/etoile-pleine.svg" alt="star">
-																									<img class="star" src="/assets/icones/etoile-pleine.svg" alt="star">
-																									<img class="star" src="/assets/icones/etoile-pleine.svg" alt="star">
-																									<img class="star" src="/assets/icones/etoile-pleine.svg" alt="star">
-																									<img class="star" src="/assets/icones/etoile-vide.svg" alt="star">
-																								</div>
+												{% for img in imgStar[movie.id] %}
+													<img class="star" src="{{ img }}" alt="star">
+												{% endfor %}
+												</div>
 
-												<h3>The First Slam Dunk</h3>
-																																																																																																																																																																								<p>En deuxième année de lycée, Ryota fait partie de l'équipe de basket-ball du lycée Shohoku, aux...</p>
+												<h3>{{movie.name | slice(0, 20) }}</h3>
+																		{#  #}
+												{# Afin de pouvoir afficher un synopsis qui rentre dans la card #}
+																		{#  #}
+												{# transformer la string en tableau de mots #}
+												{% set words = movie.tmdbOverview | split(' ') %}
+												{# créer une limite de mots pour que cela rentre dans la card #}
+												{% set limitedWords = words | slice(0, 10) %}
+												{# initialiser le dernier mot (car si c'est une virgule par ex cela rend : ',...') #}
+												{% set lastWord = limitedWords | last %}
+												{# Si le dernier mot du synopsis coupé est un caractère comme décris en dessous #}
+												{% if lastWord matches '/[,.;!?]$/' %}
+												{# Supprimer  #}
+													{% set lastWordWithoutPunctuation = lastWord | slice(0, -1) %}
+													{% set limitedWords = limitedWords | slice(0, -1) | merge([lastWordWithoutPunctuation]) %}
+												{% endif %}
+												{# recréer le synopsis et rajouter '...' à la fin #}
+												<p>{{ limitedWords | join(' ') ~ '...' }}</p>
 
 												<a href="#" class="bouton cta">
 													<img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
@@ -65,83 +90,16 @@
 												</a>
 											</div>
 										</article>
-                                    <article class="card-border film">
-											<div class="card">
-																								<div class="tag">Action</div>
-												<a href="">
-													<img class="affiche" src="https://image.tmdb.org/t/p/w500/xGOZ2gh5esxdwS6MWKuWn2aJOkA.jpg" alt="Spider-Man : Across The Spider-Verse">
-												</a>
+									{% endfor %}
 
-												<div class="avis"> 
-																									<img class="star" src="/assets/icones/etoile-pleine.svg" alt="star">
-																									<img class="star" src="/assets/icones/etoile-pleine.svg" alt="star">
-																									<img class="star" src="/assets/icones/etoile-pleine.svg" alt="star">
-																									<img class="star" src="/assets/icones/etoile-pleine.svg" alt="star">
-																									<img class="star" src="/assets/icones/etoile-vide.svg" alt="star">
-																								</div>
+									{% if not recommendedMoviesByCinema %}
+									<h2>Veuillez renseigner vos préférences <a href="{{path('app_my_account_show')}}">Ici</a></h2>
+									{% endif %}
+								</div>
 
-												<h3>Spider-Man : Across </h3>
-																																																																																																																																																																								<p>Après avoir retrouvé Gwen Stacy, Spider-Man, le sympathique héros originaire de Brooklyn, est catapulté à travers...</p>
+							</div>
 
-												<a href="#" class="bouton cta">
-													<img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
-													<span>Réserver</span>
-												</a>
-											</div>
-										</article>
-                                    <article class="card-border film">
-                                        <div class="card">
-                                            <div class="tag">Jeunesse</div>
-
-                                            <a href="">
-                                                <img class="affiche" src="/assets/images/rebelle.jpg" alt="Rebelle">
-                                            </a>
-                                            <div class="avis">
-                                                <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                                <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                                <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                                <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                                <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                            </div>
-                                            <h3>Rebelle</h3>
-                                            <p>Merida, l’impétueuse fille du roi Fergus et de la reine Elinor, a un
-                                                problème. Elle est la seule fille au monde...
-                                            </p>
-
-                                            <a href="#" class="bouton cta">
-                                                <img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
-                                                    <span>Réserver</span>
-                                            </a>
-
-                                        </div>
-                                    </article>
-                                    <article class="card-border film">
-                                        <div class="card">
-                                            <div class="tag">Drame</div>
-
-                                            <a href="">
-                                                <img class="affiche" src="/assets/images/mascarade.jpg" alt="Mascarade">
-                                            </a>
-                                            <div class="avis">
-                                                <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                                <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                                <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                                <img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
-                                                <img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
-                                            </div>
-                                            <h3>Mascarade</h3>
-                                            <p>Le séduisant Adrien était promis à une carrière de danseur, jusqu'à un
-                                                terrible accident de moto...
-                                            </p>
-
-                                            <a href="#" class="bouton cta">
-                                                <img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
-                                                    <span>Réserver</span>
-                                            </a>
-
-                                        </div>
-                                    </article>
-                                </div>
+							{# fin film by cinemas #}
 
                             </div>
                         </div>
