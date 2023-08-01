@@ -29,7 +29,7 @@
 								<div class="d-flex-slider">
 									{% for movie in recommendedMoviesByGenres | slice(0,4) %}
 										<!-- slider film -->
-										<article class="card-border film">
+										<article class="card-border">
 											<div
 												class="card">
 												{# <div class="tag">Aventure</div> #}
@@ -70,7 +70,6 @@
 											</div>
 										</article>
 									{% endfor %}
-
 									{% if not recommendedMoviesByGenres %}
 									<h2>Veuillez renseigner vos préférences <a href="{{path('app_my_account_edit_category')}}">Ici</a></h2>
 									{% endif %}
@@ -79,6 +78,7 @@
 							</div>
 
 							{# fin film by genres #}
+									<hr>
 
 							{# début film by actors #}
 
@@ -93,7 +93,7 @@
 									class="d-flex-slider">								
 									 {% for movie in recommendedMoviesByActors %}
 									<!-- slider film -->
-									<article class="card-border film">
+									<article class="card-border">
 										<div
                                             class="card">
                                             {# <div class="tag">Aventure</div> #}
@@ -146,11 +146,12 @@
 								</div>
 
 								{# Fin film by actors #}
-
 								
 
 							</div>
+								<hr>
 
+								{# début film by réalisateurs #}
 							<div
 								class="bloc-liste">
 								<!-- troisième liste de films par réalisateurs -->
@@ -162,7 +163,7 @@
 									class="d-flex-slider">
 									{% for movie in recommendedMoviesByDirectors %}
 									<!-- slider film -->
-									<article class="card-border film">
+									<article class="card-border">
 										<div
 											class="card">
 											{# <div class="tag">Aventure</div> #}
