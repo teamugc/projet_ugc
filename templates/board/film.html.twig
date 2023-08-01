@@ -27,7 +27,7 @@
 								{# films by genres #}
 								
 								<div class="d-flex-slider">
-									{% for movie in recommendedMoviesByGenres %}
+									{% for movie in recommendedMoviesByGenres | slice(0,4) %}
 										<!-- slider film -->
 										<article class="card-border film">
 											<div
