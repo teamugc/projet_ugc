@@ -34,16 +34,85 @@ class BoardController extends AbstractController
     #[Route('/home', name: 'app_board_home')]
     public function home(SessionInterface $session, 
                         UserRepository $userRepository,
-                        CinemasRepository $cinemasRepository): Response
+                        CinemasRepository $cinemasRepository,
+                        MovieRepository $movieRepository,): Response
     {
+        // Récupérer l'utilisateur actuellement authentifié
+        $user = $this->getUser();
 
-        // $cinemaName = $session->get('name');
-        // $cinema = $cinemasRepository->findCinemaByName($cinemaName);
-        // if ($cinema) {
-        //     $name = $cinema->getname();
-        // }
+        $preferredGenres = $user->getGenres();
+        
+        $preferredActors = $user->getActors();
+
+        $preferredDirectors = $user->getDirectors();
+
+        $preferredLocation = $user->getLocation();
+
+        // Rechercher les films correspondant aux genres préférés de l'utilisateur
+        $recommendedMoviesByGenres = $movieRepository->findByGenres($preferredGenres);
+
+        // Rechercher les films correspondant aux acteurs préférés de l'utilisateur
+        $recommendedMoviesByActors = $movieRepository->findByActors($preferredActors);
+
+        // Rechercher les films correspondant aux acteurs préférés de l'utilisateur
+        $recommendedMoviesByDirectors = $movieRepository->findByDirectors($preferredDirectors);
+
+         // Rechercher le cinéma correspondant aux cinémas préférés de l'utilisateur
+         $selectedLocation = $cinemasRepository->findByLocations($preferredLocation);
+
+         // Rechercher les films correspondants au cinéma préférés de l'utilisateur
+         $recommendedMoviesByCinema = $movieRepository->findByCinema($preferredLocation);
+
+        // Initialiser $imgStar en tant que tableau vide
+        $imgStar = [];
+
+        // Accéder à la note de chaque film dans le tableau $recommendedMovies
+        foreach ($recommendedMoviesByGenres as $movie) {
+            // On va chercher la note du film dans la base de
+            $stars = $movie->getTmdbVoteAvg();
+            // Utiliser la fonction calculateStars pour obtenir le tableau d'images d'étoiles
+            $starsImages  = $movieRepository->calculateStars($stars);
+            // assigner $imgStar à chaque movie en fonction de son id
+            $imgStar[$movie->getId()] = $starsImages;
+        }
+
+        // Accéder à la note de chaque film dans le tableau $recommendedMovies
+        foreach ($recommendedMoviesByActors as $movie) {
+            // On va chercher la note du film dans la base de
+            $stars = $movie->getTmdbVoteAvg();
+            // Utiliser la fonction calculateStars pour obtenir le tableau d'images d'étoiles
+            $starsImages  = $movieRepository->calculateStars($stars);
+            // assigner $imgStar à chaque movie en fonction de son id
+            $imgStar[$movie->getId()] = $starsImages;
+        }
+        
+        // Accéder à la note de chaque film dans le tableau $recommendedMovies
+        foreach ($recommendedMoviesByDirectors as $movie) {
+            // On va chercher la note du film dans la base de
+            $stars = $movie->getTmdbVoteAvg();
+            // Utiliser la fonction calculateStars pour obtenir le tableau d'images d'étoiles
+            $starsImages  = $movieRepository->calculateStars($stars);
+            // assigner $imgStar à chaque movie en fonction de son id
+            $imgStar[$movie->getId()] = $starsImages;
+        }
+
+        // Accéder à la note de chaque film dans le tableau $recommendedMovies
+        foreach ($recommendedMoviesByCinema as $movie) {
+            // On va chercher la note du film dans la base de
+            $stars = $movie->getTmdbVoteAvg();
+            // Utiliser la fonction calculateStars pour obtenir le tableau d'images d'étoiles
+            $starsImages  = $movieRepository->calculateStars($stars);
+            // assigner $imgStar à chaque movie en fonction de son id
+            $imgStar[$movie->getId()] = $starsImages;
+        }
 
         return $this->render('board/home.html.twig', [
+            'recommendedMoviesByGenres' => $recommendedMoviesByGenres,
+            'recommendedMoviesByActors' => $recommendedMoviesByActors,
+            'recommendedMoviesByDirectors' => $recommendedMoviesByDirectors,
+            'recommendedMoviesByCinema' => $recommendedMoviesByCinema,
+            'selectedLocation' => $selectedLocation,
+            'imgStar' => $imgStar
         ]);
     }
 
@@ -62,7 +131,7 @@ class BoardController extends AbstractController
         // Rechercher les films correspondants au cinéma préférés de l'utilisateur
         $recommendedMoviesByCinema = $movieRepository->findByCinema($preferredLocation);
         
-        // dump($recommendedMoviesByCinema);
+        dump($recommendedMoviesByCinema);
 
         // initialisation d'img star pour ne pas avoir d'erreur si un utilisateur n'a pas renseigné de cinéma préféré
         $imgStar = [];

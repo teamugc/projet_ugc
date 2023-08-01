@@ -32,71 +32,33 @@
                                 <p class="date-max">à utiliser avant<br>le 31/12/2023</p>
                             </div>
                         </div>
-                        <div class="d-flex-slider"> <!-- slider séances -->
+                    <div class="d-flex-slider"> <!-- slider séances -->
+
+                    {% for movie in recommendedMoviesByActors %}
+                        {% if movie in recommendedMoviesByCinema %}
+
                             <article class="card-border">
                                 <div class="card">
-                                    <div class="tag">Aventure</div>
+                                    {% for actor in movie.tmdbActor %}
+                                                {% for actors in app.user.actors %}
+                                                    {% if actor == actors %}
+                                                        <div class="tag">{{actor}}</div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                    {% endfor %}
 
                                     <a href="">
-                                        <img class="affiche" src="/assets/images/adele.jpg" alt="Adele Blanc sec">
+                                        <img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}" style="width: 206px; height: 309px;">
                                     </a>
                                     <div class="avis">
-                                        <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                        <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                        <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                        <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                        <img class="star" src="/assets/icones/etoile-demi.svg" alt="étoile">
+                                    {% for img in imgStar[movie.id] %}
+                        						<img class="star" src="{{ img }}" alt="star">
+                    				{% endfor %}
                                     </div>
-                                    <h3>Adèle Blanc Sec</h3>
+                                    <h3>{{movie.name | slice(0, 20) }}</h3>
                                     <div class="seance d-flex">
                                         <p>Prochaine séance</p>
                                         <p class="bleu">18h50</p>
-
-                                    </div>
-                                    <div class="d-flex"> <!-- flexbox -->
-                                        <div class="data">
-                                            <p class="titre">Votre cinéma</p>
-                                            <div class="d-flex">
-                                                <img src="/assets/icones/cine-xxs.svg" alt="icone cinema">
-                                                <p class="places"><span class="bleu nb">1200</span> places restantes</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="data">
-                                            <p class="titre">Votre zone préférée</p>
-                                            <div class="d-flex">
-                                                <img src="/assets/icones/fauteuil-xs.svg" alt="icone fauteuil">
-                                                <p class="places"><span class="bleu nb">100</span> places restantes</p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <a href="#" class="bouton cta">
-                                        <img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
-                                        <span>Réserver</span>
-                                    </a>
-
-                                </div>
-                            </article>
-                            <article class="card-border">
-                                <div class="card">
-                                    <div class="tag">Aventure</div>
-
-                                    <a href="">
-                                        <img class="affiche" src="/assets/images/indiana-jones.jpg" alt="Indiana Jones">
-                                    </a>
-                                    <div class="avis">
-                                        <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                        <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                        <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                        <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                        <img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
-                                    </div>
-                                    <h3>Indiana Jones</h3>
-                                    <div class="seance d-flex">
-                                        <p>Prochaine séance</p>
-                                        <p class="bleu">19h10</p>
 
                                     </div>
                                     <div class="d-flex"> <!-- flexbox -->
@@ -125,67 +87,25 @@
 
                                 </div>
                             </article>
+
+                        {% endif %}
+                    {% endfor %}
+
+                    {% for movie in recommendedMoviesByGenres %}
+                        {% if movie in recommendedMoviesByCinema %}
+                        
                             <article class="card-border">
                                 <div class="card">
-                                    <div class="tag">Jeunesse</div>
-
-                                    <a href="">
-                                        <img class="affiche" src="/assets/images/rebelle.jpg" alt="Rebelle">
-                                    </a>
+                                    <div class="tag">{{movie.tmdbGenre}}</div>
+                                        <a href="">
+                                            <img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}" style="width: 206px; height: 309px;">
+                                        </a>
                                     <div class="avis">
-                                        <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                        <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                        <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                        <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                        <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
+                                    {% for img in imgStar[movie.id] %}
+                        						<img class="star" src="{{ img }}" alt="star">
+                    				{% endfor %}
                                     </div>
-                                    <h3>Rebelle</h3>
-                                    <div class="seance d-flex">
-                                        <p>Prochaine séance</p>
-                                        <p class="bleu">19h30</p>
-
-                                    </div>
-                                    <div class="d-flex"> <!-- flexbox -->
-                                        <div class="data">
-                                            <p class="titre">Votre cinéma</p>
-                                            <div class="d-flex">
-                                                <img src="/assets/icones/cine-xxs.svg" alt="icone cinema">
-                                                <p class="places"><span class="bleu nb">1000</span> places restantes</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="data">
-                                            <p class="titre">Votre zone préférée</p>
-                                            <div class="d-flex">
-                                                <img src="/assets/icones/fauteuil-xs.svg" alt="icone fauteuil">
-                                                <p class="places"><span class="bleu nb">100</span> places restantes</p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <a href="#" class="bouton cta">
-                                        <img class="icone-cta" src="/assets/icones/ticket-xs.svg" alt="bouton réserver">
-                                        <span>Réserver</span>
-                                    </a>
-
-                                </div>
-                            </article>
-                            <article class="card-border">
-                                <div class="card">
-                                    <div class="tag">Drame</div>
-
-                                    <a href="">
-                                        <img class="affiche" src="/assets/images/mascarade.jpg" alt="Mascarade">
-                                    </a>
-                                    <div class="avis">
-                                        <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                        <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                        <img class="star" src="/assets/icones/etoile-pleine.svg" alt="étoile">
-                                        <img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
-                                        <img class="star" src="/assets/icones/etoile-vide.svg" alt="étoile">
-                                    </div>
-                                    <h3>Mascarade</h3>
+                                    <h3>{{movie.name | slice(0, 20) }}</h3>
                                     <div class="seance d-flex">
                                         <p>Prochaine séance</p>
                                         <p class="bleu">18h50</p>
@@ -196,7 +116,7 @@
                                             <p class="titre">Votre cinéma</p>
                                             <div class="d-flex">
                                                 <img src="/assets/icones/cine-xxs.svg" alt="icone cinema">
-                                                <p class="places"><span class="bleu nb">1000</span> places restantes</p>
+                                                <p class="places"><span class="bleu nb">250</span> places restantes</p>
                                             </div>
                                         </div>
 
@@ -204,7 +124,7 @@
                                             <p class="titre">Votre zone préférée</p>
                                             <div class="d-flex">
                                                 <img src="/assets/icones/fauteuil-xs.svg" alt="icone fauteuil">
-                                                <p class="places"><span class="bleu nb">100</span> places restantes</p>
+                                                <p class="places"><span class="bleu nb">15</span> places restantes</p>
                                             </div>
                                         </div>
 
@@ -217,22 +137,13 @@
 
                                 </div>
                             </article>
+
+                        {% endif %}
+                    {% endfor %}
+    
                         </div>
-
-                        
-
-                        
-
-
-
                     </div>
-
-
-
-
-
                 </div>
-
                     </article>
                     <!-- FIN ZONE CENTRALE -->
                 </div>
