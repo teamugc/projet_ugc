@@ -339,6 +339,16 @@ a.power:hover {
 
 /* CSS page de connexion*/
 
+.body-connexion {
+    background: radial-gradient(78.01% 36.06% at 50.00% 100.00%, #00558E 0%, #010A3D 99.56%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'uniform-regular';
+    font-size: 1.25rem;
+    text-transform: none; 
+}
+
 .moncompte {
     margin-right: 11px;
 }
@@ -374,6 +384,11 @@ a.bouton-retour {
     text-transform: uppercase;
     padding: 10px 0;
     width: auto;
+}
+
+.bouton-retour img {
+    margin-right: 10px;
+    margin-bottom: 2px;
 }
 
 .partie-droite {
