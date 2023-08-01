@@ -51,7 +51,7 @@
 												{# transformer la string en tableau de mots #}
 												{% set words = movie.tmdbOverview | split(' ') %}
 												{# créer une limite de mots pour que cela rentre dans la card #}
-												{% set limitedWords = words | slice(0, 16) %}
+												{% set limitedWords = words | slice(0, 10) %}
 												{# initialiser le dernier mot (car si c'est une virgule par ex cela rend : ',...') #}
 												{% set lastWord = limitedWords | last %}
 												{# Si le dernier mot du synopsis coupé est un caractère comme décris en dessous #}
@@ -72,7 +72,7 @@
 									{% endfor %}
 
 									{% if not recommendedMoviesByGenres %}
-									<h2>Veuillez renseigner vos préférences <a href="{{path('app_my_account_show')}}">Ici</a></h2>
+									<h2>Veuillez renseigner vos préférences <a href="{{path('app_my_account_edit_category')}}">Ici</a></h2>
 									{% endif %}
 								</div>
 
@@ -121,7 +121,7 @@
 											{# transformer la string en tableau de mots #}
 											{% set words = movie.tmdbOverview | split(' ') %}
 											{# créer une limite de mots pour que cela rentre dans la card #}
-											{% set limitedWords = words | slice(0, 16) %}
+											{% set limitedWords = words | slice(0, 10) %}
 											{# initialiser le dernier mot (car si c'est une virgule par ex cela rend : ',...') #}
 											{% set lastWord = limitedWords | last %}
 											{# Si le dernier mot du synopsis coupé est un caractère comme décris en dessous #}
@@ -140,6 +140,9 @@
 										</div>
 									</article>
 									{% endfor %}
+										{% if not recommendedMoviesByActors %}
+										<h2>Veuillez renseigner vos préférences <a href="{{path('app_my_account_edit_category')}}">Ici</a></h2>
+										{% endif %}
 								</div>
 
 								{# Fin film by actors #}
@@ -181,7 +184,7 @@
 											{# transformer la string en tableau de mots #}
 											{% set words = movie.tmdbOverview | split(' ') %}
 											{# créer une limite de mots pour que cela rentre dans la card #}
-											{% set limitedWords = words | slice(0, 16) %}
+											{% set limitedWords = words | slice(0, 10) %}
 											{# initialiser le dernier mot (car si c'est une virgule par ex cela rend : ',...') #}
 											{% set lastWord = limitedWords | last %}
 											{# Si le dernier mot du synopsis coupé est un caractère comme décris en dessous #}
@@ -200,6 +203,9 @@
 										</div>
 									</article>
 									{% endfor %}
+										{% if not recommendedMoviesByDirectors %}
+										<h2>Veuillez renseigner vos préférences <a href="{{path('app_my_account_edit_category')}}">Ici</a></h2>
+										{% endif %}
 								</div>
 
 								
