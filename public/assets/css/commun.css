@@ -44,6 +44,10 @@ h2.rubrique {
     
 }
 
+h2.text-profil {
+    color: #fffcfc;
+}
+
 h2,
 .card h3 {
     font-family: 'uniform-regular';
@@ -175,7 +179,6 @@ header .nav-picto a.pro:hover {
 }
 
 header .nav-picto a.lemag {
-    background-image: url(../icones/lemag.svg);
     display: inline-block;
     padding-top: 20px;
 }
@@ -337,6 +340,16 @@ a.power:hover {
 
 /* CSS page de connexion*/
 
+.body-connexion {
+    background: radial-gradient(78.01% 36.06% at 50.00% 100.00%, #00558E 0%, #010A3D 99.56%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'uniform-regular';
+    font-size: 1.25rem;
+    text-transform: none; 
+}
+
 .moncompte {
     margin-right: 11px;
 }
@@ -374,6 +387,11 @@ a.bouton-retour {
     width: auto;
 }
 
+.bouton-retour img {
+    margin-right: 10px;
+    margin-bottom: 2px;
+}
+
 .partie-droite {
     margin-top: 29px;
 
@@ -389,15 +407,12 @@ a.bouton-retour {
 
 .espace-fin {
     padding-top: 30px;
-    
-
 }
 
 .espace-fin-genre{
     padding-top: 60px;
-
-
 }
+
 /* fin CSS page de connexion*/
 
 /* CSS SECTION CENTRALE */
@@ -596,5 +611,4 @@ a:hover.footer {
 
 .modif {
     text-decoration: none;
-    color: #fffcfc;
 }

@@ -27,9 +27,7 @@
 								{# films by genres #}
 								
 								<div class="d-flex-slider">
-									<div class="slider-control slider-control-left"></div>
-									<div class="slider-control slider-control-right"></div>
-									{% for movie in recommendedMoviesByGenres %}
+									{% for movie in recommendedMoviesByGenres | slice(0,4) %}
 										<!-- slider film -->
 										<article class="card-border film">
 											<div
@@ -92,9 +90,7 @@
 									<h2 class="rubrique ">Mes films avec acteurs préférés</h2>
 								</div>
 								<div
-									class="d-flex-slider">
-									<div class="slider-control slider-control-left"></div>
-									<div class="slider-control slider-control-right"></div>									
+									class="d-flex-slider">								
 									 {% for movie in recommendedMoviesByActors %}
 									<!-- slider film -->
 									<article class="card-border film">
