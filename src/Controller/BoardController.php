@@ -69,11 +69,7 @@ class BoardController extends AbstractController
         // Rechercher les films correspondants au cinéma préférés de l'utilisateur
         $recommendedMoviesByCinema = $movieRepository->findByCinema($preferredLocation);
         
-        // dump($preferredLocation);
         // dump($recommendedMoviesByCinema);
-        // dump($selectedLocation[0]->getName());
-        // if ($selectedLocation == $recommendedMoviesByCinema)
-        // $recommendedMoviesByCinema = $selectedLocation;
 
         // initialisation d'img star pour ne pas avoir d'erreur si un utilisateur n'a pas renseigné de cinéma préféré
         $imgStar = [];
