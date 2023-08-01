@@ -56,13 +56,6 @@ class BoardController extends AbstractController
         // Récupérer le cinéma préféré de l'utilisateur
         $preferredLocation = $user->getLocation();
 
-        $imgStar = [];
-        // Vérifier si l'utilisateur a renseigné un cinéma préféré
-        // if (!$preferredLocation) {
-        //     // Retourner une réponse vide ou un message adapté
-        //     return $this->render('board/home.html.twig');
-        // }
-
         // Rechercher le cinéma correspondant aux cinémas préférés de l'utilisateur
         $selectedLocation = $cinemasRepository->findByLocations($preferredLocation);
 
