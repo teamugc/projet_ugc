@@ -52,6 +52,7 @@ class MovieUpdateController extends AbstractController
                     $nom = $matches[2][$i];
                     $url = $matches[1][$i];
                     $nom = html_entity_decode($nom);
+                    $nom = htmlspecialchars_decode($nom, ENT_QUOTES);
 
                     $cinemaNames = [];
                     preg_match_all(REGEX_CATCH_CINEMA_NAME, $html, $cinemaMatches);

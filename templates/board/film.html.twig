@@ -37,7 +37,7 @@
 												{# <div class="tag">Aventure</div> #}
 												<div class="tag">{{movie.tmdbGenre}}</div>
 												<a href="">
-													<img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}">
+													<img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}" style="width: 206px; height: 309px;">
 												</a>
 
 												<div class="avis"> 
@@ -53,7 +53,7 @@
 												{# transformer la string en tableau de mots #}
 												{% set words = movie.tmdbOverview | split(' ') %}
 												{# créer une limite de mots pour que cela rentre dans la card #}
-												{% set limitedWords = words | slice(0, 16) %}
+												{% set limitedWords = words | slice(0, 10) %}
 												{# initialiser le dernier mot (car si c'est une virgule par ex cela rend : ',...') #}
 												{% set lastWord = limitedWords | last %}
 												{# Si le dernier mot du synopsis coupé est un caractère comme décris en dessous #}
@@ -109,7 +109,7 @@
                                                 {% endfor %}
                                             {% endfor %}
                                             <a href="">
-												<img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}">
+												<img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}" style="width: 206px; height: 309px;">
 											</a>
 
 											<div class="avis"> 
@@ -125,7 +125,7 @@
 											{# transformer la string en tableau de mots #}
 											{% set words = movie.tmdbOverview | split(' ') %}
 											{# créer une limite de mots pour que cela rentre dans la card #}
-											{% set limitedWords = words | slice(0, 16) %}
+											{% set limitedWords = words | slice(0, 10) %}
 											{# initialiser le dernier mot (car si c'est une virgule par ex cela rend : ',...') #}
 											{% set lastWord = limitedWords | last %}
 											{# Si le dernier mot du synopsis coupé est un caractère comme décris en dessous #}
@@ -169,7 +169,7 @@
 											{# <div class="tag">Aventure</div> #}
 											<div class="tag">{{movie.tmdbDirector}}</div>
 											<a href="">
-												<img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}">
+												<img class="affiche" src="{{movie.tmdbPoster}}" alt="{{movie.name}}" style="width: 206px; height: 309px;">
 											</a>
 
 											<div class="avis"> 
@@ -185,7 +185,7 @@
 											{# transformer la string en tableau de mots #}
 											{% set words = movie.tmdbOverview | split(' ') %}
 											{# créer une limite de mots pour que cela rentre dans la card #}
-											{% set limitedWords = words | slice(0, 16) %}
+											{% set limitedWords = words | slice(0, 10) %}
 											{# initialiser le dernier mot (car si c'est une virgule par ex cela rend : ',...') #}
 											{% set lastWord = limitedWords | last %}
 											{# Si le dernier mot du synopsis coupé est un caractère comme décris en dessous #}

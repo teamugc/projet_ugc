@@ -27,7 +27,7 @@ class Movie {
     protected array $cinemas;
 
     #[MongoDB\Field(type: 'float')]
-    protected float $tmdbVoteAvg;
+    protected float $tmdbVoteAvg = 0;
 
     #[MongoDB\Field(type: 'string')]
     protected string $tmdbOverview;
@@ -101,16 +101,16 @@ class Movie {
         return $this;
     }
 
+    public function getCinemas()
+    {
+        return $this->cinemas;
+    }
+
     public function setCinemas(array $cinemas): Movie
     {
         $this->cinemas = $cinemas;
 
         return $this;
-    }
-
-    public function getCinemas()
-    {
-        return $this->cinemas;
     }
 
     public function getDateFr(): string
