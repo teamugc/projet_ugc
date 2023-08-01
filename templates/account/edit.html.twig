@@ -4,6 +4,28 @@
 
 {% block body %}
 
+<style>
+    
+.bouton-modale {
+    display: flex;
+    align-items: center;
+    padding: 6px 30px;
+    justify-content: center;
+    border: 0;
+    border-radius: 10px;
+    font-size: 0.94rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.75px;
+    width: auto;
+}
+
+.bouton-modale span {
+    padding-top: 5px;
+    margin-right: 10px;
+}
+
+</style>
 
 
     <body class="espace-top">
@@ -71,7 +93,7 @@
                 <input type="text" class="input-infos-persos form-control" id="inputMobile" placeholder="06 XX XX XX XX">
             </div>
             <div class="col-12">
-                <label for="inputAddress" class="form-label">Addresse</label>
+                <label for="inputAddress" class="form-label">Adresse</label>
                 <input type="text" class="input-infos-persos form-control" id="inputAddress" placeholder="12 rue de Tassigny">
             </div>
             <div class="row">
@@ -91,7 +113,7 @@
         </div>
       
 
-        <div class="d-flex espace-fin">
+        <div class="d-flex justify-content-between espace-fin">
             <div class="phrase-modale">
                 <div>*Champs obligatoires</div>
             </div>
@@ -99,7 +121,6 @@
             <div class="suivant">
                 <a class="secondaire bouton-modale" href="{{path('app_my_account_show')}}">
                     <span>Suivant</span>
-
                     <img src="/assets/icones/arrow-s.svg" alt="Flèche droite bleue">
                 </a>
             </div>
