@@ -57,11 +57,11 @@ class BoardController extends AbstractController
         // Rechercher les films correspondant aux acteurs préférés de l'utilisateur
         $recommendedMoviesByDirectors = $movieRepository->findByDirectors($preferredDirectors);
 
-         // Rechercher le cinéma correspondant aux cinémas préférés de l'utilisateur
-         $selectedLocation = $cinemasRepository->findByLocations($preferredLocation);
+        // Rechercher le cinéma correspondant aux cinémas préférés de l'utilisateur
+        $selectedLocation = $cinemasRepository->findByLocations($preferredLocation);
 
-         // Rechercher les films correspondants au cinéma préférés de l'utilisateur
-         $recommendedMoviesByCinema = $movieRepository->findByCinema($preferredLocation);
+        // Rechercher les films correspondants au cinéma préférés de l'utilisateur
+        $recommendedMoviesByCinema = $movieRepository->findByCinema($preferredLocation);
 
         // Initialiser $imgStar en tant que tableau vide
         $imgStar = [];
