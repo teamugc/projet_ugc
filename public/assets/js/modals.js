@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                     // charge le nouveau html dans la modal
                     document.querySelector('#modal .modal-content').innerHTML = html;
                     
-                    // vérifie si il faut active un js spécial en fonction de la modale sur laquelle on se trouve
+                    // vérifie si il faut activer un js spécial en fonction de la modale sur laquelle on se trouve
                     if (document.getElementById('modal-choose-location-cinema')) {
                         initCinemaAutocompletion();
                     }
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
 
     /**
-     * Recharge la liste des suggestion de l'autocomplétion à partir du json
+     * Recharge la liste des suggestions de l'autocomplétion à partir du json
      * 
      * @param {*} suggestions 
      */
@@ -281,7 +281,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 content += `<div class="col-12 col-md-3"><button class="suppression-tag-modale">`+e.currentTarget.value+`</button></div>`;
 
                 document.getElementById('actor-tag').innerHTML = content;
-
             })
         });
     }
@@ -326,7 +325,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
 
      let tabDirector = "";
-
+    /**
+     * permet de faire disparaitre les éléments tapés dans un champ de recherche quand on passe à un autre champ
+     */
      function reinitInputActor(){
         let listActor = document.querySelector('#actors-container .suggestions-container');
         let listDirector = document.querySelector('#directors-container .suggestions-container');
@@ -343,8 +344,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 listActor.innerHTML = '';
                 listDirector.innerHTML = '';
             })
-        })
-        
+        })    
      }
 
     function scanCheckBoxDirector(){
@@ -352,8 +352,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
         checkboxDirectors.forEach(element => {
             element.addEventListener('click', (e) => {
                 if(tabDirector != ""){
-                    tabDirector += "||";
-                    
+                    tabDirector += "||";          
                 }
                 tabDirector += e.currentTarget.value;
                 document.getElementById('directorTab').value = tabDirector;
@@ -362,7 +361,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 content += `<div class="col-12 col-md-3"><button class="suppression-tag-modale">`+e.currentTarget.value+`</button></div>`;
 
                 document.getElementById('director-tag').innerHTML = content;
-
             })
         });
     }
