@@ -55,9 +55,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 let modal = new bootstrap.Modal('#modal', []);
                 modal.show();
             }
-        });
-
-       
+        });       
     }
 
     /**
@@ -88,7 +86,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                     // charge le nouveau html dans la modal
                     document.querySelector('#modal .modal-content').innerHTML = html;
                     
-                    // vérifie si il faut active un js spécial en fonction de la modale sur laquelle on se trouve
+                    // vérifie si il faut activer un js spécial en fonction de la modale sur laquelle on se trouve
                     if (document.getElementById('modal-choose-location-cinema')) {
                         initCinemaAutocompletion();
                     }
@@ -138,7 +136,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     }
 
     /**
-     * Recharge la liste des suggestion de l'autocomplétion à partir du json
+     * Recharge la liste des suggestions de l'autocomplétion à partir du json
      * 
      * @param {*} suggestions 
      */
@@ -187,25 +185,25 @@ document.addEventListener('DOMContentLoaded', (e) => {
        // scanCheckBoxCinema();
     }
 
-    let imgCinema = "";
-    let nameCinema = "";
-    let cityCinema = "";
+    // let imgCinema = "";
+    // let nameCinema = "";
+    // let cityCinema = "";
 
-    let tabCinema = "";
+    // let tabCinema = "";
 
-    function scanCheckBoxCinema(){
-        let checkboxCinema = document.querySelectorAll('.checkboxCinema');
-        checkboxCinema.forEach(element => {
-            element.addEventListener('click', (e) => {
-                imgCinema += e.currentTarget.parentNode.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML;
-                nameCinema += e.currentTarget.parentNode.nextElementSibling.innerHTML;
-                cityCinema += e.currentTarget.parentNode.nextElementSibling.nextElementSibling.innerHTML;
+    // function scanCheckBoxCinema(){
+    //     let checkboxCinema = document.querySelectorAll('.checkboxCinema');
+    //     checkboxCinema.forEach(element => {
+    //         element.addEventListener('click', (e) => {
+    //             imgCinema += e.currentTarget.parentNode.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML;
+    //             nameCinema += e.currentTarget.parentNode.nextElementSibling.innerHTML;
+    //             cityCinema += e.currentTarget.parentNode.nextElementSibling.nextElementSibling.innerHTML;
 
-                if(tabCinema != ""){
-                    tabCinema += "||";
-                }
-                tabCinema += nameCinema;
-                document.getElementById('cinemaTab').value = tabCinema;
+    //             if(tabCinema != ""){
+    //                 tabCinema += "||";
+    //             }
+    //             tabCinema += nameCinema;
+    //             document.getElementById('cinemaTab').value = tabCinema;
                 
                 // let content = `
                 // <article class="col-6 col-md-4 col-lg-4">
@@ -216,10 +214,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 // </article>
                 // `;
                 
-                document.getElementById('cardSuggestion').innerHTML = content;
-            })
-        });
-    };
+    //             document.getElementById('cardSuggestion').innerHTML = content;
+    //         })
+    //     });
+    // };
     
     /**
      * Initialisation de l'autocompletion sur le choix d'acteur
@@ -281,7 +279,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 content += `<div class="col-12 col-md-3"><button class="suppression-tag-modale">`+e.currentTarget.value+`</button></div>`;
 
                 document.getElementById('actor-tag').innerHTML = content;
-
             })
         });
     }
@@ -291,10 +288,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
      */
     function initDirectorAutocompletion() { 
 
-        // ajout de l'event "keyup" sur l'input des acteurs
+        // ajout de l'event "keyup" sur l'input des directeurs
         document.getElementById('modal-choose-director-cinema').addEventListener('keyup', (e) => { 
 
-            // interrogation de notre API maison pour récupérer la liste des acteurs
+            // interrogation de notre API maison pour récupérer la liste des directeurs
             fetch('/api/actors/' + e.target.value + '/5').then(function (response) {
                 return response.text();
             })
@@ -325,14 +322,39 @@ document.addEventListener('DOMContentLoaded', (e) => {
         })
     }
 
-     let tabDirector = "";
+    
+    let tabDirector = "";
+    /**
+     * enregistre en base de données les réalisateurs sélectionnés
+    */
+   function scanCheckBoxDirector(){
+       let checkboxDirectors = document.querySelectorAll('.checkboxDirector');
+       checkboxDirectors.forEach(element => {
+           element.addEventListener('click', (e) => {
+               if(tabDirector != ""){
+                   tabDirector += "||";          
+                }
+                tabDirector += e.currentTarget.value;
+                document.getElementById('directorTab').value = tabDirector;
 
-     function reinitInputActor(){
-        let listActor = document.querySelector('#actors-container .suggestions-container');
-        let listDirector = document.querySelector('#directors-container .suggestions-container');
-        document.getElementById('modal-choose-actor-cinema').addEventListener('focus', () => {
-            listActor.innerHTML = '';
-            listDirector.innerHTML = '';
+                 //permet l'affichage du réalisateur sélectionné dans une 'card'                
+                let content = document.getElementById('director-tag').innerHTML;
+                content += `<div class="col-12 col-md-3"><button class="suppression-tag-modale">`+e.currentTarget.value+`</button></div>`;
+                
+                document.getElementById('director-tag').innerHTML = content;
+            })
+        });
+    }
+    
+    /**
+     * permet de faire disparaitre les éléments tapés dans un champ de recherche quand on passe à un autre champ
+    */
+   function reinitInputActor(){
+       let listActor = document.querySelector('#actors-container .suggestions-container');
+       let listDirector = document.querySelector('#directors-container .suggestions-container');
+       document.getElementById('modal-choose-actor-cinema').addEventListener('focus', () => {
+           listActor.innerHTML = '';
+           listDirector.innerHTML = '';
         })
         document.getElementById('modal-choose-director-cinema').addEventListener('focus', () => {
             listActor.innerHTML = '';
@@ -343,28 +365,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 listActor.innerHTML = '';
                 listDirector.innerHTML = '';
             })
-        })
-        
-     }
-
-    function scanCheckBoxDirector(){
-        let checkboxDirectors = document.querySelectorAll('.checkboxDirector');
-        checkboxDirectors.forEach(element => {
-            element.addEventListener('click', (e) => {
-                if(tabDirector != ""){
-                    tabDirector += "||";
-                    
-                }
-                tabDirector += e.currentTarget.value;
-                document.getElementById('directorTab').value = tabDirector;
-
-                let content = document.getElementById('director-tag').innerHTML;
-                content += `<div class="col-12 col-md-3"><button class="suppression-tag-modale">`+e.currentTarget.value+`</button></div>`;
-
-                document.getElementById('director-tag').innerHTML = content;
-
-            })
-        });
+        })    
     }
 
     // const el = document.getElementById('test-auto');
