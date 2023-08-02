@@ -121,7 +121,7 @@ class BoardController extends AbstractController
     {
         // Récupérer l'utilisateur actuellement authentifié
         $user = $this->getUser();
-        
+
         // Récupérer le cinéma préféré de l'utilisateur
         $preferredLocation = $user->getLocation();
 
@@ -171,6 +171,7 @@ class BoardController extends AbstractController
 
         ]);
     }
+
     #[Route('/film', name: 'app_board_film')]
     public function filmsByPreferredGenres( SessionInterface $session, UserRepository $userRepository, MovieRepository $movieRepository): Response
     {

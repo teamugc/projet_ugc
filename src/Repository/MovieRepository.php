@@ -45,7 +45,7 @@ class MovieRepository extends ServiceDocumentRepository
     //         ->getQuery()
     //         ->execute()->toArray();
     // }
-    
+ 
     public function findByCinema(array $cinemas): array
     {
         $normalizedCinemas = array_map(function ($cinema) {
