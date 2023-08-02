@@ -55,9 +55,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 let modal = new bootstrap.Modal('#modal', []);
                 modal.show();
             }
-        });
-
-       
+        });       
     }
 
     /**
@@ -187,25 +185,25 @@ document.addEventListener('DOMContentLoaded', (e) => {
        // scanCheckBoxCinema();
     }
 
-    let imgCinema = "";
-    let nameCinema = "";
-    let cityCinema = "";
+    // let imgCinema = "";
+    // let nameCinema = "";
+    // let cityCinema = "";
 
-    let tabCinema = "";
+    // let tabCinema = "";
 
-    function scanCheckBoxCinema(){
-        let checkboxCinema = document.querySelectorAll('.checkboxCinema');
-        checkboxCinema.forEach(element => {
-            element.addEventListener('click', (e) => {
-                imgCinema += e.currentTarget.parentNode.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML;
-                nameCinema += e.currentTarget.parentNode.nextElementSibling.innerHTML;
-                cityCinema += e.currentTarget.parentNode.nextElementSibling.nextElementSibling.innerHTML;
+    // function scanCheckBoxCinema(){
+    //     let checkboxCinema = document.querySelectorAll('.checkboxCinema');
+    //     checkboxCinema.forEach(element => {
+    //         element.addEventListener('click', (e) => {
+    //             imgCinema += e.currentTarget.parentNode.nextElementSibling.nextElementSibling.nextElementSibling.innerHTML;
+    //             nameCinema += e.currentTarget.parentNode.nextElementSibling.innerHTML;
+    //             cityCinema += e.currentTarget.parentNode.nextElementSibling.nextElementSibling.innerHTML;
 
-                if(tabCinema != ""){
-                    tabCinema += "||";
-                }
-                tabCinema += nameCinema;
-                document.getElementById('cinemaTab').value = tabCinema;
+    //             if(tabCinema != ""){
+    //                 tabCinema += "||";
+    //             }
+    //             tabCinema += nameCinema;
+    //             document.getElementById('cinemaTab').value = tabCinema;
                 
                 // let content = `
                 // <article class="col-6 col-md-4 col-lg-4">
@@ -216,10 +214,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 // </article>
                 // `;
                 
-                document.getElementById('cardSuggestion').innerHTML = content;
-            })
-        });
-    };
+    //             document.getElementById('cardSuggestion').innerHTML = content;
+    //         })
+    //     });
+    // };
     
     /**
      * Initialisation de l'autocompletion sur le choix d'acteur
@@ -290,10 +288,10 @@ document.addEventListener('DOMContentLoaded', (e) => {
      */
     function initDirectorAutocompletion() { 
 
-        // ajout de l'event "keyup" sur l'input des acteurs
+        // ajout de l'event "keyup" sur l'input des directeurs
         document.getElementById('modal-choose-director-cinema').addEventListener('keyup', (e) => { 
 
-            // interrogation de notre API maison pour récupérer la liste des acteurs
+            // interrogation de notre API maison pour récupérer la liste des directeurs
             fetch('/api/actors/' + e.target.value + '/5').then(function (response) {
                 return response.text();
             })
@@ -338,7 +336,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 }
                 tabDirector += e.currentTarget.value;
                 document.getElementById('directorTab').value = tabDirector;
-                
+
+                 //permet l'affichage du réalisateur sélectionné dans une 'card'                
                 let content = document.getElementById('director-tag').innerHTML;
                 content += `<div class="col-12 col-md-3"><button class="suppression-tag-modale">`+e.currentTarget.value+`</button></div>`;
                 
@@ -368,7 +367,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
             })
         })    
     }
-    
+
     // const el = document.getElementById('test-auto');
     // if (el != null) {
 

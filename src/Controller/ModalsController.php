@@ -423,7 +423,6 @@ class ModalsController extends AbstractController
                     $user->addActor($actor);
                 }}
             
-
             // set que si ce n'est pas vide
             $directors = $request->get('directors');
             $directors = explode('||', $directors);
