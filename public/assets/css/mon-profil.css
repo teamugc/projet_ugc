@@ -9,6 +9,10 @@
     margin:10px;
 }
 
+.position {
+    position: relative;
+}
+
 .encadre-icone{
     width: 45px;
 }
@@ -31,7 +35,6 @@
 
 .toggle{
     position: absolute;
-    top: 575px;
     left: 79.5%;
     z-index: 100;
 }
