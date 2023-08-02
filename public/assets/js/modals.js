@@ -324,16 +324,38 @@ document.addEventListener('DOMContentLoaded', (e) => {
         })
     }
 
-     let tabDirector = "";
+    
+    let tabDirector = "";
+    /**
+     * enregistre en base de données les réalisateurs sélectionnés
+    */
+   function scanCheckBoxDirector(){
+       let checkboxDirectors = document.querySelectorAll('.checkboxDirector');
+       checkboxDirectors.forEach(element => {
+           element.addEventListener('click', (e) => {
+               if(tabDirector != ""){
+                   tabDirector += "||";          
+                }
+                tabDirector += e.currentTarget.value;
+                document.getElementById('directorTab').value = tabDirector;
+                
+                let content = document.getElementById('director-tag').innerHTML;
+                content += `<div class="col-12 col-md-3"><button class="suppression-tag-modale">`+e.currentTarget.value+`</button></div>`;
+                
+                document.getElementById('director-tag').innerHTML = content;
+            })
+        });
+    }
+    
     /**
      * permet de faire disparaitre les éléments tapés dans un champ de recherche quand on passe à un autre champ
-     */
-     function reinitInputActor(){
-        let listActor = document.querySelector('#actors-container .suggestions-container');
-        let listDirector = document.querySelector('#directors-container .suggestions-container');
-        document.getElementById('modal-choose-actor-cinema').addEventListener('focus', () => {
-            listActor.innerHTML = '';
-            listDirector.innerHTML = '';
+    */
+   function reinitInputActor(){
+       let listActor = document.querySelector('#actors-container .suggestions-container');
+       let listDirector = document.querySelector('#directors-container .suggestions-container');
+       document.getElementById('modal-choose-actor-cinema').addEventListener('focus', () => {
+           listActor.innerHTML = '';
+           listDirector.innerHTML = '';
         })
         document.getElementById('modal-choose-director-cinema').addEventListener('focus', () => {
             listActor.innerHTML = '';
@@ -345,26 +367,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 listDirector.innerHTML = '';
             })
         })    
-     }
-
-    function scanCheckBoxDirector(){
-        let checkboxDirectors = document.querySelectorAll('.checkboxDirector');
-        checkboxDirectors.forEach(element => {
-            element.addEventListener('click', (e) => {
-                if(tabDirector != ""){
-                    tabDirector += "||";          
-                }
-                tabDirector += e.currentTarget.value;
-                document.getElementById('directorTab').value = tabDirector;
-
-                let content = document.getElementById('director-tag').innerHTML;
-                content += `<div class="col-12 col-md-3"><button class="suppression-tag-modale">`+e.currentTarget.value+`</button></div>`;
-
-                document.getElementById('director-tag').innerHTML = content;
-            })
-        });
     }
-
+    
     // const el = document.getElementById('test-auto');
     // if (el != null) {
 
