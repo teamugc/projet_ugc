@@ -436,18 +436,19 @@ class ModalsController extends AbstractController
             if (!empty($language)) {
                 $user->setLanguage($language);
             }
+             
+            // enregistrement en bdd
+            $userRepository->save($user, true);
 
-        $userRepository->save($user, true);
-
-        // si tout va bien passer à l'étape suivante
-        return $this->fidelity($request, $userRepository, $session);
-        }
-        return $this->render('modals/modal_choose_actors.html.twig', [
-            'message' => $message,
-            'formName' => 'form_choose_actors',
-            'step' => '/modals/choose_actors',
-            'previousStep' => '/modals/choose_categories',
-        ]);
+            // si tout va bien passer à l'étape suivante
+            return $this->fidelity($request, $userRepository, $session);
+            }
+            return $this->render('modals/modal_choose_actors.html.twig', [
+                'message' => $message,
+                'formName' => 'form_choose_actors',
+                'step' => '/modals/choose_actors',
+                'previousStep' => '/modals/choose_categories',
+            ]);
     }
 
     #[Route('/fidelity', name: 'app_modals_fidelity')]
