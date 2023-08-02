@@ -18,7 +18,7 @@
 
 #widget {
     background: var(--radial-gradient-bas-de-page, radial-gradient(78.01% 36.06% at 50.00% 100.00%, #00558E 0%, #010A3D 99.56%));
-    width: 95%;
+    width: 100%;
     position: relative;
     padding: 0 0px 30px 75px;
     margin-top: 50px;
