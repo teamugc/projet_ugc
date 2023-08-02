@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfilController!{% endblock %}
+{% block title %}Admin{% endblock %}
 
 {% block body %} 
 <main>
@@ -17,12 +17,12 @@
                         <div class="zone-centrale">
                             <div class="d-flex-titre">
                                 <img class="icone-titre-rubrique" src="/assets/icones/roue-s.svg" alt="Icone bobine film">
-                                <h2 class="icone rubrique">Mon profil</h2>
+                                <h2 class="icone rubrique">Mon profil Admin</h2>
                             </div>
                             <div class="row">
                                 <div class="col-12 col-md-6 text-center">
                                     <div class="encadre-profil">
-                                    <a href="{{path('app_movies_update')}}">
+                                    <a class="modif" href="{{path('app_movies_update')}}">
                                         <img class="encadre-icone" src="/assets/icones/roue-s.svg" alt="Roue">
                                         <h2 class="icone rubrique">M.A.J Films</h2>
                                         </a>
@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 text-center">
                                     <div class="encadre-profil">
-                                    <a href="{{path('app_movies_empty')}}">
+                                    <a class="modif" href="{{path('app_movies_empty')}}">
                                         <img class="encadre-icone-film" src="/assets/icones/cine-xs.svg" alt="Ciné">
                                         <h2 class="icone rubrique ">Supp Films</h2>
                                          </a>
