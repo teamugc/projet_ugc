@@ -378,9 +378,6 @@ class ModalsController extends AbstractController
             }
 
             $userRepository->save($user, true);
-            // faire ici tous les test et vérifications
-
-            // faire également les enregistrement en bdd
             
             // si tout va bien passer à l'étape suivante
             return $this->choose_actors($request, $userRepository, $session);
@@ -475,14 +472,10 @@ class ModalsController extends AbstractController
                 $user->addGift($gift);
                 }
             }
+
             $user->setFirstConnection(false);
+
             $userRepository->save($user, true);
-            // faire ici tous les test et vérifications
-
-            // faire également les enregistrement en bdd
-
-
-            // si tout va bien passer à l'étape suivante
 
             // si tout va bien passer à l'étape suivante
             return $this->final($request, $userRepository, $session);
